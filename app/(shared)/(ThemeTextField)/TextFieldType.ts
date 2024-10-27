@@ -1,7 +1,13 @@
 type ValidationFunction<T> = (value: T) => string;
 
 export type ThemeInfoTextFieldType = {
-  id: "title" | "timeLimit" | "hintLimit";
+  id:
+    | "title"
+    | "timeLimit"
+    | "hintLimit"
+    | "progress"
+    | "hintCode"
+    | "hintLimit";
   tabIndex?: number;
   title?: string;
   content: string;

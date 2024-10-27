@@ -12,6 +12,8 @@ export type Hints = {
   contents: string;
   answer: string;
   progress: number;
+  hintImageUrlList: string[];
+  answerImageUrlList: string[];
 }[];
 
 type Response = ApiResponse<Hints>;

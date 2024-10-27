@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../(style)/themeInfo.modules.sass";
 import useModal from "@/hooks/useModal";
+import useClickOutside from "@/hooks/useClickOutside";
 import Dialog from "@/components/common/Dialog-new/Dialog";
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
@@ -9,7 +10,7 @@ import ThemeDrawer from "./ThemeDrawer";
 
 export default function ThemeInfo() {
   const { open } = useModal();
-
+  const [isOpen, setIsOpen] = useState(false);
   const handleOpenModal = () => {
     open(Dialog, { type: "put" });
   };
@@ -26,13 +27,26 @@ export default function ThemeInfo() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+  const drawerRef = useRef<HTMLFormElement>(null);
+  useClickOutside(drawerRef, () => setIsOpen(false));
 
   return (
     <div className="theme-infomation">
       <ThemeInfoTitle handleOpenModal={handleOpenModal} />
       <ThemeInfoBody handleOpenModal={handleOpenModal} />
-      <ThemeInfoHint />
-      <ThemeDrawer />
+      <ThemeInfoHint
+        handleHintCreate={() => {
+          setIsOpen(true);
+        }}
+      />
+      {isOpen && (
+        <ThemeDrawer
+          ref={drawerRef}
+          onClose={() => {
+            setIsOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }
