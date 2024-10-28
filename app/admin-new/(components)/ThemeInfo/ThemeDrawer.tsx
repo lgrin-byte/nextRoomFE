@@ -54,6 +54,40 @@ const ThemeDrawer = forwardRef(
     const { handleProcess } = useHintUpload();
     const { mutateAsync: deleteHint } = useDeleteHint();
 
+    const progressValidations = (value: unknown) => {
+      const strValue = value as string;
+      const numValue = Number(strValue);
+      if (
+        Number.isNaN(numValue) ||
+        strValue.includes(".") ||
+        strValue.includes("e")
+      ) {
+        return "숫자로 입력해 주세요. (분 단위)";
+      }
+      if (strValue.length > 0 && numValue <= 0) {
+        return "1 이상 입력해 주세요.";
+      }
+      if (numValue > 100) {
+        return "100 이하로 입력해 주세요.";
+      }
+      return "";
+    };
+
+    const codeValidations = (value: unknown) => {
+      const strValue = value as string;
+      const numValue = Number(strValue);
+      if (
+        Number.isNaN(numValue) ||
+        strValue.includes(".") ||
+        strValue.includes("e")
+      ) {
+        return "숫자로 입력해 주세요. (분 단위)";
+      }
+      if (numValue > 10000) {
+        return "4자리 입력해주세요.";
+      }
+      return "";
+    };
     // TextField Props
     const codeTextFieldProps: ThemeInfoTextFieldType = {
       id: "hintCode",
@@ -63,7 +97,7 @@ const ThemeDrawer = forwardRef(
       infoText: "",
       inputType: "text",
       inputPlaceholder: "",
-      checkErrorText: undefined,
+      checkErrorText: codeValidations,
     };
 
     const rateTextFieldProps: ThemeInfoTextFieldType = {
@@ -74,7 +108,7 @@ const ThemeDrawer = forwardRef(
       infoText: "",
       inputType: "text",
       inputPlaceholder: "",
-      checkErrorText: undefined,
+      checkErrorText: progressValidations,
     };
 
     // 이미지 파일 핸들러
