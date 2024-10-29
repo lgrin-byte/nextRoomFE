@@ -17,6 +17,7 @@ export interface QueryConfigOptions {
 }
 
 export interface ApiResponse<T> {
+  preSignedUrl: string;
   code: number;
   message: string;
   data: T;

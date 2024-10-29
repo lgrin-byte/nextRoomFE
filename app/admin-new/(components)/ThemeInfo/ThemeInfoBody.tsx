@@ -6,6 +6,7 @@ interface Props {
 }
 export default function ThemeInfoBody({ handleOpenModal }: Props) {
   const selectedTheme = useSelectedThemeValue();
+
   const themeInfo = [
     {
       title: "탈출 제한 시간",

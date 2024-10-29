@@ -22,6 +22,9 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ["nextroom-image.s3.ap-northeast-2.amazonaws.com"],
+  },
 };
 
 module.exports = nextConfig;
