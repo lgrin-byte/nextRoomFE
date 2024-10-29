@@ -7,7 +7,6 @@ export type ThemeInfoTextFieldType = {
     | "hintLimit"
     | "progress"
     | "hintCode"
-    | "hintLimit";
   tabIndex?: number;
   title?: string;
   content: string;

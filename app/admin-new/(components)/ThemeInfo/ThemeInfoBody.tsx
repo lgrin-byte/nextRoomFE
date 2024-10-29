@@ -20,7 +20,6 @@ export default function ThemeInfoBody({ handleOpenModal }: Props) {
 
   return (
     <div className="theme-infomation__body">
-      <div className="theme-infomation-text">테마 정보</div>
       <div className="theme-infomation-container">
         {themeInfo.map((info) => (
           <button
