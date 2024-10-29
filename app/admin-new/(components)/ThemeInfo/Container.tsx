@@ -3,6 +3,7 @@ import "../../(style)/themeInfo.modules.sass";
 import useModal from "@/hooks/useModal";
 import useClickOutside from "@/hooks/useClickOutside";
 import Dialog from "@/components/common/Dialog-new/Dialog";
+import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
@@ -13,6 +14,14 @@ export default function ThemeInfo() {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenModal = () => {
     open(Dialog, { type: "put" });
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleOpenHintModal = () => {
+    open(HintDialog, { type: "put", fn: onClose });
   };
 
   useEffect(() => {
@@ -28,7 +37,7 @@ export default function ThemeInfo() {
     };
   }, []);
   const drawerRef = useRef<HTMLFormElement>(null);
-  useClickOutside(drawerRef, () => setIsOpen(false));
+  useClickOutside(drawerRef, handleOpenHintModal);
 
   return (
     <div className="theme-infomation">
@@ -39,14 +48,7 @@ export default function ThemeInfo() {
           setIsOpen(true);
         }}
       />
-      {isOpen && (
-        <ThemeDrawer
-          ref={drawerRef}
-          onClose={() => {
-            setIsOpen(false);
-          }}
-        />
-      )}
+      {isOpen && <ThemeDrawer ref={drawerRef} onClose={onClose} />}
     </div>
   );
 }

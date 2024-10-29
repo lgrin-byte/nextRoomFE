@@ -8,12 +8,12 @@ import React, {
   forwardRef,
   ForwardedRef,
 } from "react";
-
+import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import { useCreateHintValue } from "@/components/atoms/createHint.atom";
-import { useDeleteHint } from "@/mutations/deleteHint";
 import { useSelectedHintValue } from "@/components/atoms/selectedHint.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
 import useHintUpload from "@/queries/getPreSignedUrl";
+import useModal from "@/hooks/useModal";
 
 interface ThemeDrawerProps {
   onClose: () => void;
@@ -52,7 +52,6 @@ const ThemeDrawer = forwardRef(
     const [hintImages, setHintImages] = useState<File[]>([]);
     const [answerImages, setAnswerImages] = useState<File[]>([]);
     const { handleProcess } = useHintUpload();
-    const { mutateAsync: deleteHint } = useDeleteHint();
 
     const progressValidations = (value: unknown) => {
       const strValue = value as string;
@@ -156,11 +155,12 @@ const ThemeDrawer = forwardRef(
       }
       onClose();
     };
+    const { open } = useModal();
 
     const deleteHintBtn = () => {
-      const { id } = selectedHint;
-      deleteHint({ id });
-      onClose();
+      // const { id } = selectedHint;
+      // deleteHint({ id });
+      open(HintDialog, { type: "delete", fn: onClose });
     };
 
     return (
