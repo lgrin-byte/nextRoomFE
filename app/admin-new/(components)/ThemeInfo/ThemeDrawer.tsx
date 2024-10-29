@@ -130,6 +130,23 @@ const ThemeDrawer = forwardRef(
     const handleAnswerClick = () => {
       answerInputRef.current?.click(); // 숨겨진 input 클릭 트리거
     };
+
+    // 로컬 이미지 추가 중 삭제
+    const deleteLocalHintImg = (index: number) => {
+      const newImages = [
+        ...hintImages.slice(0, index),
+        ...hintImages.slice(index + 1),
+      ];
+      setHintImages(newImages);
+    };
+    const deleteLocalAnswerImg = (index: number) => {
+      const newImages = [
+        ...answerImages.slice(0, index),
+        ...answerImages.slice(index + 1),
+      ];
+      setAnswerImages(newImages);
+    };
+
     // Submit 핸들러
     const handleSubmit = async (e: FormEvent) => {
       e.preventDefault();
@@ -160,6 +177,7 @@ const ThemeDrawer = forwardRef(
     const deleteHintBtn = () => {
       // const { id } = selectedHint;
       // deleteHint({ id });
+
       open(HintDialog, { type: "delete", fn: onClose });
     };
 
@@ -246,22 +264,37 @@ const ThemeDrawer = forwardRef(
                     }}
                   />
                 </div>
+                <div className="drawer-image-dimmed" onClick={deleteHintBtn}>
+                  <button className="button28" type="button">
+                    삭제하기
+                  </button>
+                </div>
               </div>
             ))}
             {hintImages.length > 0 && (
               <div className="drawer-images">
                 {hintImages.map((file, index) => (
-                  <div key={file.name} className="drawer-image-box">
-                    <img
-                      src={URL.createObjectURL(file)}
-                      alt={`hint-preview-${index}`}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </div>
+                  <>
+                    <div key={file.name} className="drawer-image-box">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`hint-preview-${index}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                    <div
+                      className="drawer-image-dimmed"
+                      onClick={() => deleteLocalHintImg(index)}
+                    >
+                      <button className="button28" type="button">
+                        삭제하기
+                      </button>
+                    </div>
+                  </>
                 ))}
               </div>
             )}
@@ -313,22 +346,37 @@ const ThemeDrawer = forwardRef(
                     }}
                   />
                 </div>
+                <div className="drawer-image-dimmed">
+                  <button className="button28" type="button">
+                    삭제하기
+                  </button>
+                </div>
               </div>
             ))}
             {answerImages.length > 0 && (
               <div className="drawer-images">
                 {answerImages.map((file, index) => (
-                  <div key={file.name} className="drawer-image-box">
-                    <img
-                      src={URL.createObjectURL(file)}
-                      alt={`answer-preview-${index}`}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </div>
+                  <>
+                    <div key={file.name} className="drawer-image-box">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`answer-preview-${index}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                    <div
+                      className="drawer-image-dimmed"
+                      onClick={() => deleteLocalAnswerImg(index)}
+                    >
+                      <button className="button28" type="button">
+                        삭제하기
+                      </button>
+                    </div>
+                  </>
                 ))}
               </div>
             )}

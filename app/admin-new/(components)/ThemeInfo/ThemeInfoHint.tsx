@@ -64,6 +64,7 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
                   answerImageUrlList,
                 }) => (
                   <li
+                    role="menuitem"
                     className="table-content-element-box table-header"
                     key={`item-${themeId}-${id}`}
                     onClick={() => {
