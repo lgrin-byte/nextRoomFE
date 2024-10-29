@@ -228,7 +228,8 @@ const ThemeDrawer = forwardRef(
                 {(hintImages.length > 0 ||
                   selectedHint?.hintImageUrlList?.length > 0) &&
                   `(${
-                    hintImages.length + selectedHint.hintImageUrlList.length
+                    (hintImages.length || 0) +
+                    (selectedHint.hintImageUrlList?.length || 0)
                   }) `}
               </button>
             </div>
@@ -294,7 +295,8 @@ const ThemeDrawer = forwardRef(
                 {(answerImages.length > 0 ||
                   selectedHint?.answerImageUrlList?.length > 0) &&
                   `(${
-                    answerImages.length + selectedHint.answerImageUrlList.length
+                    (answerImages.length || 0) +
+                    (selectedHint.answerImageUrlList?.length || 0)
                   }) `}
               </button>
             </div>
