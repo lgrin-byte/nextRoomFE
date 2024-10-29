@@ -224,10 +224,29 @@ const ThemeDrawer = forwardRef(
                   style={{ display: "none" }}
                   ref={hintInputRef}
                 />
-                이미지 추가 {hintImages.length > 0 && `(${hintImages.length})`}
+                이미지 추가
+                {(hintImages.length > 0 ||
+                  selectedHint.hintImageUrlList.length > 0) &&
+                  `(${
+                    hintImages.length + selectedHint.hintImageUrlList.length
+                  }) `}
               </button>
             </div>
-
+            {selectedHint.hintImageUrlList.map((src) => (
+              <div className="drawer-images">
+                <div key={src} className="drawer-image-box">
+                  <img
+                    src={src}
+                    alt={`hint-preview-${src}`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
             {hintImages.length > 0 && (
               <div className="drawer-images">
                 {hintImages.map((file, index) => (
