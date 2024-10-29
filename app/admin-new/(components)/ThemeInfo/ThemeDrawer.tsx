@@ -226,13 +226,13 @@ const ThemeDrawer = forwardRef(
                 />
                 이미지 추가
                 {(hintImages.length > 0 ||
-                  selectedHint.hintImageUrlList.length > 0) &&
+                  selectedHint?.hintImageUrlList?.length > 0) &&
                   `(${
                     hintImages.length + selectedHint.hintImageUrlList.length
                   }) `}
               </button>
             </div>
-            {selectedHint.hintImageUrlList.map((src) => (
+            {selectedHint?.hintImageUrlList?.map((src) => (
               <div className="drawer-images">
                 <div key={src} className="drawer-image-box">
                   <img
@@ -291,10 +291,28 @@ const ThemeDrawer = forwardRef(
                   ref={answerInputRef}
                 />
                 이미지 추가
-                {answerImages.length > 0 && `(${answerImages.length})`}
+                {(answerImages.length > 0 ||
+                  selectedHint?.answerImageUrlList?.length > 0) &&
+                  `(${
+                    answerImages.length + selectedHint.answerImageUrlList.length
+                  }) `}
               </button>
             </div>
-
+            {selectedHint?.answerImageUrlList?.map((src) => (
+              <div className="drawer-images">
+                <div key={src} className="drawer-image-box">
+                  <img
+                    src={src}
+                    alt={`answer-preview-${src}`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
             {answerImages.length > 0 && (
               <div className="drawer-images">
                 {answerImages.map((file, index) => (
