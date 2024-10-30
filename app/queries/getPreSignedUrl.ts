@@ -35,6 +35,11 @@ interface UploadParams {
   file: File;
 }
 
+interface AxiosSameCodeError {
+  code: number;
+  message: string;
+}
+
 const getPreSignedUrl = async (
   params: PreSignedUrlRequest
 ): Promise<PreSignedUrlResponse> => {
@@ -79,7 +84,7 @@ const useHintUpload = () => {
 
   const presignedMutation = useMutation<
     PreSignedUrlResponse,
-    AxiosError,
+    AxiosError<AxiosSameCodeError>,
     PreSignedUrlRequest
   >({
     mutationFn: getPreSignedUrl,
@@ -103,7 +108,11 @@ const useHintUpload = () => {
     },
   });
 
-  const hintMutation = useMutation<AxiosResponse, AxiosError, HintData>({
+  const hintMutation = useMutation<
+    AxiosResponse,
+    AxiosError<AxiosSameCodeError>,
+    HintData
+  >({
     mutationFn: (data) => (data.id > 0 ? putHint(data) : postHint(data)),
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
@@ -114,11 +123,14 @@ const useHintUpload = () => {
       });
     },
     onError: (error) => {
-      setToast({
-        isOpen: true,
-        title: error.message,
-        text: "",
-      });
+      if (error.response) {
+        setToast({
+          isOpen: true,
+          title: error.response.data.message,
+          text: "",
+        });
+        throw new Error(error.response.data.message);
+      }
     },
   });
 

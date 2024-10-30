@@ -1,7 +1,9 @@
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import Image from "next/image";
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useToastWrite } from "@/components/atoms/toast.atom";
 import { GalleryImageProps } from "./themeDrawer";
+import { compressImage, convertToPng } from "./helpers";
 
 const ThemeDrawerAnswer = ({
   answerImages,
@@ -11,11 +13,53 @@ const ThemeDrawerAnswer = ({
   setAnswerImages: React.Dispatch<React.SetStateAction<File[]>>;
 }) => {
   const [selectedHint, setSelectedHint] = useSelectedHint();
+  const [imgCnt, setImgCnt] = useState<number>(3);
+  const setToast = useToastWrite();
+
+  // 가지고 있던 이미지 갯수를 빼줘서 남은 imgCnt 계산
+  useEffect(() => {
+    if (selectedHint.answerImageUrlList) {
+      setImgCnt(
+        3 - answerImages.length - selectedHint.answerImageUrlList.length
+      );
+    }
+  }, [answerImages, selectedHint.answerImageUrlList]);
 
   // 이미지 파일 핸들러
-  const handleAnswerFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    setAnswerImages(files);
+  const handleAnswerFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (imgCnt === 0) {
+      setToast({
+        isOpen: true,
+        title: "이미지는 3개까지 추가할 수 있습니다.",
+        text: "",
+      });
+      return;
+    }
+    if (!e.target.files) {
+      return;
+    }
+    const files: File[] = [];
+    const file = e.target.files[0];
+    if (file.size > 5 * 1024 * 1024) {
+      try {
+        const compressedFile = await compressImage(file);
+
+        if (compressedFile.type !== "image/png") {
+          const pngFile = await convertToPng(compressedFile);
+          files.push(pngFile);
+        } else {
+          files.push(compressedFile);
+        }
+      } catch (error) {
+        console.error("Image compression failed", error);
+        files.push(file);
+      }
+    } else {
+      files.push(file);
+    }
+    setAnswerImages((prev) => [...prev, ...files]);
   };
 
   const answerInputRef = useRef<HTMLInputElement>(null);
@@ -91,32 +135,30 @@ const ThemeDrawerAnswer = ({
                 objectFit: "cover",
               }}
             />
-          </div>
-          <div
-            className="drawer-image-dimmed"
-            onClick={() => deleteServerAnswerImg(idx)}
-          >
-            <button className="button28" type="button">
-              삭제하기
-            </button>
+            <div
+              className="drawer-image-dimmed"
+              onClick={() => deleteServerAnswerImg(idx)}
+            >
+              <button className="button28" type="button">
+                삭제하기
+              </button>
+            </div>
           </div>
         </div>
       ))}
       {answerImages.length > 0 && (
         <div className="drawer-images">
           {answerImages.map((file, index) => (
-            <>
-              <div key={file.name} className="drawer-image-box">
-                <img
-                  src={URL.createObjectURL(file)}
-                  alt={`answer-preview-${index}`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </div>
+            <div key={file.name} className="drawer-image-box">
+              <img
+                src={URL.createObjectURL(file)}
+                alt={`answer-preview-${index}`}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
               <div
                 className="drawer-image-dimmed"
                 onClick={() => deleteLocalAnswerImg(index)}
@@ -125,7 +167,7 @@ const ThemeDrawerAnswer = ({
                   삭제하기
                 </button>
               </div>
-            </>
+            </div>
           ))}
         </div>
       )}
