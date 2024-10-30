@@ -52,21 +52,18 @@ function RequireAuth({
       resetCurrentTheme();
       resetSelectedTheme();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories, setCurrentTheme]);
   useEffect(() => {
     if (!isLoggedIn && !allowUnauthPaths.includes(pathname)) {
       router.push("/login");
     } else if (isLoggedIn && pathname === "/") {
       router.push(pathname);
-    } else if (isLoggedIn && currentTheme.length === 0) {
-      router.push("/admin-new");
-    } else if (selectedTheme.id !== 0) {
+    } else if (isLoggedIn && selectedTheme.id) {
       router.push(`/admin-new?themeId=${selectedTheme.id}`);
+    } else if (isLoggedIn) {
+      router.push("/admin-new");
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, currentTheme, router, allowUnauthPaths, pathname]);
+  }, [isLoggedIn, selectedTheme, router, allowUnauthPaths, pathname]);
 
   if (isLoading) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
