@@ -7,7 +7,7 @@ import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
-import ThemeDrawer from "./ThemeDrawer";
+import ThemeDrawer from "../ThemeDrawer/Container";
 
 export default function ThemeInfo() {
   const { open } = useModal();

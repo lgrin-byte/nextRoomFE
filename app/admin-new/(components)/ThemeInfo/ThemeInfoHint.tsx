@@ -18,7 +18,6 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
 
   const handleBtn = () => {
     resetSelectedHint();
-
     handleHintCreate();
   };
 
