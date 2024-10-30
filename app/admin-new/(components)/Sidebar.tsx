@@ -32,7 +32,6 @@ export default function Sidebar(props: Props) {
 
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString()).toString();
-  console.log(params);
 
   const {
     adminCode = "",

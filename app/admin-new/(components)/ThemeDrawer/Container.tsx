@@ -72,9 +72,6 @@ const ThemeDrawer = forwardRef(
     const { open } = useModal();
 
     const deleteHintBtn = () => {
-      // const { id } = selectedHint;
-      // deleteHint({ id });
-
       open(HintDialog, { type: "delete", fn: onClose });
     };
 
@@ -117,8 +114,6 @@ const ThemeDrawer = forwardRef(
                   ? selectedHint.progress.toString()
                   : ""
               }
-
-              // content={selectedHint.progress.toString()}
             />
           </div>
 
