@@ -26,8 +26,8 @@ interface HintData {
   contents: string;
   answer: string;
   progress: number;
-  hintImageList?: string[];
-  answerImageList?: string[];
+  hintImageList: string[];
+  answerImageList: string[];
   id: number;
 }
 
@@ -129,7 +129,7 @@ const useHintUpload = () => {
   });
 
   const handleProcess = async (
-    formData: Omit<HintData, "hintImageList" | "answerImageList">,
+    formData: HintData,
     hintFiles: File[],
     answerFiles: File[]
   ) => {
@@ -165,16 +165,26 @@ const useHintUpload = () => {
         );
       }
 
+      const { hintImageList, answerImageList } = formData;
+
+      const tempHintImageUrlList = [
+        ...hintImageList,
+        ...(hintFiles.length > 0
+          ? hintImageUrlList.map((url) => extractFilename(url))
+          : []),
+      ];
+
+      const tempAnswerImageUrlList = [
+        ...answerImageList,
+        ...(answerFiles.length > 0
+          ? answerImageUrlList.map((url) => extractFilename(url))
+          : []),
+      ];
+
       const finalData: HintData = {
         ...formData,
-        hintImageList:
-          hintFiles.length > 0
-            ? hintImageUrlList.map((url) => extractFilename(url))
-            : undefined,
-        answerImageList:
-          answerFiles.length > 0
-            ? answerImageUrlList.map((url) => extractFilename(url))
-            : undefined,
+        hintImageList: tempHintImageUrlList,
+        answerImageList: tempAnswerImageUrlList,
       };
 
       await hintMutation.mutateAsync(finalData);
