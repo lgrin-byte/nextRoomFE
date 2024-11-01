@@ -3,6 +3,7 @@ import { apiClient } from "@/lib/reactQueryProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToastInfo } from "@/components/atoms/toast.atom";
 import { QUERY_KEY } from "@/queries/getHintList";
+import { extractFilename } from "@/utils/helper";
 
 interface PreSignedUrlRequest {
   themeId: number;
@@ -70,13 +71,6 @@ const uploadToS3 = async ({ url, file }: UploadParams): Promise<void> => {
 const putHint = (data: HintData) => apiClient.put("/v1/hint", data);
 
 const postHint = (data: HintData) => apiClient.post("/v1/hint", data);
-
-const extractFilename = (url: string): string => {
-  const match = url.match(
-    /1_[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/
-  );
-  return match ? match[0] : "";
-};
 
 const useHintUpload = () => {
   const [, setToast] = useToastInfo();
@@ -146,7 +140,8 @@ const useHintUpload = () => {
         answerImageCount: answerFiles.length,
       });
 
-      const { hintImageUrlList, answerImageUrlList } = presignedResponse.data;
+      const { hintImageUrlList = [], answerImageUrlList = [] } =
+        presignedResponse.data;
 
       if (hintFiles.length > 0) {
         await Promise.all(
