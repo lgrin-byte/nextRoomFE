@@ -1,10 +1,10 @@
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
+import { useCreateHint } from "@/components/atoms/createHint.atom";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { GalleryImageProps } from "./themeDrawer";
 import { compressImage, convertToPng } from "./helpers";
-import { useCreateHint } from "@/components/atoms/createHint.atom";
 
 const ThemeDrawerAnswer = ({
   answerImages,
@@ -72,7 +72,7 @@ const ThemeDrawerAnswer = ({
   };
 
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    answerRef.current = e.target.value; 
+    answerRef.current = e.target.value;
     setCreateHint((prev) => ({ ...prev, answer: answerRef.current }));
   };
 

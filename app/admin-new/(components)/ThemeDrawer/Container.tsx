@@ -4,14 +4,17 @@ import React, {
   FormEvent,
   useState,
   forwardRef,
-  ForwardedRef,
+  useRef,
   useEffect,
 } from "react";
 import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
+import { useCreateHint } from "@/components/atoms/createHint.atom";
+import useClickOutside from "@/hooks/useClickOutside";
 import useHintUpload from "@/queries/getPreSignedUrl";
 import useModal from "@/hooks/useModal";
+import extractFilename from "@/utils/helper";
 import ThemeDrawerAnswer from "./ThemeDrawerAnswer";
 import ThemeDrawerHint from "./ThemeDrawerHint";
 import {
@@ -20,10 +23,6 @@ import {
   rateTextFieldProps,
   XImageProps,
 } from "./themeDrawer";
-import { extractFilename } from "@/utils/helper";
-import { useCreateHint } from "@/components/atoms/createHint.atom";
-import useClickOutside from "@/hooks/useClickOutside";
-import { useRef } from "react";
 
 interface ThemeDrawerProps {
   onClose: () => void;
@@ -78,7 +77,9 @@ const ThemeDrawer = forwardRef(({ onClose }: ThemeDrawerProps) => {
       contents: selectedHint.contents,
       answer: selectedHint.answer,
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   // Submit 핸들러
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

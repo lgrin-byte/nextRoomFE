@@ -2,9 +2,9 @@ import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useToastWrite } from "@/components/atoms/toast.atom";
+import { useCreateHint } from "@/components/atoms/createHint.atom";
 import { GalleryImageProps } from "./themeDrawer";
 import { compressImage, convertToPng } from "./helpers";
-import { useCreateHint } from "@/components/atoms/createHint.atom";
 
 const ThemeDrawerHint = ({
   hintImages,

@@ -17,7 +17,7 @@ export default function ContentArea() {
           {modals.map((modal, index) => {
             const { Component, props } = modal;
             return (
-              <div className={`modal-${index}`} key={`${params}-${index}`}>
+              <div className={`modal-${index}`} key={`${params}`}>
                 <Component {...props} />
               </div>
             );

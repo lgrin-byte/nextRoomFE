@@ -8,14 +8,14 @@ export const compressImage = async (file: File) => {
   };
   try {
     const compressedFile = await imageCompression(file, options);
-    return compressedFile;
+    return compressedFile; // compressedFile 반환
   } catch (error) {
     throw new Error("Image compression error");
   }
 };
 
-export const convertToPng = async (file: File): Promise<File> => {
-  return new Promise<File>((resolve, reject) => {
+export const convertToPng = async (file: File): Promise<File> =>
+  new Promise<File>((resolve, reject) => {
     const img = new Image();
     const reader = new FileReader();
 
@@ -32,12 +32,13 @@ export const convertToPng = async (file: File): Promise<File> => {
     reader.readAsDataURL(file);
 
     // 이미지가 로드되면 Canvas에 그려서 PNG로 변환
+    // eslint-disable-next-line consistent-return
     img.onload = () => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
       if (!ctx) {
-        return reject(new Error("Canvas context not available"));
+        return reject(new Error("Canvas context not available")); // reject 호출
       }
 
       // Canvas 크기를 이미지 크기로 설정
@@ -59,16 +60,15 @@ export const convertToPng = async (file: File): Promise<File> => {
                 lastModified: Date.now(),
               }
             );
-            resolve(pngFile);
+            resolve(pngFile); // PNG 파일 반환
           } else {
             reject(new Error("Blob creation failed"));
           }
         },
         "image/png",
-        1.0 // PNG는 압축률을 1.0으로 설정하여 최고 품질 유지
+        1.0
       );
     };
 
     img.onerror = (error) => reject(error);
   });
-};

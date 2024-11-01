@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../(style)/themeInfo.modules.sass";
 import useModal from "@/hooks/useModal";
-import useClickOutside from "@/hooks/useClickOutside";
 import Dialog from "@/components/common/Dialog-new/Dialog";
-import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
@@ -20,10 +18,6 @@ export default function ThemeInfo() {
     setIsOpen(false);
   };
 
-  const handleOpenHintModal = () => {
-    open(HintDialog, { type: "put", fn: onClose });
-  };
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
@@ -36,7 +30,6 @@ export default function ThemeInfo() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  const drawerRef = useRef<HTMLFormElement>(null);
 
   return (
     <div className="theme-infomation">
