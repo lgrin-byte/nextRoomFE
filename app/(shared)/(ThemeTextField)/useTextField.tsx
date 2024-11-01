@@ -1,6 +1,6 @@
 import { ChangeEvent, FocusEvent, useEffect, useRef, useState } from "react";
 import { useCreateTheme } from "@/components/atoms/createTheme.atom";
-import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
+import { useCreateHint } from "@/components/atoms/createHint.atom";
 import { ThemeInfoTextFieldType } from "./TextFieldType";
 
 export const useTextField = ({
@@ -12,7 +12,7 @@ export const useTextField = ({
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const [errorText, setErrorText] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const [, setSelectedHint] = useSelectedHint();
+  const [, setCreateHint] = useCreateHint();
   const [, setCreateTheme] = useCreateTheme();
 
   useEffect(() => {
@@ -21,11 +21,11 @@ export const useTextField = ({
       ...prev,
       [id]: inputValue,
     }));
-    setSelectedHint((prev) => ({
+    setCreateHint((prev) => ({
       ...prev,
       [id]: inputValue,
     }));
-  }, [inputValue, id, setCreateTheme, setSelectedHint, errorText]);
+  }, [inputValue, id, setCreateTheme, setCreateHint, errorText]);
 
   useEffect(() => {
     if (!isFocus || !inputRef.current) {

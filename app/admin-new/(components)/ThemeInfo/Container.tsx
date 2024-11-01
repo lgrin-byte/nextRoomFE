@@ -37,7 +37,6 @@ export default function ThemeInfo() {
     };
   }, []);
   const drawerRef = useRef<HTMLFormElement>(null);
-  useClickOutside(drawerRef, handleOpenHintModal);
 
   return (
     <div className="theme-infomation">
@@ -48,7 +47,7 @@ export default function ThemeInfo() {
           setIsOpen(true);
         }}
       />
-      {isOpen && <ThemeDrawer ref={drawerRef} onClose={onClose} />}
+      {isOpen && <ThemeDrawer onClose={onClose} />}
     </div>
   );
 }

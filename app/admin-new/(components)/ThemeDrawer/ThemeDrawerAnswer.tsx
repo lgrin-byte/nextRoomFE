@@ -1,9 +1,10 @@
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { GalleryImageProps } from "./themeDrawer";
 import { compressImage, convertToPng } from "./helpers";
+import { useCreateHint } from "@/components/atoms/createHint.atom";
 
 const ThemeDrawerAnswer = ({
   answerImages,
@@ -13,8 +14,10 @@ const ThemeDrawerAnswer = ({
   setAnswerImages: React.Dispatch<React.SetStateAction<File[]>>;
 }) => {
   const [selectedHint, setSelectedHint] = useSelectedHint();
+  const [, setCreateHint] = useCreateHint();
   const [imgCnt, setImgCnt] = useState<number>(3);
   const setToast = useToastWrite();
+  const answerRef = useRef<string>("");
 
   // 가지고 있던 이미지 갯수를 빼줘서 남은 imgCnt 계산
   useEffect(() => {
@@ -68,8 +71,9 @@ const ThemeDrawerAnswer = ({
     answerInputRef.current?.click(); // 숨겨진 input 클릭 트리거
   };
 
-  const handleAnswerChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setSelectedHint((prev) => ({ ...prev, answer: e.target.value }));
+  const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    answerRef.current = e.target.value; 
+    setCreateHint((prev) => ({ ...prev, answer: answerRef.current }));
   };
 
   // 힌트 추가 중 삭제 (로컬 이미지)

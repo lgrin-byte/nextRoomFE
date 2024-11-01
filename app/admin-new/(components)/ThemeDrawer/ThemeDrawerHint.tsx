@@ -1,9 +1,10 @@
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { GalleryImageProps } from "./themeDrawer";
 import { compressImage, convertToPng } from "./helpers";
+import { useCreateHint } from "@/components/atoms/createHint.atom";
 
 const ThemeDrawerHint = ({
   hintImages,
@@ -13,6 +14,8 @@ const ThemeDrawerHint = ({
   setHintImages: React.Dispatch<React.SetStateAction<File[]>>;
 }) => {
   const [selectedHint, setSelectedHint] = useSelectedHint();
+  const [, setCreateHint] = useCreateHint();
+  const hintRef = useRef<string>("");
   const [imgCnt, setImgCnt] = useState<number>(3);
   const setToast = useToastWrite();
 
@@ -66,10 +69,10 @@ const ThemeDrawerHint = ({
     hintInputRef.current?.click(); // 숨겨진 input 클릭 트리거
   };
 
-  const handleHintChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setSelectedHint((prev) => ({ ...prev, contents: e.target.value }));
+  const handleHintChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    hintRef.current = e.target.value;
+    setCreateHint((prev) => ({ ...prev, contents: hintRef.current }));
   };
-
   // 힌트 추가 중 삭제 (로컬 이미지)
   const deleteLocalHintImg = (index: number) => {
     const newImages = [

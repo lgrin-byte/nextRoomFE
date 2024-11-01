@@ -5,20 +5,24 @@ function useClickOutside<T extends HTMLElement>(
   onClickOutside: () => void
 ) {
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      // 클릭한 요소가 ref.current의 자식이 아닌 경우
+    /**
+     * Invoke Function onClick outside of element
+     */
+    function handleClickOutside(event: MouseEvent) {
+      // 이벤트가 상위로 전파되지 않도록 수정
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClickOutside(); // 외부 클릭 처리
+        onClickOutside();
+        event.stopPropagation(); // 상위 모달로의 이벤트 전파를 막음
       }
-    };
+    }
 
-    // 이벤트 리스너 등록
-    document.addEventListener("mousedown", handleClickOutside);
+    // Bind
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
-      document.removeEventListener("mousedown", handleClickOutside);
+      // dispose
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, [ref, onClickOutside]); // ref와 onClickOutside에 의존성 추가
+  }, [ref, onClickOutside]);
 }
 
 export default useClickOutside;

@@ -10,8 +10,10 @@ interface HintInfo {
   themeId: number;
   hintCode: string;
   progress: number;
-  hintContent: string;
-  hintAnswer: string;
+  contents: string;
+  answer: string;
+  hintImageList: string[];
+  answerImageList: string[];
 }
 
 const createHintState = atom<HintInfo>({
@@ -20,8 +22,10 @@ const createHintState = atom<HintInfo>({
     themeId: 0,
     hintCode: "",
     progress: 0,
-    hintContent: "",
-    hintAnswer: "",
+    contents: "",
+    answer: "",
+    hintImageList: [],
+    answerImageList: [],
   },
 });
 
