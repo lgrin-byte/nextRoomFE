@@ -9,6 +9,8 @@ import { usePostLogin } from "@/mutations/postLogin";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import Loader from "@/components/Loader/Loader";
 import useChannelTalk from "@/hooks/useChannelTalk";
+import { useRouter } from "next/navigation";
+import { setCookie } from "@/utils/cookie";
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -38,6 +40,7 @@ function Login() {
   useCheckSignIn();
   useChannelTalk();
 
+  const router = useRouter();
   const formValue = watch();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -97,6 +100,14 @@ function Login() {
     height: 26,
   };
 
+  const contectProps = {
+    type: "button",
+    onClick: () => {
+      setCookie("/login");
+      router.push("/signup");
+    },
+  };
+
   const errorMessage = isError && error?.response?.data?.message;
 
   const LoginViewProps = {
@@ -107,6 +118,7 @@ function Login() {
     logoProps,
     isLoading,
     errorMessage,
+    contectProps
   };
 
   if (isLoggedIn) {
