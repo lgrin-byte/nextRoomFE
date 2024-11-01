@@ -1,33 +1,45 @@
-import React from "react";
-import { useModalState } from "../components/atoms/modals.atom";
 
-// Modal 상태 타입 정의
-interface ModalComponentProps<P> {
-  Component: React.FC<P>;
-  props?: P;
-}
+// useModal.ts
+import { useCallback } from "react";
+import { useModalState } from "@/components/atoms/modals.atom";
 
-// 모달을 열고 닫는 로직을 구현한 커스텀 훅
 const useModal = () => {
   const [modals, setModals] = useModalState();
 
   // 모달 열기 함수
-  const open = <P extends Record<string, unknown>>(
-    Component: React.FC<P>,
-    props?: P
-  ) => {
-    setModals((currentModals) => [
-      ...currentModals,
-      { Component, props } as ModalComponentProps<P>,
-    ]);
-  };
+  const open = useCallback(
+    <P extends object>(Component: React.FC<P>, props?: P) => {
+      const modalId = `modal-${Date.now()}`; // 고유 ID 생성
+      setModals((currentModals) => [
+        ...currentModals,
+        { Component, props, id: modalId },
+      ]);
+      return modalId; // ID 반환하여 나중에 특정 모달을 닫을 수 있게 함
+    },
+    [setModals]
+  );
 
-  // 모달 닫기 함수
-  const close = () => {
-    setModals((currentModals) => currentModals.slice(0, -1)); // 마지막 모달을 제거
-  };
+  // 특정 모달 닫기 함수
+  const closeById = useCallback(
+    (modalId: string) => {
+      setModals((currentModals) =>
+        currentModals.filter((modal) => modal.id !== modalId)
+      );
+    },
+    [setModals]
+  );
 
-  return { modals, open, close };
+  // 가장 최근 모달 닫기
+  const close = useCallback(() => {
+    setModals((currentModals) => currentModals.slice(0, -1));
+  }, [setModals]);
+
+  // 모든 모달 닫기
+  const closeAll = useCallback(() => {
+    setModals([]);
+  }, [setModals]);
+
+  return { modals, open, close, closeById, closeAll };
 };
 
 export default useModal;
