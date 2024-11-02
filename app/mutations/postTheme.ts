@@ -1,5 +1,7 @@
+import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
+import { useCreateThemeValue } from "@/components/atoms/createTheme.atom";
 import { useToastWrite } from "@/components/atoms/toast.atom";
-
+import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { QUERY_KEY } from "@/queries/getThemeList";
 import { MutationConfigOptions } from "@/types";
@@ -38,6 +40,9 @@ export const postTheme = async (
 export const usePostTheme = (configOptions?: MutationConfigOptions) => {
   const queryClient = useQueryClient();
   const setToast = useToastWrite();
+  const router = useRouter();
+  const setSelectedTheme = useSelectedThemeWrite();
+  const createTheme = useCreateThemeValue();
 
   const info = useMutation<
     AxiosResponse<PostThemeResponseType>,
@@ -48,9 +53,12 @@ export const usePostTheme = (configOptions?: MutationConfigOptions) => {
     mutationKey: MUTATION_KEY,
     mutationFn: (req) => postTheme(req),
     ...configOptions?.options,
-    onSuccess: () => {
+    onSuccess: ({ data }) => {
       queryClient.invalidateQueries(QUERY_KEY);
-      // console.log("성공 시 실행")
+      setTimeout(() => {
+        setSelectedTheme({ ...createTheme, id: data?.data?.id });
+        router.push(`/admin-new?themeId=${data?.data?.id}`);
+      }, 10);
       setToast({
         isOpen: true,
         title: "테마를 추가했습니다.",
