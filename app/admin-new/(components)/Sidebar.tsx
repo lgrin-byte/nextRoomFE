@@ -7,6 +7,7 @@ import {
   plusProps,
   subscribeLinkURL,
 } from "@/admin-new/(consts)/sidebar";
+import { getStatus } from "@/utils/localStorage";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 
@@ -27,12 +28,10 @@ interface Props {
 
 export default function Sidebar(props: Props) {
   const router = useRouter();
-
   const resetSelectedTheme = useSelectedThemeReset();
-
+  const status = getStatus();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString()).toString();
-
   const {
     adminCode = "",
     shopName = "",
@@ -40,7 +39,6 @@ export default function Sidebar(props: Props) {
     selectedTheme,
     handleClickSelected,
   } = props;
-
   return (
     <div className="sidebar">
       <div className="sidebar__top">
@@ -92,23 +90,25 @@ export default function Sidebar(props: Props) {
             </button>
           </li>
         </ul>
-        <div className="sidebar__subscribe">
-          <p className="sidebar__subscribe-title">
-            구독하고 힌트에 사진을 추가해 보세요
-          </p>
-          <p className="sidebar__subscribe-value">
-            사진을 추가하려면 유료 구독이 필요해요
-          </p>
-          <button
-            type="button"
-            className="sidebar__subscribe-button button32"
-            onClick={() => {
-              window.open(subscribeLinkURL, "_blank", "noopener, noreferrer");
-            }}
-          >
-            구독 알아보기
-          </button>
-        </div>
+        {status?.includes("FREE") && (
+          <div className="sidebar__subscribe">
+            <p className="sidebar__subscribe-title">
+              구독하고 힌트에 사진을 추가해 보세요
+            </p>
+            <p className="sidebar__subscribe-value">
+              사진을 추가하려면 유료 구독이 필요해요
+            </p>
+            <button
+              type="button"
+              className="sidebar__subscribe-button button32"
+              onClick={() => {
+                window.open(subscribeLinkURL, "_blank", "noopener, noreferrer");
+              }}
+            >
+              구독 알아보기
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="sidebar__bottom">
