@@ -46,12 +46,13 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
         });
       }
 
-      if (response && (response.status === 401 || response.status === 400)) {
-        delete apiClient.defaults.headers.Authorization;
-        delete apiClient.defaults.headers.common.Authorization;
-        removeAccessToken();
-        setIsLoggedIn(false);
-      }
+      // TODO: /v1/hint에서 힌트코드 에러를 400으로 받아서 우선 여기 코드를 주석처리함
+      // if (response && (response.status === 401 || response.status === 400)) {
+      //   delete apiClient.defaults.headers.Authorization;
+      //   delete apiClient.defaults.headers.common.Authorization;
+      //   removeAccessToken();
+      //   setIsLoggedIn(false);
+      // }
 
       return Promise.reject(error);
     }
