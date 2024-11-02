@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { GalleryImageProps } from "./consts/themeDrawerProps";
 import { compressImage, convertToPng } from "./helpers/imageHelpers";
+import { getStatus } from "@/utils/localStorage";
+import { subscribeLinkURL } from "@/admin-new/(consts)/sidebar";
 
 const ThemeDrawerAnswer = ({
   answerImages,
@@ -13,6 +15,8 @@ const ThemeDrawerAnswer = ({
   answerImages: File[];
   setAnswerImages: React.Dispatch<React.SetStateAction<File[]>>;
 }) => {
+  const status = getStatus();
+
   const [selectedHint, setSelectedHint] = useSelectedHint();
   const [, setCreateHint] = useCreateHint();
   const [imgCnt, setImgCnt] = useState<number>(3);
@@ -67,7 +71,12 @@ const ThemeDrawerAnswer = ({
 
   const answerInputRef = useRef<HTMLInputElement>(null);
 
-  const handleAnswerClick = () => {
+  const handleAnswerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (status?.includes("FREE")) {
+      e.preventDefault();
+      window.open(subscribeLinkURL, "_blank", "noopener,noreferrer");
+      return;
+    }
     answerInputRef.current?.click(); // 숨겨진 input 클릭 트리거
   };
 
