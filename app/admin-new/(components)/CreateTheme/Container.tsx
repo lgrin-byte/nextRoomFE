@@ -1,6 +1,5 @@
 import { FormEvent } from "react";
 import "../../(style)/createTheme.modules.sass";
-import { useRouter } from "next/navigation";
 import { usePostTheme } from "@/mutations/postTheme";
 import { useCreateThemeValue } from "@/components/atoms/createTheme.atom";
 import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
@@ -9,7 +8,6 @@ import CreateThemeBody from "./CreateThemeBody";
 import CreateThemeAddButton from "./CreateThemeAddButton";
 
 export default function CreateTheme() {
-  const router = useRouter();
   const createTheme = useCreateThemeValue();
   const setSelectedTheme = useSelectedThemeWrite();
   const { mutateAsync: postTheme } = usePostTheme();
@@ -28,7 +26,6 @@ export default function CreateTheme() {
     const { id } = response.data.data;
     if (id) {
       setSelectedTheme(createTheme);
-      router.push(`/admin-new?themeId=${encodeURIComponent(id)}`);
     }
   };
 
