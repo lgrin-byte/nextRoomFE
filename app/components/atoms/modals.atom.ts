@@ -1,3 +1,4 @@
+// modals.atom.ts
 import {
   atom,
   useRecoilState,
@@ -6,16 +7,17 @@ import {
 } from "recoil";
 import React from "react";
 
-interface ModalComponentProps<P> {
+interface ModalComponentProps<P = any> {
   Component: React.FC<P>;
   props?: P;
+  id: string; // 각 모달에 고유 ID 추가
 }
 
-export const modals = atom<ModalComponentProps<any>[]>({
-  key: "modals",
+export const modalsState = atom<ModalComponentProps[]>({
+  key: "modalsState",
   default: [],
 });
 
-export const useModalState = () => useRecoilState(modals);
-export const useModalStateValue = () => useRecoilValue(modals);
-export const useModalStateWrite = () => useSetRecoilState(modals);
+export const useModalState = () => useRecoilState(modalsState);
+export const useModalStateValue = () => useRecoilValue(modalsState);
+export const useModalStateWrite = () => useSetRecoilState(modalsState);

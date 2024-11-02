@@ -25,7 +25,7 @@ interface FormValues {
 }
 
 const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
-  const { close } = useModal();
+  const { close, closeAll } = useModal();
   const { type = "", fn = () => {} } = props;
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -47,7 +47,7 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
     }
   };
 
-  useClickOutside(formRef, close);
+  useClickOutside(formRef, closeAll);
 
   return (
     <ModalPortal>

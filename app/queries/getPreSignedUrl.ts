@@ -3,6 +3,7 @@ import { apiClient } from "@/lib/reactQueryProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToastInfo } from "@/components/atoms/toast.atom";
 import { QUERY_KEY } from "@/queries/getHintList";
+import extractFilename from "@/utils/helper";
 
 interface PreSignedUrlRequest {
   themeId: number;
@@ -25,14 +26,19 @@ interface HintData {
   contents: string;
   answer: string;
   progress: number;
-  hintImageList?: string[];
-  answerImageList?: string[];
+  hintImageList: string[];
+  answerImageList: string[];
   id: number;
 }
 
 interface UploadParams {
   url: string;
   file: File;
+}
+
+interface AxiosSameCodeError {
+  code: number;
+  message: string;
 }
 
 const getPreSignedUrl = async (
@@ -66,20 +72,13 @@ const putHint = (data: HintData) => apiClient.put("/v1/hint", data);
 
 const postHint = (data: HintData) => apiClient.post("/v1/hint", data);
 
-const extractFilename = (url: string): string => {
-  const match = url.match(
-    /1_[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/
-  );
-  return match ? match[0] : "";
-};
-
 const useHintUpload = () => {
   const [, setToast] = useToastInfo();
   const queryClient = useQueryClient();
 
   const presignedMutation = useMutation<
     PreSignedUrlResponse,
-    AxiosError,
+    AxiosError<AxiosSameCodeError>,
     PreSignedUrlRequest
   >({
     mutationFn: getPreSignedUrl,
@@ -103,7 +102,11 @@ const useHintUpload = () => {
     },
   });
 
-  const hintMutation = useMutation<AxiosResponse, AxiosError, HintData>({
+  const hintMutation = useMutation<
+    AxiosResponse,
+    AxiosError<AxiosSameCodeError>,
+    HintData
+  >({
     mutationFn: (data) => (data.id > 0 ? putHint(data) : postHint(data)),
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
@@ -114,16 +117,19 @@ const useHintUpload = () => {
       });
     },
     onError: (error) => {
-      setToast({
-        isOpen: true,
-        title: error.message,
-        text: "",
-      });
+      if (error.response) {
+        setToast({
+          isOpen: true,
+          title: error.response.data.message,
+          text: "",
+        });
+        throw new Error(error.response.data.message);
+      }
     },
   });
 
   const handleProcess = async (
-    formData: Omit<HintData, "hintImageList" | "answerImageList">,
+    formData: HintData,
     hintFiles: File[],
     answerFiles: File[]
   ) => {
@@ -134,7 +140,8 @@ const useHintUpload = () => {
         answerImageCount: answerFiles.length,
       });
 
-      const { hintImageUrlList, answerImageUrlList } = presignedResponse.data;
+      const { hintImageUrlList = [], answerImageUrlList = [] } =
+        presignedResponse.data;
 
       if (hintFiles.length > 0) {
         await Promise.all(
@@ -158,16 +165,26 @@ const useHintUpload = () => {
         );
       }
 
+      const { hintImageList, answerImageList } = formData;
+
+      const tempHintImageUrlList = [
+        ...hintImageList,
+        ...(hintFiles.length > 0
+          ? hintImageUrlList.map((url) => extractFilename(url))
+          : []),
+      ];
+
+      const tempAnswerImageUrlList = [
+        ...answerImageList,
+        ...(answerFiles.length > 0
+          ? answerImageUrlList.map((url) => extractFilename(url))
+          : []),
+      ];
+
       const finalData: HintData = {
         ...formData,
-        hintImageList:
-          hintFiles.length > 0
-            ? hintImageUrlList.map((url) => extractFilename(url))
-            : undefined,
-        answerImageList:
-          answerFiles.length > 0
-            ? answerImageUrlList.map((url) => extractFilename(url))
-            : undefined,
+        hintImageList: tempHintImageUrlList,
+        answerImageList: tempAnswerImageUrlList,
       };
 
       await hintMutation.mutateAsync(finalData);

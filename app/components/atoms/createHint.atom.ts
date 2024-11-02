@@ -10,11 +10,23 @@ interface HintInfo {
   themeId: number;
   hintCode: string;
   progress: number;
+  contents: string;
+  answer: string;
+  hintImageList: string[];
+  answerImageList: string[];
 }
 
 const createHintState = atom<HintInfo>({
   key: "createHint",
-  default: { themeId: 222, hintCode: "1235", progress: 12 },
+  default: {
+    themeId: 0,
+    hintCode: "",
+    progress: 0,
+    contents: "",
+    answer: "",
+    hintImageList: [],
+    answerImageList: [],
+  },
 });
 
 export const useCreateHint = () => useRecoilState(createHintState);
