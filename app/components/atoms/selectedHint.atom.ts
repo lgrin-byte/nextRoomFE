@@ -6,17 +6,17 @@ import {
   useResetRecoilState,
 } from "recoil";
 
-interface SelectedHint {
+export interface SelectedHintType {
   id: number;
   hintCode: string;
+  progress: number;
   contents: string;
   answer: string;
-  progress: number;
   hintImageUrlList: string[];
   answerImageUrlList: string[];
 }
 
-export const InitialSelectedHint: SelectedHint = {
+export const InitialSelectedHint: SelectedHintType = {
   id: 0,
   hintCode: "",
   contents: "",
@@ -26,7 +26,7 @@ export const InitialSelectedHint: SelectedHint = {
   answerImageUrlList: [],
 };
 
-const selectedHintState = atom<SelectedHint>({
+const selectedHintState = atom<SelectedHintType>({
   key: "selectedHint",
   default: InitialSelectedHint,
 });
