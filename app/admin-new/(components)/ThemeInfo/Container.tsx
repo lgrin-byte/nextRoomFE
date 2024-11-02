@@ -5,17 +5,21 @@ import Dialog from "@/components/common/Dialog-new/Dialog";
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
-import ThemeDrawer from "../ThemeDrawer/Container";
+import AddHintDrawer from "../ThemeDrawer/AddHintDrawer";
+import EditHintDrawer from "../ThemeDrawer/EditHintDrawer";
 
 export default function ThemeInfo() {
   const { open } = useModal();
-  const [isOpen, setIsOpen] = useState(false);
+
+  const [openHintDrawer, setOpenHintDrawer] = useState(false);
+  const [hintType, setHintType] = useState("Add");
+
   const handleOpenModal = () => {
     open(Dialog, { type: "put" });
   };
 
-  const onClose = () => {
-    setIsOpen(false);
+  const handleCloseDrawer = () => {
+    setOpenHintDrawer(false);
   };
 
   useEffect(() => {
@@ -36,11 +40,18 @@ export default function ThemeInfo() {
       <ThemeInfoTitle handleOpenModal={handleOpenModal} />
       <ThemeInfoBody handleOpenModal={handleOpenModal} />
       <ThemeInfoHint
-        handleHintCreate={() => {
-          setIsOpen(true);
+        handleHintCreate={(type) => {
+          setOpenHintDrawer(true);
+          setHintType(type);
         }}
+        openHintDrawer={openHintDrawer}
       />
-      {isOpen && <ThemeDrawer onClose={onClose} />}
+      {openHintDrawer &&
+        (hintType === "Add" ? (
+          <AddHintDrawer onCloseDrawer={handleCloseDrawer} />
+        ) : (
+          <EditHintDrawer onCloseDrawer={handleCloseDrawer} />
+        ))}
     </div>
   );
 }

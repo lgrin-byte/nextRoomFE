@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { useCreateHint } from "@/components/atoms/createHint.atom";
-import { GalleryImageProps } from "./themeDrawer";
-import { compressImage, convertToPng } from "./helpers";
+import { GalleryImageProps } from "./consts/themeDrawerProps";
+import { compressImage, convertToPng } from "./helpers/imageHelpers";
 
 const ThemeDrawerHint = ({
   hintImages,
