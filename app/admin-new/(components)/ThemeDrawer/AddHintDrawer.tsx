@@ -67,11 +67,7 @@ const AddHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
       </div>
 
       <div className="theme-drawer__footer">
-        <button
-          className="secondary_button40"
-          type="submit"
-          disabled={isDisabled}
-        >
+        <button className="button40" type="submit" disabled={isDisabled}>
           추가하기
         </button>
       </div>

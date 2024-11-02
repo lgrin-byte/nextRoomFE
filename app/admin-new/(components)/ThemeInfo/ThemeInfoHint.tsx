@@ -3,10 +3,11 @@ import { useGetHintList } from "@/queries/getHintList";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
 import {
   SelectedHintType,
+  useSelectedHint,
   useSelectedHintReset,
-  useSelectedHintWrite,
 } from "@/components/atoms/selectedHint.atom";
 import { useCreateHintReset } from "@/components/atoms/createHint.atom";
+import classNames from "classnames";
 
 interface ThemeDrawerProps {
   handleHintCreate: (type: string) => void;
@@ -20,7 +21,7 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({
   const { id: themeId } = useSelectedThemeValue();
 
   const { data: hints = [] } = useGetHintList({ themeId });
-  const setSelectedHint = useSelectedHintWrite();
+  const [selectedHint, setSelectedHint] = useSelectedHint();
   const resetSelectedHint = useSelectedHintReset();
   const resetCreateHint = useCreateHintReset();
 
@@ -83,7 +84,13 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({
               return (
                 <li
                   role="menuitem"
-                  className="table-content-element-box table-header"
+                  className={classNames(
+                    "table-content-element-box table-header",
+                    {
+                      "table-content-element-box__selected":
+                        selectedHint.id === id,
+                    }
+                  )}
                   key={`item-${themeId}-${id}`}
                   onClick={(e) => handleEditHintBtn(e, hintElement)}
                 >

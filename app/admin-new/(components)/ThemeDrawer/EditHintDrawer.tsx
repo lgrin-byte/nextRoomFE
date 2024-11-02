@@ -78,14 +78,14 @@ const EditHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
       </div>
 
       <div className="theme-drawer__footer">
-        <button className="button40" type="button" onClick={deleteHintBtn}>
+        <button
+          className="outlined_button40"
+          type="button"
+          onClick={deleteHintBtn}
+        >
           삭제하기
         </button>
-        <button
-          className="secondary_button40"
-          type="submit"
-          disabled={isDisabled}
-        >
+        <button className="button40" type="submit" disabled={isDisabled}>
           저장하기
         </button>
       </div>

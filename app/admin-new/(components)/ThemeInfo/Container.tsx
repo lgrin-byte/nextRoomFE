@@ -7,9 +7,11 @@ import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
 import AddHintDrawer from "../ThemeDrawer/AddHintDrawer";
 import EditHintDrawer from "../ThemeDrawer/EditHintDrawer";
+import { useSelectedHintReset } from "@/components/atoms/selectedHint.atom";
 
 export default function ThemeInfo() {
   const { open } = useModal();
+  const resetSelectedHint = useSelectedHintReset();
 
   const [openHintDrawer, setOpenHintDrawer] = useState(false);
   const [hintType, setHintType] = useState("Add");
@@ -19,6 +21,7 @@ export default function ThemeInfo() {
   };
 
   const handleCloseDrawer = () => {
+    resetSelectedHint();
     setOpenHintDrawer(false);
   };
 
