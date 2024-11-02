@@ -39,7 +39,9 @@ function LoginView(props: Props) {
         </S.LoginButtonWrapper>
         <S.Contect>
           관리자 계정이 필요하신가요?
-          <button {...contectProps}>회원가입</button>
+          <button type="button" {...contectProps}>
+            회원가입
+          </button>
         </S.Contect>
       </S.StyledBox>
     </S.Wrapper>
