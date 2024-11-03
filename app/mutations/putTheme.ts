@@ -42,7 +42,7 @@ export const usePutTheme = (configOptions?: MutationConfigOptions) => {
       setToast({
         isOpen: true,
         title: "테마 정보를 수정했습니다.",
-        text: "앱에서 반드시 업데이트를 진행해 주세요.",
+        text: "",
       });
     },
     onSettled: () => {

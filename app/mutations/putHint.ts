@@ -41,7 +41,7 @@ export const usePutHint = (configOptions?: MutationConfigOptions) => {
       setSnackBar({
         isOpen: true,
         message:
-          "테마 정보를 수정했습니다. 앱에서 반드시 업데이트를 진행해 주세요.",
+          "테마 정보를 수정했습니다.",
       });
     },
     onSettled: () => {

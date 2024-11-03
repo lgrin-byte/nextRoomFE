@@ -43,7 +43,7 @@ export const usePostHint = (configOptions?: MutationConfigOptions) => {
       // console.log("성공 시 실행")
       setSnackBar({
         isOpen: true,
-        message: "힌트를 추가했습니다. 단말기에서 업데이트를 진행해 주세요.",
+        message: "힌트를 추가했습니다.",
       });
     },
     onSettled: () => {
