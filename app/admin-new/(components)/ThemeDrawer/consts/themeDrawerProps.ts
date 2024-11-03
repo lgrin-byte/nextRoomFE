@@ -29,8 +29,8 @@ export const rateTextFieldProps: ThemeInfoTextFieldType = {
 export const XImageProps = {
   src: "/images/svg/icon_X.svg",
   alt: "x_button",
-  width: 28,
-  height: 28,
+  width: 24,
+  height: 24,
 };
 
 export const HintImageProps = {

@@ -72,7 +72,7 @@ const ThemeDrawerAnswer = ({
   const answerInputRef = useRef<HTMLInputElement>(null);
 
   const handleAnswerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (status?.includes("FREE")) {
+    if (!status?.includes("SUBSCRIPTION")) {
       e.preventDefault();
       window.open(subscribeLinkURL, "_blank", "noopener,noreferrer");
       return;
