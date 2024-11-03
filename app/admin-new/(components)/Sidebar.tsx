@@ -37,7 +37,6 @@ export default function Sidebar(props: Props) {
     adminCode = "",
     shopName = "",
     categories,
-    selectedTheme,
     handleClickSelected,
   } = props;
   return (

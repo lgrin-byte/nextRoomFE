@@ -7,17 +7,14 @@ import {
   useCurrentTheme,
   useCurrentThemeReset,
 } from "@/components/atoms/currentTheme.atom";
-import {
-  useSelectedThemeReset,
-  useSelectedThemeValue,
-} from "@/components/atoms/selectedTheme.atom";
+import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useRouter, usePathname } from "next/navigation";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
+import { getSelectedThemeId } from "@/utils/localStorage";
 import * as S from "@/home/HomeView.styled";
 import Header from "@/components/common/Header/Header";
 import MainDrawer from "@/components/common/Drawer/Drawer";
 import Mobile from "../Mobile/Mobile";
-import { getSelectedThemeId } from "@/utils/localStorage";
 
 interface RequireAuthProps {
   children: ReactNode;
@@ -29,7 +26,6 @@ function RequireAuth({
   const [currentTheme, setCurrentTheme] = useCurrentTheme();
   const resetCurrentTheme = useCurrentThemeReset();
   const resetSelectedTheme = useSelectedThemeReset();
-  const selectedTheme = useSelectedThemeValue();
   const router = useRouter();
   const pathname = usePathname();
   const allowUnauthPaths = useMemo(() => ["/", "/trial", "/signup"], []);

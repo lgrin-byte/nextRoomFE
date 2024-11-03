@@ -35,7 +35,7 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({
     hintElement: SelectedHintType
   ) => {
     if (openHintDrawer) {
-      e.preventDefault;
+      e.preventDefault();
       return;
     }
     setSelectedHint(hintElement);

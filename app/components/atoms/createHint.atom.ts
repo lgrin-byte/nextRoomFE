@@ -1,4 +1,3 @@
-import { SelectedHintType } from "./selectedHint.atom";
 import {
   atom,
   useRecoilValue,
@@ -6,6 +5,7 @@ import {
   useSetRecoilState,
   useResetRecoilState,
 } from "recoil";
+import { SelectedHintType } from "./selectedHint.atom";
 
 const createHintState = atom<SelectedHintType>({
   key: "createHint",
