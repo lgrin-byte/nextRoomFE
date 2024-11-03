@@ -70,7 +70,7 @@ const ThemeDrawerHint = ({
   const hintInputRef = useRef<HTMLInputElement>(null);
 
   const handleHintClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (status?.includes("FREE")) {
+    if (!status?.includes("SUBSCRIPTION")) {
       e.preventDefault();
       window.open(subscribeLinkURL, "_blank", "noopener,noreferrer");
       return;
