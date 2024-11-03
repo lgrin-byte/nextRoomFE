@@ -4,7 +4,7 @@ import { apiClient } from "@/lib/reactQueryProvider";
 import { ApiResponse, QueryConfigOptions } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
-import { setSelectedThemeId } from "@/utils/localStorage";
+import { getSelectedThemeId, setSelectedThemeId } from "@/utils/localStorage";
 import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
 
 type Request = void;
@@ -45,9 +45,12 @@ export const useGetThemeList = (configOptions?: QueryConfigOptions) => {
     select: (res) => res.data,
     enabled: !!isLoggedIn,
     onSuccess: (data) => {
+      const selectedThemeId = getSelectedThemeId();
       if (data.length > 0) {
-        setSelectedThemeId(data[data.length - 1].id);
-        setSelectedTheme(data[data.length - 1]);
+        if (!data.some((item) => item.id.toString() === selectedThemeId)) {
+          setSelectedThemeId(data[data.length - 1].id);
+          setSelectedTheme(data[data.length - 1]);
+        }
       } else setSelectedThemeId(0);
     },
     onError: (error: AxiosError) => {
