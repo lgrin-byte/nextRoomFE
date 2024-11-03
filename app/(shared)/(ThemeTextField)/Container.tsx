@@ -2,7 +2,7 @@ import React from "react";
 import "./textField.modules.sass";
 import classNames from "classnames";
 
-import { useTextField } from "./useTextField";
+import useTextField from "./useTextField";
 import { ThemeInfoTextFieldType } from "./TextFieldType";
 
 export default function ThemeTextField({

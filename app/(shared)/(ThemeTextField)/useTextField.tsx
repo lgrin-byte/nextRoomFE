@@ -3,7 +3,7 @@ import { useCreateTheme } from "@/components/atoms/createTheme.atom";
 import { useCreateHint } from "@/components/atoms/createHint.atom";
 import { ThemeInfoTextFieldType } from "./TextFieldType";
 
-export const useTextField = ({
+const useTextField = ({
   id,
   content,
   checkErrorText,

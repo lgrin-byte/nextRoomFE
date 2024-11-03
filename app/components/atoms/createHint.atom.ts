@@ -5,27 +5,18 @@ import {
   useSetRecoilState,
   useResetRecoilState,
 } from "recoil";
+import { SelectedHintType } from "./selectedHint.atom";
 
-interface HintInfo {
-  themeId: number;
-  hintCode: string;
-  progress: number;
-  contents: string;
-  answer: string;
-  hintImageList: string[];
-  answerImageList: string[];
-}
-
-const createHintState = atom<HintInfo>({
+const createHintState = atom<SelectedHintType>({
   key: "createHint",
   default: {
-    themeId: 0,
+    id: 0,
     hintCode: "",
     progress: 0,
     contents: "",
     answer: "",
-    hintImageList: [],
-    answerImageList: [],
+    hintImageUrlList: [],
+    answerImageUrlList: [],
   },
 });
 

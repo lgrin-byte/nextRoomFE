@@ -3,8 +3,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { useCreateHint } from "@/components/atoms/createHint.atom";
-import { GalleryImageProps } from "./themeDrawer";
-import { compressImage, convertToPng } from "./helpers";
+import { getStatus } from "@/utils/localStorage";
+import { subscribeLinkURL } from "@/admin-new/(consts)/sidebar";
+import { compressImage, convertToPng } from "./helpers/imageHelpers";
+import { GalleryImageProps } from "./consts/themeDrawerProps";
 
 const ThemeDrawerHint = ({
   hintImages,
@@ -13,6 +15,8 @@ const ThemeDrawerHint = ({
   hintImages: File[];
   setHintImages: React.Dispatch<React.SetStateAction<File[]>>;
 }) => {
+  const status = getStatus();
+
   const [selectedHint, setSelectedHint] = useSelectedHint();
   const [, setCreateHint] = useCreateHint();
   const hintRef = useRef<string>("");
@@ -65,7 +69,12 @@ const ThemeDrawerHint = ({
 
   const hintInputRef = useRef<HTMLInputElement>(null);
 
-  const handleHintClick = () => {
+  const handleHintClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (status?.includes("FREE")) {
+      e.preventDefault();
+      window.open(subscribeLinkURL, "_blank", "noopener,noreferrer");
+      return;
+    }
     hintInputRef.current?.click(); // 숨겨진 input 클릭 트리거
   };
 
