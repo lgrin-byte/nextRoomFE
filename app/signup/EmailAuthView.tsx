@@ -21,7 +21,6 @@ function EmailAuthView(props: Props) {
 
   const [snackInfo, setSnackBarInfo] = useSnackBarInfo();
 
-
   useEffect(() => {
     if (snackInfo.isOpen) {
       setTimeout(() => {
@@ -45,10 +44,14 @@ function EmailAuthView(props: Props) {
         {/* <TextField {...adminCodeProps} /> */}
         <CodeInput {...inputProps} />
         <S.ReRequest>
-          <p>이메일이 오지 않았다면? </p>
-          <button type="button" {...ReRequestButtonProps}>
-            재인증 요청
-          </button>
+          <p>인증메일을 받지 못하셨나요?</p>
+          <br />
+          <>
+            <p>스팸메일함 확인 또는</p>
+            <button type="button" {...ReRequestButtonProps}>
+              재인증 요청
+            </button>
+          </>
         </S.ReRequest>
         <S.ServerErrorMessage>{errorMessage}</S.ServerErrorMessage>
       </S.StyledBox>
