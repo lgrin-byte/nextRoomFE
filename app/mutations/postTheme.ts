@@ -7,6 +7,7 @@ import { QUERY_KEY } from "@/queries/getThemeList";
 import { MutationConfigOptions } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders } from "axios";
+import { setSelectedThemeId } from "@/utils/localStorage";
 
 interface Request {
   title: string;
@@ -57,6 +58,8 @@ export const usePostTheme = (configOptions?: MutationConfigOptions) => {
       queryClient.invalidateQueries(QUERY_KEY);
       setTimeout(() => {
         setSelectedTheme({ ...createTheme, id: data?.data?.id });
+        setSelectedThemeId(data?.data?.id);
+
         router.push(`/admin-new?themeId=${data?.data?.id}`);
       }, 10);
       setToast({

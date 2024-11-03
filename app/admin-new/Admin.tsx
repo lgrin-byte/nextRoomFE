@@ -3,7 +3,11 @@
 import React, { useEffect } from "react";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import Loader from "@/components/Loader/Loader";
-import { getAdminCode, getShopName } from "@/utils/localStorage";
+import {
+  getAdminCode,
+  getShopName,
+  setSelectedThemeId,
+} from "@/utils/localStorage";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useGetThemeList } from "@/queries/getThemeList";
 import { useToastInfo } from "@/components/atoms/toast.atom";
@@ -36,7 +40,7 @@ function Admin() {
 
   const handleClickSelected = (theme: Theme) => {
     setSelectedTheme(theme);
-
+    setSelectedThemeId(theme.id);
     setTimeout(() => {
       if (theme.id) {
         router.push(`/admin-new?themeId=${encodeURIComponent(theme.id)}`);

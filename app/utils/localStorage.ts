@@ -2,7 +2,7 @@ const ACCESS_TOKEN = "accessToken";
 const SHOP_NAME = "shopName";
 const ADMIN_CODE = "adminCode";
 const STATUS = "status";
-
+const THEME_ID = "themeId";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setLocalStorage = (key: string, value: any) => {
   if (typeof window !== "undefined") {
@@ -64,13 +64,16 @@ export const setStatus = (status: string) => {
   setLocalStorage(STATUS, JSON.stringify(status));
 };
 
+export const setSelectedThemeId = (themeId: number) => {
+  setLocalStorage(THEME_ID, themeId);
+};
+
 export const getAccessToken = () => getLocalStorage(ACCESS_TOKEN);
 export const getShopName = () => getLocalStorage(SHOP_NAME);
 export const getAdminCode = () => getLocalStorage(ADMIN_CODE);
 export const getStatus = () => getLocalStorage(STATUS);
+export const getSelectedThemeId = () => getLocalStorage(THEME_ID);
 
 export const removeAccessToken = () => {
   removeLocalStorageItem(ACCESS_TOKEN);
 };
-
-

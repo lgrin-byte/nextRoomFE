@@ -17,6 +17,7 @@ import * as S from "@/home/HomeView.styled";
 import Header from "@/components/common/Header/Header";
 import MainDrawer from "@/components/common/Drawer/Drawer";
 import Mobile from "../Mobile/Mobile";
+import { getSelectedThemeId } from "@/utils/localStorage";
 
 interface RequireAuthProps {
   children: ReactNode;
@@ -55,14 +56,16 @@ function RequireAuth({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories, setCurrentTheme]);
   useEffect(() => {
+    const selectedThemeId = getSelectedThemeId();
+
     if (!isLoggedIn && !allowUnauthPaths.includes(pathname)) {
       router.push("/login");
     } else if (isLoggedIn && pathname === "/") {
       router.push(pathname);
     } else if (isLoggedIn && currentTheme.length === 0) {
       router.push("/admin-new");
-    } else if (selectedTheme.id !== 0) {
-      router.push(`/admin-new?themeId=${selectedTheme.id}`);
+    } else if (selectedThemeId !== "0") {
+      router.push(`/admin-new?themeId=${selectedThemeId}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, currentTheme, router, allowUnauthPaths, pathname]);

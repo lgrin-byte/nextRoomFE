@@ -7,7 +7,7 @@ import {
   plusProps,
   subscribeLinkURL,
 } from "@/admin-new/(consts)/sidebar";
-import { getStatus } from "@/utils/localStorage";
+import { getSelectedThemeId, getStatus } from "@/utils/localStorage";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 
@@ -31,6 +31,7 @@ export default function Sidebar(props: Props) {
   const resetSelectedTheme = useSelectedThemeReset();
   const status = getStatus();
   const searchParams = useSearchParams();
+  const selectedThemeId = getSelectedThemeId();
   const params = new URLSearchParams(searchParams.toString()).toString();
   const {
     adminCode = "",
@@ -62,7 +63,7 @@ export default function Sidebar(props: Props) {
               <button
                 type="button"
                 className={classNames("sidebar__theme-button", {
-                  selected: selectedTheme.id === theme.id && params,
+                  selected: selectedThemeId === theme.id?.toString() && params,
                 })}
                 onClick={() => handleClickSelected(theme)}
               >
