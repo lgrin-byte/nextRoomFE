@@ -64,7 +64,7 @@ function RequireAuth({
       router.push(pathname);
     } else if (isLoggedIn && currentTheme.length === 0) {
       router.push("/admin-new");
-    } else if (selectedThemeId !== "0") {
+    } else if (selectedThemeId !== "0" && isLoggedIn) {
       router.push(`/admin-new?themeId=${selectedThemeId}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
