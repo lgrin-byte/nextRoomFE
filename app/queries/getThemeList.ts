@@ -50,6 +50,11 @@ export const useGetThemeList = (configOptions?: QueryConfigOptions) => {
         if (!data.some((item) => item.id.toString() === selectedThemeId)) {
           setSelectedThemeId(data[data.length - 1].id);
           setSelectedTheme(data[data.length - 1]);
+        } else {
+          const selectedItem = data.find(
+            (item) => item.id.toString() === selectedThemeId
+          );
+          if (selectedItem) setSelectedTheme(selectedItem);
         }
       } else setSelectedThemeId(0);
     },
