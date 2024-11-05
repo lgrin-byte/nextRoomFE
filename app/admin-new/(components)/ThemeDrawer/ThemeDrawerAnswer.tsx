@@ -140,7 +140,7 @@ const ThemeDrawerAnswer = ({
             `(${
               (answerImages.length || 0) +
               (selectedHint.answerImageUrlList?.length || 0)
-            }) `}
+            }/3)`}
         </button>
       </div>
       {selectedHint?.answerImageUrlList?.map((src, idx) => (

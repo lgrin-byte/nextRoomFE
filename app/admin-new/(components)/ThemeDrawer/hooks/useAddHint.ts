@@ -43,7 +43,6 @@ const useAddHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
     } catch (error) {
       console.error(error);
     }
-    onCloseDrawer();
   };
 
   const isSameHint = !(

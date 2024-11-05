@@ -88,7 +88,6 @@ const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
     } catch (error) {
       console.error(error);
     }
-    onCloseDrawer();
   };
   const { open } = useModal();
   const handleOpenHintModal = () => {
