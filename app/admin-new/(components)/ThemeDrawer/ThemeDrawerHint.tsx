@@ -130,7 +130,7 @@ const ThemeDrawerHint = ({
             `(${
               (hintImages.length || 0) +
               (selectedHint.hintImageUrlList?.length || 0)
-            }) `}
+            }/3)`}
         </button>
       </div>
       {selectedHint?.hintImageUrlList?.map((src, idx) => (
