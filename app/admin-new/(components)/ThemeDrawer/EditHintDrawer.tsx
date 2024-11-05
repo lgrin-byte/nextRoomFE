@@ -36,7 +36,11 @@ const EditHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
     >
       <div className="theme-drawer__title">
         <span>힌트</span>
-        <button type="button" onClick={handleOpenHintModal}>
+        <button
+          type="button"
+          className="ghost_white_icon_button28"
+          onClick={handleOpenHintModal}
+        >
           <Image {...XImageProps} />
         </button>
       </div>
