@@ -75,14 +75,10 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
         <DialogBody type={type} />
         <div className="theme-info-modal__footer">
           <div className="action-buttons">
-            <button
-              className="cancel outline_button32"
-              type="button"
-              onClick={close}
-            >
+            <button className="outlined_button40" type="button" onClick={close}>
               취소
             </button>
-            <button className="button32" type="submit">
+            <button className="button40" type="submit">
               {type === "delete" ? "삭제하기" : "그만두기"}
             </button>
           </div>

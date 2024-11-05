@@ -21,46 +21,6 @@
     color: $color-white20
     background-color: $color-white20
 
-.outline_button32
-  height: 32px
-  padding: 10px 11px
-  border-radius: 8px
-  border: 1px solid  $color-white20
-  margin: auto 
-  color: $color-white
-
-  @include button12SB
-  &:hover 
-    background-color: $color-white5
-
-  &:active 
-    background-color: $color-white8
-
-  &:disabled 
-    color: $color-white20
-    border: 1px solid  $color-white12
-
-
-.icon_button32
-  height: 32px
-  padding: 8px 8px 8px 6px  
-  border-radius: 8px
-  color: $color-white
-
-  img
-    vertical-align: text-top
-    margin-right: 4px
-  @include button12SB
-  &:hover 
-    background-color: $color-white5
-
-  &:active 
-    background-color: $color-white8
-
-  &:disabled 
-    color: $color-white20
-
-
 .button40
   height: 40px
   padding: 8px 16px
@@ -97,7 +57,7 @@
   border-radius: 8px
   border: 1px solid $color-white20
   @include body14M
-  // background-color: $color-white5 fill이 없음 투명
+  background-color: transparent
   color: $color-white
   &:hover 
     background-color: $color-white5
@@ -105,7 +65,27 @@
     background-color: $color-white8
   &:disabled 
     color: $color-white20
+    background-color: transparent
     border: 1px solid $color-white12
+    cursor: not-allowed
+.ghost_white_button40
+  height: 40px
+  padding: 0 16px
+  display: flex
+  justify-content: center
+  align-items: center
+  gap: 2px
+  border-radius: 8px
+  @include body14M
+  background-color: transparent
+  color: $color-white
+  &:hover
+    background-color: $color-white5
+  &:active 
+    background-color: $color-white8
+  &:disabled 
+    color: $color-white20
+    background-color: transparent
     cursor: not-allowed
 
 .button28
@@ -145,6 +125,7 @@
   border-radius: 6px
   @include button12M
   color: $color-white
+  background-color: transparent
   &:hover
     background-color: $color-white5
   &:active 

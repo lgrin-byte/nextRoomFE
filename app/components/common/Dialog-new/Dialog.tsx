@@ -102,7 +102,7 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
         <div className="theme-info-modal__footer">
           {type === "put" && (
             <button
-              className="delete-button icon_button32"
+              className="ghost_white_button40"
               onClick={handleOpenDeleteModal}
               type="button"
             >
@@ -111,14 +111,10 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
             </button>
           )}
           <div className="action-buttons">
-            <button
-              className="cancel outline_button32"
-              type="button"
-              onClick={close}
-            >
+            <button className="outlined_button40" type="button" onClick={close}>
               취소
             </button>
-            <button className="button32" type="submit" disabled={isDisabled}>
+            <button className="button40" type="submit" disabled={isDisabled}>
               {type === "delete" ? "삭제하기" : "저장"}
             </button>
           </div>
