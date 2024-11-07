@@ -139,15 +139,7 @@ const ThemeDrawerAnswer = ({
       {selectedHint?.answerImageUrlList?.map((src, idx) => (
         <div className="drawer-images" key={src}>
           <div className="drawer-image-box">
-            <img
-              src={src}
-              alt={`answer-preview-${src}`}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-            />
+            <img src={src} alt={`answer-preview-${src}`} />
             <div
               className="drawer-image-dimmed"
               onClick={() => deleteServerAnswerImg(idx)}
@@ -166,11 +158,6 @@ const ThemeDrawerAnswer = ({
               <img
                 src={URL.createObjectURL(file)}
                 alt={`answer-preview-${index}`}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
               />
               <div
                 className="drawer-image-dimmed"
