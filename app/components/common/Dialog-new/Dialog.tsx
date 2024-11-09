@@ -20,7 +20,7 @@ import DialogDeleteBody from "@/components/common/Dialog-new/DialogDeleteBody";
 import ModalPortal from "./ModalPortal";
 import DialogBody from "./DialogBody";
 
-import "@/components/common/Dialog-new/dialog.css";
+import "@/components/common/Dialog-new/dialog.sass";
 
 interface DialogProps {
   type?: string | "";

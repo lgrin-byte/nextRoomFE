@@ -6,7 +6,7 @@ import useClickOutside from "@/hooks/useClickOutside";
 import { xProps } from "@/admin-new/(consts)/sidebar";
 import useModal from "@/hooks/useModal";
 import DialogBody from "@/components/common/Hint-Dialog-new/DialogBody";
-import "@/components/common/Dialog-new/dialog.css";
+import "@/components/common/Dialog-new/dialog.sass";
 import { useDeleteHint } from "@/mutations/deleteHint";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 
