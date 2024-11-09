@@ -1,13 +1,30 @@
-name: Synchronize to forked repo
+name: Continuous Integration and Synchronization
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
   push:
     branches:
       - develop
 
 jobs:
+  quality:
+    name: CI: Check quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Checking
+        run: npm run lint && npm run lint:type && npm run lint:eslint && npm run lint:prettier
+
   sync:
     name: Sync forked repo
     runs-on: ubuntu-latest
+    needs: quality
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
 
     steps:
       - name: Checkout develop
