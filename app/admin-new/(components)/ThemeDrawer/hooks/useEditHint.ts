@@ -1,6 +1,5 @@
 import { useState, useEffect, FormEvent, useRef } from "react";
 
-
 import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
@@ -35,7 +34,7 @@ const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
     // 로컬에서 새로 업로드 한 사진 있는지 비교
     Boolean(!hintImages.length) &&
     Boolean(!answerImages.length);
-  console.log(createHint, selectedHint, isSameHint);
+  // console.log(createHint, selectedHint, isSameHint);
   useEffect(() => {
     const isImcomplete = !(
       createHint.hintCode &&

@@ -15,7 +15,6 @@ import Loader from "../Loader/Loader";
 
 import * as S from "./HintList.styled";
 
-
 function HintList() {
   const [isMakeEnabled, setIsMakeEnabled] = useState<boolean>(false);
   const [isModifyEnableds, setIsModifyEnableds] = useState<number[]>([]);

@@ -12,8 +12,6 @@ import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
 
-
-
 export default function ThemeInfo() {
   const { open } = useModal();
   const resetSelectedHint = useSelectedHintReset();

@@ -1,6 +1,5 @@
 import { useRouter } from "next/navigation";
 
-
 import { useDeleteTheme } from "@/mutations/deleteTheme";
 import { useDeleteHint } from "@/mutations/deleteHint";
 import { useCurrentTheme } from "@/components/atoms/currentTheme.atom";

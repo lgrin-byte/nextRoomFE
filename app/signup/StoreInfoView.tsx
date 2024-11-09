@@ -7,7 +7,6 @@ import Loader from "@/components/Loader/Loader";
 import * as S from "./SignUpView.styled";
 import { NewTextField } from "./NewTextField.component";
 
-
 type Props = Record<string, any>;
 
 function StoreInfoView(props: Props) {

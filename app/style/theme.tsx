@@ -33,7 +33,6 @@ export const backGroundColor = {
   white70: "#FFFFFFB2",
 };
 
-
 export const title24M = css`
   font-size: 24px;
   font-weight: 600;

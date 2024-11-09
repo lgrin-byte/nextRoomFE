@@ -5,8 +5,6 @@ import Lottie from "react-lottie-player";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-
-
 import SnackBar from "@/components/SnackBar/SnackBar";
 import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
 import { getCookie } from "@/utils/cookie";

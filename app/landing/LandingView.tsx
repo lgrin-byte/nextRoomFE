@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 
-
-
 import Component1 from "@/components/landing/pc/Component1";
 import Component2 from "@/components/landing/pc/Component2";
 import Component3 from "@/components/landing/pc/Component3";
@@ -27,8 +25,6 @@ import MobileBtn from "../components/landing/mobile/MobileBtn";
 import PcBtn from "../components/landing/pc/PcBtn";
 
 import * as S from "./LandingView.styled";
-
-
 
 // import HomeView from "./HomeView";
 type Props = Record<string, any>;

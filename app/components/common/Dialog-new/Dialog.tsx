@@ -2,7 +2,6 @@ import React, { forwardRef, useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Image from "next/image";
 
-
 import { usePutTheme } from "@/mutations/putTheme";
 import { useDeleteTheme } from "@/mutations/deleteTheme";
 import {

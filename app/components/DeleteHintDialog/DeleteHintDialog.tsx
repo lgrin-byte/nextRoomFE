@@ -4,7 +4,6 @@ import { useIsOpenDeleteDialogState } from "../atoms/hints.atom";
 
 import DeleteHintDialogView from "./DeleteHintDialogView";
 
-
 function DeleteHintDialog() {
   const [isOpenDeleteDialogState, setIsOpenDeleteDialogState] =
     useIsOpenDeleteDialogState();

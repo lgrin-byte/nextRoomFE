@@ -3,7 +3,6 @@
 import "@/style/reset.css";
 import { useRouter, usePathname } from "next/navigation";
 
-
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useAsPathStateWrite } from "@/components/atoms/signup.atom";
 import { removeAccessToken } from "@/utils/localStorage";

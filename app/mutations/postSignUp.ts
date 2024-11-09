@@ -6,7 +6,6 @@ import { apiClient } from "@/lib/reactQueryProvider";
 import { QUERY_KEY } from "@/queries/getHintList";
 import { ApiError, ApiResponse, MutationConfigOptions } from "@/types";
 
-
 interface Request {
   email: string;
   password: string;
@@ -50,7 +49,7 @@ export const usePostSignUp = (configOptions?: MutationConfigOptions) => {
       //   console.log("항상 실행");
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
 
       // setSnackBar({
       //   isOpen: true,

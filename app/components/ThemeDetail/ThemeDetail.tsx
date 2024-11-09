@@ -13,11 +13,14 @@ function ThemeDetail() {
   const [open, setOpen] = useState<boolean>(false);
   const [activeHint, setActiveHint] = useActiveHintState();
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const  setModalState = useModalStateWrite();
+  const setModalState = useModalStateWrite();
 
   return (
     <>
-      <ThemeDetailView handleOpen={() => setOpen(true)} handleDialogOpen={()=>setDialogOpen(true)} />
+      <ThemeDetailView
+        handleOpen={() => setOpen(true)}
+        handleDialogOpen={() => setDialogOpen(true)}
+      />
       <DeleteDialog
         open={open}
         handleDialogClose={() => setOpen(false)}
@@ -26,8 +29,8 @@ function ThemeDetail() {
       />
       <Dialog
         handleBtn={() => {
-          setModalState({isOpen:true, type: "put"})
-          setActiveHint({isOpen:false, type: "put"})
+          setModalState({ isOpen: true, type: "put" });
+          setActiveHint({ isOpen: false, type: "put" });
         }}
         open={dialogOpen}
         handleDialogClose={() => setDialogOpen(false)}

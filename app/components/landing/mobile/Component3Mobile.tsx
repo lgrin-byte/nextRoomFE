@@ -31,7 +31,6 @@ export default function Component3Mobile() {
       },
     },
   };
-  
 
   const imgProps = {
     src: "/images/landing/landing.png",

@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import ThemeTextField from "@/(shared)/(ThemeTextField)/Container";
 
@@ -14,7 +13,6 @@ import {
 } from "./consts/themeDrawerProps";
 import { OnCloseDrawerType } from "./types/themeDrawerTypes";
 import useEditHint from "./hooks/useEditHint";
-
 
 const EditHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
   const [selectedHint] = useSelectedHint();

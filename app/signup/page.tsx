@@ -10,7 +10,6 @@ import Password from "./Password";
 import StoreInfo from "./StoreInfo";
 import SignUpSuccess from "./SignUpSuccess";
 
-
 function HomePage() {
   const useSignUpState = useSignUpValue();
 

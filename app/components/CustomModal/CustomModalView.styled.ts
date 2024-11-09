@@ -21,12 +21,10 @@ export const Description = styled.div`
   margin: 32px auto;
 `;
 
-
 export const ContentsWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 
 export const GridItem = styled(Grid)<{ margin?: string }>`
   margin-bottom: 30px;

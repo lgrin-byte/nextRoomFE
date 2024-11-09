@@ -19,7 +19,6 @@ export const usePostInfo = () => {
   const queryClient = useQueryClient();
   return useMutation(postInfo, {
     onSuccess: () => {
-      
       queryClient.invalidateQueries(["info"]);
     },
     onError: (error: FirebaseError) => {

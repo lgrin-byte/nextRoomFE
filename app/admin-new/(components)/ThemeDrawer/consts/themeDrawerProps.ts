@@ -5,7 +5,6 @@ import {
   progressValidations,
 } from "../helpers/textFieldHelpers";
 
-
 export const codeTextFieldProps: ThemeInfoTextFieldType = {
   id: "hintCode",
   tabIndex: 1,

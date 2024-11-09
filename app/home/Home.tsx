@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 
-
 import { useGetThemeList } from "@/queries/getThemeList";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";

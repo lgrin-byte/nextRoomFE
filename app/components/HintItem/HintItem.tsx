@@ -1,6 +1,5 @@
 import React from "react";
 
- 
 import HintItemView from "./HintItemView";
 
 type Props = {

@@ -5,8 +5,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/navigation";
 
-
-
 import { useActiveHintStateValue } from "@/components/atoms/activeHint.atom";
 import { useModalStateWrite } from "@/components/atoms/modalState.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";

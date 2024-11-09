@@ -4,7 +4,6 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from "@/consts/components/login";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
@@ -14,7 +13,6 @@ import useChannelTalk from "@/hooks/useChannelTalk";
 import { setCookie } from "@/utils/cookie";
 
 import LoginView from "./LoginView";
-
 
 interface FormValues {
   email: string;
@@ -121,7 +119,7 @@ function Login() {
     logoProps,
     isLoading,
     errorMessage,
-    contectProps
+    contectProps,
   };
 
   if (isLoggedIn) {

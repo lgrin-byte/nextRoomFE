@@ -13,7 +13,6 @@ import {
 import useAddHint from "./hooks/useAddHint";
 import { OnCloseDrawerType } from "./types/themeDrawerTypes";
 
-
 const AddHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
   const {
     handleSubmit,

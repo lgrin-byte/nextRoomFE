@@ -12,7 +12,6 @@ import AddIcon from "@mui/icons-material/Add";
 import Image from "next/image";
 import Link from "next/link";
 
-
 import { useModalState } from "@/components/atoms/modalState.atom";
 import {
   InitialSelectedTheme,

@@ -6,7 +6,6 @@ import { useModalStateValue } from "@/components/atoms/modals.atom";
 import CreateTheme from "./CreateTheme/Container";
 import ThemeInfo from "./ThemeInfo/Container";
 
-
 export default function ContentArea() {
   const modals = useModalStateValue();
   const searchParams = useSearchParams();

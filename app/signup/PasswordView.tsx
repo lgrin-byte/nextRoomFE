@@ -5,7 +5,6 @@ import { NEXT } from "@/consts/components/signUp";
 import { NewTextField } from "./NewTextField.component";
 import * as S from "./SignUpView.styled";
 
-
 type Props = Record<string, any>;
 
 function PasswordView(props: Props) {

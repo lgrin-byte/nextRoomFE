@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-
-
 import { usePostTheme } from "@/mutations/postTheme";
 import { usePutTheme } from "@/mutations/putTheme";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";

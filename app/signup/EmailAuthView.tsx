@@ -6,7 +6,6 @@ import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
 import CodeInput from "./CodeInput";
 import * as S from "./SignUpView.styled";
 
-
 type Props = Record<string, any>;
 
 function EmailAuthView(props: Props) {
