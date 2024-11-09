@@ -5,13 +5,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/navigation";
 
-import HintList from "../HintList/HintList";
 
-import * as S from "./ThemeDetail.styled";
 
 import { useActiveHintStateValue } from "@/components/atoms/activeHint.atom";
 import { useModalStateWrite } from "@/components/atoms/modalState.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
+
+import HintList from "../HintList/HintList";
+
+import * as S from "./ThemeDetail.styled";
 
 type Props = {
   handleOpen: () => void;

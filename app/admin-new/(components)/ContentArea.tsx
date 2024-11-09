@@ -1,10 +1,11 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 
+import { useModalStateValue } from "@/components/atoms/modals.atom";
+
 import CreateTheme from "./CreateTheme/Container";
 import ThemeInfo from "./ThemeInfo/Container";
 
-import { useModalStateValue } from "@/components/atoms/modals.atom";
 
 export default function ContentArea() {
   const modals = useModalStateValue();

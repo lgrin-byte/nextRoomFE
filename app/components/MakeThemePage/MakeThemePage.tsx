@@ -4,9 +4,7 @@ import React, { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import Dialog from "../common/Dialog/Dialog";
 
-import MakeThemeModalView from "./MakeThemePageView";
 
 import { usePostTheme } from "@/mutations/postTheme";
 import { usePutTheme } from "@/mutations/putTheme";
@@ -14,6 +12,10 @@ import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modalState.atom";
 import { useGetThemeList } from "@/queries/getThemeList";
 import useChannelTalk from "@/hooks/useChannelTalk";
+
+import Dialog from "../common/Dialog/Dialog";
+
+import MakeThemeModalView from "./MakeThemePageView";
 
 interface FormValues {
   id: number | undefined;

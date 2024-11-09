@@ -3,8 +3,6 @@
 import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import PasswordView from "./PasswordView";
-
 import {
   SIGN_UP_PASSWORD,
   SIGN_UP_PASSWORD_CONFIRM,
@@ -12,6 +10,8 @@ import {
 import "@/apis/firebase";
 import { useSignUpState } from "@/components/atoms/signup.atom";
 import useAnalytics from "@/hooks/useAnalytics";
+
+import PasswordView from "./PasswordView";
 
 interface FormValues {
   password: string;

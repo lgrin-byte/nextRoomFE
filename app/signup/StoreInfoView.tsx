@@ -1,11 +1,12 @@
 import React from "react";
 import { Checkbox, FormGroup } from "@mui/material";
 
+import { START } from "@/consts/components/signUp";
+import Loader from "@/components/Loader/Loader";
+
 import * as S from "./SignUpView.styled";
 import { NewTextField } from "./NewTextField.component";
 
-import { START } from "@/consts/components/signUp";
-import Loader from "@/components/Loader/Loader";
 
 type Props = Record<string, any>;
 

@@ -12,7 +12,6 @@ import AddIcon from "@mui/icons-material/Add";
 import Image from "next/image";
 import Link from "next/link";
 
-import * as S from "./DrawerView.styled";
 
 import { useModalState } from "@/components/atoms/modalState.atom";
 import {
@@ -22,6 +21,8 @@ import {
 import { Theme, Themes } from "@/queries/getThemeList";
 import { getAdminCode, getShopName } from "@/utils/localStorage";
 import Dialog from "@/components/common/Dialog/Dialog";
+
+import * as S from "./DrawerView.styled";
 
 type Props = {
   categories: Themes;

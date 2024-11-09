@@ -6,7 +6,9 @@ import { CustomTypeModalProps } from "./CustomModal.type";
 function CustomModal(props: CustomTypeModalProps) {
   const {
     open = false,
-    handleClose = () => {},
+    handleClose = () => {
+      return;
+    },
     id = "",
     content = {} as CustomTypeModalProps["content"],
   } = props;

@@ -2,6 +2,9 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { usePutHint } from "@/mutations/putHint";
+import { usePostHint } from "@/mutations/postHint";
+
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 import {
   useIsActiveHintItemState,
@@ -10,9 +13,6 @@ import {
 import Dialog from "../common/Dialog/Dialog";
 
 import HintManagerView from "./HintManagerView";
-
-import { usePutHint } from "@/mutations/putHint";
-import { usePostHint } from "@/mutations/postHint";
 
 const MAKE = "make";
 
@@ -46,7 +46,7 @@ function HintManager(props: Props) {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { mutateAsync: postHint, isSuccess: postHintSuccess } = usePostHint();
+  const { mutateAsync: postHint } = usePostHint();
   const { mutateAsync: putHint } = usePutHint();
   const { id: themeId } = useSelectedThemeValue();
   const formRef = useRef<HTMLFormElement>(null);

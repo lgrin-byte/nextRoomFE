@@ -3,14 +3,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import EmailAuthView from "./EmailAuthView";
-
 import { useSignUpState } from "@/components/atoms/signup.atom";
 import Loader from "@/components/Loader/Loader";
 import { usePostVerification } from "@/mutations/postVerification";
 import { usePostSendMessage } from "@/mutations/postSendMessage";
 import "@/apis/firebase";
 import useAnalytics from "@/hooks/useAnalytics";
+
+import EmailAuthView from "./EmailAuthView";
 
 interface FormValues {
   code: string;

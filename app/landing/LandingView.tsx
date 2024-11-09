@@ -2,10 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 
-import PcBtn from "../components/landing/pc/PcBtn";
-import MobileBtn from "../components/landing/mobile/MobileBtn";
 
-import * as S from "./LandingView.styled";
 
 import Component1 from "@/components/landing/pc/Component1";
 import Component2 from "@/components/landing/pc/Component2";
@@ -25,6 +22,11 @@ import Component6Mobile from "@/components/landing/mobile/Component6Mobile";
 import Component7Mobile from "@/components/landing/mobile/Component7Mobile";
 // import Component8Mobile from "@/components/landing/mobile/Component8Mobile";
 import Component9Mobile from "@/components/landing/mobile/Component9Mobile";
+
+import MobileBtn from "../components/landing/mobile/MobileBtn";
+import PcBtn from "../components/landing/pc/PcBtn";
+
+import * as S from "./LandingView.styled";
 
 
 

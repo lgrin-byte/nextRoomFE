@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
 
-import * as S from "./SignUpView.styled";
-
 import { useSignUpValue } from "@/components/atoms/signup.atom";
 import { usePostVerification } from "@/mutations/postVerification";
+
+import * as S from "./SignUpView.styled";
 
 interface Props {
   disabled: boolean;
@@ -74,6 +74,7 @@ export default function CodeInput(props: Props) {
     <S.CodeWrap>
       {numbers.map((number, index) => (
         <S.CodeInput
+          key={index}
           type="number"
           value={number}
           error={isError && numbers.join("").length === 0}

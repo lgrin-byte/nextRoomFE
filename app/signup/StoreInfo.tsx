@@ -3,14 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import StoreInfoView from "./StoreInfoView";
-
 import { useSignUpState } from "@/components/atoms/signup.atom";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import Loader from "@/components/Loader/Loader";
 import { usePostSignUp } from "@/mutations/postSignUp";
 import "@/apis/firebase";
 import useAnalytics from "@/hooks/useAnalytics";
+
+import StoreInfoView from "./StoreInfoView";
 
 interface FormValues {
   name: string;

@@ -1,6 +1,5 @@
-
 // useModal.ts
-import { useCallback } from "react";
+import { FC, useCallback } from "react";
 
 import { useModalState } from "@/components/atoms/modals.atom";
 
@@ -9,7 +8,7 @@ const useModal = () => {
 
   // 모달 열기 함수
   const open = useCallback(
-    <P extends object>(Component: React.FC<P>, props?: P) => {
+    <P extends object>(Component: FC<P>, props?: P) => {
       const modalId = `modal-${Date.now()}`; // 고유 ID 생성
       setModals((currentModals) => [
         ...currentModals,

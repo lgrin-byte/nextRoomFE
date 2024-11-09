@@ -1,20 +1,28 @@
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-
-import { GalleryImageProps } from "./consts/themeDrawerProps";
-import { compressImage, convertToPng } from "./helpers/imageHelpers";
+import {
+  ChangeEvent,
+  Dispatch,
+  MouseEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { subscribeLinkURL } from "@/admin-new/(consts)/sidebar";
 import { useCreateHint } from "@/components/atoms/createHint.atom";
 import { getStatus } from "@/utils/localStorage";
+
+import { compressImage, convertToPng } from "./helpers/imageHelpers";
+import { GalleryImageProps } from "./consts/themeDrawerProps";
 const ThemeDrawerAnswer = ({
   answerImages,
   setAnswerImages,
 }: {
   answerImages: File[];
-  setAnswerImages: React.Dispatch<React.SetStateAction<File[]>>;
+  setAnswerImages: Dispatch<SetStateAction<File[]>>;
 }) => {
   const status = getStatus();
 
@@ -34,9 +42,7 @@ const ThemeDrawerAnswer = ({
   }, [answerImages, selectedHint.answerImageUrlList]);
 
   // 이미지 파일 핸들러
-  const handleAnswerFileChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleAnswerFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (imgCnt === 0) {
       setToast({
         isOpen: true,
@@ -72,7 +78,7 @@ const ThemeDrawerAnswer = ({
 
   const answerInputRef = useRef<HTMLInputElement>(null);
 
-  const handleAnswerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAnswerClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (!status?.includes("SUBSCRIPTION")) {
       e.preventDefault();
       window.open(subscribeLinkURL, "_blank", "noopener,noreferrer");
@@ -81,7 +87,7 @@ const ThemeDrawerAnswer = ({
     answerInputRef.current?.click(); // 숨겨진 input 클릭 트리거
   };
 
-  const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleAnswerChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     answerRef.current = e.target.value;
     setCreateHint((prev) => ({ ...prev, answer: answerRef.current }));
   };

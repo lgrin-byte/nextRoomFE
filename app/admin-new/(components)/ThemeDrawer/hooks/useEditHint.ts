@@ -1,6 +1,5 @@
 import { useState, useEffect, FormEvent, useRef } from "react";
 
-import { OnCloseDrawerType } from "../types/themeDrawerTypes";
 
 import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
@@ -10,6 +9,8 @@ import useClickOutside from "@/hooks/useClickOutside";
 import useHintUpload from "@/queries/getPreSignedUrl";
 import useModal from "@/hooks/useModal";
 import extractFilename from "@/utils/helper";
+
+import { OnCloseDrawerType } from "../types/themeDrawerTypes";
 // import cloneDeep from "lodash/cloneDeep";
 
 const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {

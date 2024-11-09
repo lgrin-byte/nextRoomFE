@@ -4,9 +4,9 @@ import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import "@/apis/firebase";
 
-import * as S from "./Component.styled";
-
 import useAnalytics from "@/hooks/useAnalytics";
+
+import * as S from "./Component.styled";
 
 export default function Component2() {
   const { logEvent } = useAnalytics();
@@ -78,7 +78,7 @@ export default function Component2() {
       </S.Wrapper2>
       <S.BoxWrapper>
         {arr.map(({ name, date }) => (
-          <S.Box>
+          <S.Box key={name}>
             <p>
               {name.split("/")[0]}
               <br />

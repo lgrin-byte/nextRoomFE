@@ -2,11 +2,12 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import * as S from "./LoginView.styled";
 
 import { LOGIN } from "@/consts/components/login";
 import Loader from "@/components/Loader/Loader";
 import { NewTextField } from "@/signup/NewTextField.component";
+
+import * as S from "./LoginView.styled";
 
 type Props = Record<string, any>;
 

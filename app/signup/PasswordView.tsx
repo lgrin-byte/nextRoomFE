@@ -1,9 +1,10 @@
 import React from "react";
 
+import { NEXT } from "@/consts/components/signUp";
+
 import { NewTextField } from "./NewTextField.component";
 import * as S from "./SignUpView.styled";
 
-import { NEXT } from "@/consts/components/signUp";
 
 type Props = Record<string, any>;
 

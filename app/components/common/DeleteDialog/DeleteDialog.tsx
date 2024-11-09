@@ -1,10 +1,11 @@
 import { useRouter } from "next/navigation";
 
-import DeleteDialogView from "./DeleteDialogView";
 
 import { useDeleteTheme } from "@/mutations/deleteTheme";
 import { useDeleteHint } from "@/mutations/deleteHint";
 import { useCurrentTheme } from "@/components/atoms/currentTheme.atom";
+
+import DeleteDialogView from "./DeleteDialogView";
 
 type ContentType = "hintDelete" | "themeDelete";
 

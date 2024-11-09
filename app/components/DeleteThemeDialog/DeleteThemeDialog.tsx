@@ -1,6 +1,7 @@
+import { useDeleteTheme } from "@/mutations/deleteTheme";
+
 import DeleteThemeDialogView from "./DeleteThemeDialogView";
 
-import { useDeleteTheme } from "@/mutations/deleteTheme";
 
 interface Props {
   open: boolean;

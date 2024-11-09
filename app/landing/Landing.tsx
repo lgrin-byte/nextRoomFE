@@ -3,13 +3,14 @@
 import "@/style/reset.css";
 import { useRouter, usePathname } from "next/navigation";
 
-import LandingView from "./LandingView";
 
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useAsPathStateWrite } from "@/components/atoms/signup.atom";
 import { removeAccessToken } from "@/utils/localStorage";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import useChannelTalk from "@/hooks/useChannelTalk";
+
+import LandingView from "./LandingView";
 
 function Landing() {
   const setIsLoggedIn = useIsLoggedInWrite();

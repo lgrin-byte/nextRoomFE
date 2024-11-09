@@ -3,9 +3,9 @@ import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import "@/apis/firebase";
 
-import * as S from "./ComponentMobile.styled";
-
 import useAnalytics from "@/hooks/useAnalytics";
+
+import * as S from "./ComponentMobile.styled";
 
 export default function Component8Mobile() {
   const { logEvent } = useAnalytics();
@@ -60,7 +60,7 @@ export default function Component8Mobile() {
       </S.Title8>
       <S.BoxWrapper8>
         {arr.map(({ name, count, exCost, nowCost }) => (
-          <S.Box8>
+          <S.Box8 key={name}>
             <S.BoxTitle>{name}</S.BoxTitle>
             <S.BoxCont>
               <S.BoxDescription>

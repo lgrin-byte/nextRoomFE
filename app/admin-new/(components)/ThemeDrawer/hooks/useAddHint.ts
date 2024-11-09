@@ -1,6 +1,5 @@
 import { useRef, useState, FormEvent } from "react";
 
-import { OnCloseDrawerType } from "../types/themeDrawerTypes";
 
 import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
@@ -8,6 +7,8 @@ import { useCreateHint } from "@/components/atoms/createHint.atom";
 import useClickOutside from "@/hooks/useClickOutside";
 import useHintUpload from "@/queries/getPreSignedUrl";
 import useModal from "@/hooks/useModal";
+
+import { OnCloseDrawerType } from "../types/themeDrawerTypes";
 
 const useAddHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
   const selectedTheme = useSelectedThemeValue();

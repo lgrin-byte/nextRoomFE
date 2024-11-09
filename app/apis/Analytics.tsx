@@ -2,9 +2,10 @@
 
 import Script from "next/script";
 
+import { isDevMode } from "@/consts/env";
+
 import * as gtag from "./gtag";
 
-import { isDevMode } from "@/consts/env";
 
 function Analytics() {
   // You can show in the console the GA_TRACKING_ID to confirm

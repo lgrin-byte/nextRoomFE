@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 
-import HomeView from "./HomeView";
 
 import { useGetThemeList } from "@/queries/getThemeList";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
@@ -10,6 +9,8 @@ import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
 import SnackBar from "@/components/SnackBar/SnackBar";
 import Loader from "@/components/Loader/Loader";
 import useChannelTalk from "@/hooks/useChannelTalk";
+
+import HomeView from "./HomeView";
 
 function Home() {
   const { data: categories = [] } = useGetThemeList();

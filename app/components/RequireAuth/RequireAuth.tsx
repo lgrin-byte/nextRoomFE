@@ -3,7 +3,6 @@
 import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-import Mobile from "../Mobile/Mobile";
 
 import { useGetThemeList } from "@/queries/getThemeList";
 import {
@@ -16,6 +15,8 @@ import { getSelectedThemeId } from "@/utils/localStorage";
 import * as S from "@/home/HomeView.styled";
 import Header from "@/components/common/Header/Header";
 import MainDrawer from "@/components/common/Drawer/Drawer";
+
+import Mobile from "../Mobile/Mobile";
 
 interface RequireAuthProps {
   children: ReactNode;

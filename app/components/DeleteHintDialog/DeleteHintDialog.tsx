@@ -1,8 +1,9 @@
+import { useDeleteHint } from "@/mutations/deleteHint";
+
 import { useIsOpenDeleteDialogState } from "../atoms/hints.atom";
 
 import DeleteHintDialogView from "./DeleteHintDialogView";
 
-import { useDeleteHint } from "@/mutations/deleteHint";
 
 function DeleteHintDialog() {
   const [isOpenDeleteDialogState, setIsOpenDeleteDialogState] =

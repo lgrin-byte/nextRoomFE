@@ -4,10 +4,11 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import * as S from "./SignUpView.styled";
 
 import { useSignUpValue } from "@/components/atoms/signup.atom";
 import { getCookie } from "@/utils/cookie";
+
+import * as S from "./SignUpView.styled";
 
 export default function RootLayout({
   children,

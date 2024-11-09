@@ -104,8 +104,8 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({
                   <div className="table-hint">
                     <div className="hint-content">{contents}</div>
                     <div className="hint-images">
-                      {hintImageUrlList?.map(() => (
-                        <div className="hint-image-box">
+                      {hintImageUrlList?.map((_, index) => (
+                        <div className="hint-image-box" key={index}>
                           <div className="hint-image" />
                         </div>
                       ))}
@@ -114,8 +114,8 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({
                   <div className="table-answer">
                     <div className="hint-content">{answer}</div>
                     <div className="hint-images">
-                      {answerImageUrlList?.map(() => (
-                        <div className="hint-image-box">
+                      {answerImageUrlList?.map((_, index) => (
+                        <div className="hint-image-box" key={index}>
                           <div className="hint-image" />
                         </div>
                       ))}

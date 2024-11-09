@@ -3,6 +3,8 @@ import Image from "next/image";
 import { ListItemIcon, ListItemText } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
+import { useGetHintList } from "@/queries/getHintList";
+
 import { HintItem } from "../HintItem";
 import HintManager from "../HintManager/HintManager";
 import { DeleteHintDialog } from "../DeleteHintDialog";
@@ -13,7 +15,6 @@ import Loader from "../Loader/Loader";
 
 import * as S from "./HintList.styled";
 
-import { useGetHintList } from "@/queries/getHintList";
 
 function HintList() {
   const [isMakeEnabled, setIsMakeEnabled] = useState<boolean>(false);

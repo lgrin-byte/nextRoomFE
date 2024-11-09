@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "next/link";
 
+import { SIGN_UP } from "@/consts/components/signUp";
+
 import { NewTextField } from "./NewTextField.component";
 import * as S from "./SignUpView.styled";
 
-import { SIGN_UP } from "@/consts/components/signUp";
 
 type Props = Record<string, any>;
 

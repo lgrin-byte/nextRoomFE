@@ -4,7 +4,6 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import LoginView from "./LoginView";
 
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from "@/consts/components/login";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
@@ -13,6 +12,8 @@ import useCheckSignIn from "@/hooks/useCheckSignIn";
 import Loader from "@/components/Loader/Loader";
 import useChannelTalk from "@/hooks/useChannelTalk";
 import { setCookie } from "@/utils/cookie";
+
+import LoginView from "./LoginView";
 
 
 interface FormValues {
