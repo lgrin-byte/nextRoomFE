@@ -5,6 +5,8 @@ import React, { useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton, TextField } from "@mui/material";
 
+import * as S from "./TrialView.styled";
+
 import {
   TRIAL_TITLE,
   CONTECT,
@@ -15,9 +17,7 @@ import {
   RETURN_HOME,
 } from "@/consts/components/trial";
 import "@/apis/firebase"; // Firebase 초기화 파일 임포트
-
 import useAnalytics from "@/hooks/useAnalytics";
-import * as S from "./TrialView.styled";
 
 type Props = Record<string, any>;
 function TrialView(props: Props) {

@@ -1,9 +1,10 @@
 "use client";
 
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
+import React, { PropsWithChildren } from "react";
+
 import theme from "@/style/theme";
 
-import React, { PropsWithChildren } from "react";
 
 function StyledProvider({ children }: PropsWithChildren) {
 

@@ -1,7 +1,9 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { forwardRef, useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Image from "next/image";
+
+import ModalPortal from "./ModalPortal";
+
 import useClickOutside from "@/hooks/useClickOutside";
 import { xProps } from "@/admin-new/(consts)/sidebar";
 import useModal from "@/hooks/useModal";
@@ -9,11 +11,9 @@ import DialogBody from "@/components/common/Hint-Dialog-new/DialogBody";
 import "@/components/common/Dialog-new/dialog.css";
 import { useDeleteHint } from "@/mutations/deleteHint";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
-import ModalPortal from "./ModalPortal";
 
 interface DialogProps {
   type?: string | "";
-  // eslint-disable-next-line react/require-default-props
   fn?: () => void;
 }
 

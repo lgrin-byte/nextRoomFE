@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import Analytics from "./apis/Analytics";
+import Clarity from "./apis/Clarity";
+
 import Recoil from "@/lib/recoil";
 import MuiProvider from "@/lib/muiProvider";
 import StyledJsxRegistry from "@/lib/registry";
 import StyledProvider from "@/lib/themeProvider";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
-
 import RequireAuth from "@/components/RequireAuth/RequireAuth";
 
-import Analytics from "./apis/Analytics";
-import Clarity from "./apis/Clarity";
 
 export const metadata: Metadata = {
   title: "넥스트룸 (NEXT ROOM) | 방탈출 힌트폰 서비스",

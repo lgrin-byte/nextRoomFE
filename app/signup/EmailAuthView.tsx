@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 
-import SnackBar from "@/components/SnackBar/SnackBar";
-import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
 import CodeInput from "./CodeInput";
 import * as S from "./SignUpView.styled";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+import SnackBar from "@/components/SnackBar/SnackBar";
+import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
+
 type Props = Record<string, any>;
 
 function EmailAuthView(props: Props) {

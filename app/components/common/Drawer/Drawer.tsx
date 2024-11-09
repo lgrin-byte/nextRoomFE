@@ -8,21 +8,20 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import AddIcon from "@mui/icons-material/Add";
+import Image from "next/image";
+import Link from "next/link";
+
+import * as S from "./DrawerView.styled";
+
 import { useModalState } from "@/components/atoms/modalState.atom";
 import {
   InitialSelectedTheme,
   useSelectedTheme,
 } from "@/components/atoms/selectedTheme.atom";
 import { Theme, Themes } from "@/queries/getThemeList";
-import Image from "next/image";
 import { getAdminCode, getShopName } from "@/utils/localStorage";
 import Dialog from "@/components/common/Dialog/Dialog";
-
-import Link from "next/link";
-import * as S from "./DrawerView.styled";
 
 type Props = {
   categories: Themes;
@@ -43,7 +42,6 @@ function MainDrawer(props: Props) {
   const shopName = getShopName();
   const adminCode = getAdminCode();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
   const [focusedTheme, setFocusedTheme] = useState<Theme | null>(null); // 현재 선택된 테마를 저장할 상태 추가
   const [open, setOpen] = useState<boolean>(false);

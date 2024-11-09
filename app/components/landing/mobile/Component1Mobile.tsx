@@ -3,13 +3,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import useCheckSignIn from "@/hooks/useCheckSignIn";
-import { setCookie } from "@/utils/cookie";
+
+import * as S from "./ComponentMobile.styled";
 
 import "@/apis/firebase";
-
+import useCheckSignIn from "@/hooks/useCheckSignIn";
 import useAnalytics from "@/hooks/useAnalytics";
-import * as S from "./ComponentMobile.styled";
+import { setCookie } from "@/utils/cookie";
 
 type Props = Record<string, any>;
 

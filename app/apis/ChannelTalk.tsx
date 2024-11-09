@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 declare global {
   interface Window {
     ChannelIO?: IChannelIO;

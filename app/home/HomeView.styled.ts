@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { Box } from "@mui/material";
+
 import { MAIN_GRID_WIDTH } from "@/consts/styles/common";
 
 export const Wrapper = styled(Box)`

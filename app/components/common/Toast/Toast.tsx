@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./toast.css";
 import { useToastValue } from "@/components/atoms/toast.atom";
 

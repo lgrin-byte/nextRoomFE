@@ -1,6 +1,7 @@
 
 // useModal.ts
 import { useCallback } from "react";
+
 import { useModalState } from "@/components/atoms/modals.atom";
 
 const useModal = () => {

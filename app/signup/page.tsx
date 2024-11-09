@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
-import { useSignUpValue } from "@/components/atoms/signup.atom";
+
 import SignUp from "./SignUp";
 import EmailAuth from "./EmailAuth";
 import Password from "./Password";
 import StoreInfo from "./StoreInfo";
 import SignUpSuccess from "./SignUpSuccess";
+
+import { useSignUpValue } from "@/components/atoms/signup.atom";
 
 function HomePage() {
   const useSignUpState = useSignUpValue();

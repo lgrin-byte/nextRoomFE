@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+
 import * as S from "./Mobile.styled";
 
 export default function Mobile() {

@@ -1,8 +1,9 @@
-import { ThemeInfoTextFieldType } from "@/(shared)/(ThemeTextField)/TextFieldType";
 import {
   codeValidations,
   progressValidations,
 } from "../helpers/textFieldHelpers";
+
+import { ThemeInfoTextFieldType } from "@/(shared)/(ThemeTextField)/TextFieldType";
 
 export const codeTextFieldProps: ThemeInfoTextFieldType = {
   id: "hintCode",

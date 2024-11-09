@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import SignUpView from "./SignUpView";
+
 import {
   SIGN_UP_EMAIL,
   SIGN_UP_PLACEHOLDER,
@@ -13,7 +15,6 @@ import useCheckSignIn from "@/hooks/useCheckSignIn";
 import Loader from "@/components/Loader/Loader";
 import { usePostSendMessage } from "@/mutations/postSendMessage";
 import useAnalytics from "@/hooks/useAnalytics";
-import SignUpView from "./SignUpView";
 
 interface FormValues {
   email: string;
@@ -45,7 +46,6 @@ function SignUp() {
       firebase_screen: "sign_up_start",
       firebase_screen_class: "sign_up_start",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     postSendMessage(data);
@@ -66,7 +66,6 @@ function SignUp() {
     setTimeout(() => {
       setFocus("email");
     }, 1000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -75,10 +74,8 @@ function SignUp() {
       return;
     }
     if (isError) {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
       setErrorMsg(error?.response?.data?.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors.email, isError]);
 
   const adminCodeProps = {

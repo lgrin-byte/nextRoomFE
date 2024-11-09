@@ -1,4 +1,5 @@
 import React from "react";
+
 import CustomModalView from "./CustomModalView";
 import { CustomTypeModalProps } from "./CustomModal.type";
 

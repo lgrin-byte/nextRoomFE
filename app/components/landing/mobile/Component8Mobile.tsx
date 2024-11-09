@@ -3,8 +3,9 @@ import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import "@/apis/firebase";
 
-import useAnalytics from "@/hooks/useAnalytics";
 import * as S from "./ComponentMobile.styled";
+
+import useAnalytics from "@/hooks/useAnalytics";
 
 export default function Component8Mobile() {
   const { logEvent } = useAnalytics();

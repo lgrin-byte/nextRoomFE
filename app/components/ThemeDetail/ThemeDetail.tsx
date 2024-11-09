@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 import DeleteDialog from "../common/DeleteDialog/DeleteDialog";
-import ThemeDetailView from "./ThemeDetailView";
 import Dialog from "../common/Dialog/Dialog";
 import { useActiveHintState } from "../atoms/activeHint.atom";
 import { useModalStateWrite } from "../atoms/modalState.atom";
+
+import ThemeDetailView from "./ThemeDetailView";
 
 function ThemeDetail() {
   const selectedTheme = useSelectedThemeValue();

@@ -1,5 +1,5 @@
-import ThemeTextField from "@/(shared)/(ThemeTextField)/Container";
 import Image from "next/image";
+
 import ThemeDrawerAnswer from "./ThemeDrawerAnswer";
 import ThemeDrawerHint from "./ThemeDrawerHint";
 import {
@@ -10,6 +10,8 @@ import {
 } from "./consts/themeDrawerProps";
 import useAddHint from "./hooks/useAddHint";
 import { OnCloseDrawerType } from "./types/themeDrawerTypes";
+
+import ThemeTextField from "@/(shared)/(ThemeTextField)/Container";
 
 const AddHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
   const {

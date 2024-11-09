@@ -1,7 +1,9 @@
+import React, { useRef, useEffect } from "react";
+
+import * as S from "./SignUpView.styled";
+
 import { useSignUpValue } from "@/components/atoms/signup.atom";
 import { usePostVerification } from "@/mutations/postVerification";
-import React, { useRef, useEffect } from "react";
-import * as S from "./SignUpView.styled";
 
 interface Props {
   disabled: boolean;
@@ -49,7 +51,6 @@ export default function CodeInput(props: Props) {
         }, 1000);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numbers, isError]);
 
   // 입력값을 삭제하는 함수
@@ -79,7 +80,6 @@ export default function CodeInput(props: Props) {
           onChange={(e) => handleInputChange(index, e.target.value)}
           onKeyDown={(e) => handleInputDelete(index, e)} // 삭제 이벤트 처리
           maxLength={1} // 한 글자만 입력할 수 있도록 설정
-          // eslint-disable-next-line no-return-assign
           ref={(input) => (inputRefs.current[index] = input)} // ref를 배열에 저장
           disabled={disabled}
           inputMode="numeric"
