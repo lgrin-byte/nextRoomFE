@@ -3,3 +3,8 @@
 **/*.sass
 **/*.html
 **/*.yml
+.github
+.husky
+.next
+.swc
+.vscode
