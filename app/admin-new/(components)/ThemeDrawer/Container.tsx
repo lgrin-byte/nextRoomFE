@@ -34,7 +34,7 @@ const ThemeDrawer = ({
 
   return (
     <form
-      className="theme-drawer__container"
+      className="theme-drawer__container animate"
       onSubmit={handleSubmit}
       ref={drawerRef}
       key={selectedHint.id}

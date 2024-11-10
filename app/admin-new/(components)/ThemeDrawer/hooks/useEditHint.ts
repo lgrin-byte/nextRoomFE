@@ -23,13 +23,14 @@ const useEditHint = ({
 
   const selectedTheme = useSelectedThemeValue();
   const [selectedHint, setSelectedHint] = useSelectedHint();
+  const [createHint, setCreateHint] = useCreateHint();
 
   const [hintImages, setHintImages] = useState<File[]>([]);
   const [answerImages, setAnswerImages] = useState<File[]>([]);
 
-  const [createHint, setCreateHint] = useCreateHint();
-
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const drawerRef = useRef<HTMLFormElement>(null);
 
   const isImcomplete = !(
     createHint.hintCode &&
@@ -103,6 +104,7 @@ const useEditHint = ({
     };
     try {
       await handleProcess(formData, hintImages, answerImages);
+
       const { data: hints = [] } = await getHintList({ themeId });
       const hintElement: SelectedHintType[] = hints.filter(
         (hint: SelectedHintType) => hint.hintCode === createHint.hintCode
@@ -110,6 +112,10 @@ const useEditHint = ({
       if (hintElement.length !== 1) {
         throw Error("hintElement is not unique");
       }
+      // TODO: 이건 동작 안하는데 .. 애니메이션 빼는 방법 모르겠음
+      // if (hintType === "Add" && drawerRef.current) {
+      //   drawerRef.current.classList.remove("animate");
+      // }
       setSelectedHint(hintElement[0]);
 
       handleHintCreate("Edit");
@@ -125,7 +131,7 @@ const useEditHint = ({
       open(HintDialog, { type: "put", fn: onCloseDrawer });
     }
   };
-  const drawerRef = useRef(null);
+
   useClickOutside(drawerRef, handleOpenHintModal);
 
   const deleteHintBtn = () => {
