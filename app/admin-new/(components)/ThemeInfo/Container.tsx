@@ -6,7 +6,7 @@ import { useSelectedHintReset } from "@/components/atoms/selectedHint.atom";
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
-import ThemeHintDrawer from "../ThemeDrawer/EditHintDrawer";
+import ThemeDrawer from "../ThemeDrawer/Container";
 
 export default function ThemeInfo() {
   const { open } = useModal();
@@ -51,7 +51,7 @@ export default function ThemeInfo() {
         openHintDrawer={openHintDrawer}
       />
       {openHintDrawer && (
-        <ThemeHintDrawer
+        <ThemeDrawer
           handleHintCreate={handleHintCreate}
           onCloseDrawer={handleCloseDrawer}
           hintType={hintType}
