@@ -224,6 +224,16 @@
     background-color: $color-main
     border-left: 1px solid $color-white12
     box-shadow: -20px 0 80px 0 $color-black60
+
+    transform: translateX(100%)
+    animation: slide-in 0.1s forwards ease
+
+  @keyframes slide-in
+    from
+      transform: translateX(100%)
+    to
+      transform: translateX(0)
+
   &__title
     height: 78px
     display: flex

@@ -14,7 +14,7 @@ import {
 import { DrawerType } from "./types/themeDrawerTypes";
 import useEditHint from "./hooks/useEditHint";
 
-const ThemeHintDrawer = ({
+const ThemeDrawer = ({
   onCloseDrawer,
   hintType,
   handleHintCreate,
@@ -114,4 +114,4 @@ const ThemeHintDrawer = ({
     </form>
   );
 };
-export default ThemeHintDrawer;
+export default ThemeDrawer;
