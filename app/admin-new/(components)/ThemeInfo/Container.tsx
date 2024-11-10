@@ -54,10 +54,7 @@ export default function ThemeInfo() {
     >
       <ThemeInfoTitle handleOpenModal={handleOpenModal} />
       <ThemeInfoBody handleOpenModal={handleOpenModal} />
-      <ThemeInfoHint
-        handleHintCreate={handleHintCreate}
-        openHintDrawer={openHintDrawer}
-      />
+      <ThemeInfoHint handleHintCreate={handleHintCreate} />
       {openHintDrawer && (
         <ThemeDrawer
           handleHintCreate={handleHintCreate}
