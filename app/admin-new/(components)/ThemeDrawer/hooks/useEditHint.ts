@@ -1,20 +1,30 @@
 import { useState, useEffect, FormEvent, useRef } from "react";
 
 import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
-import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
+import {
+  SelectedHintType,
+  useSelectedHint,
+} from "@/components/atoms/selectedHint.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
 import { useCreateHint } from "@/components/atoms/createHint.atom";
 import useClickOutside from "@/hooks/useClickOutside";
 import useHintUpload from "@/queries/getPreSignedUrl";
 import useModal from "@/hooks/useModal";
 import extractFilename from "@/utils/helper";
+import { getHintList } from "@/queries/getHintList";
 
-import { OnCloseDrawerType } from "../types/themeDrawerTypes";
+import { DrawerType } from "../types/themeDrawerTypes";
 // import cloneDeep from "lodash/cloneDeep";
 
-const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
+const useEditHint = ({
+  onCloseDrawer,
+  hintType,
+  handleHintCreate,
+}: DrawerType) => {
+  const { id: themeId } = useSelectedThemeValue();
+
   const selectedTheme = useSelectedThemeValue();
-  const [selectedHint] = useSelectedHint();
+  const [selectedHint, setSelectedHint] = useSelectedHint();
 
   const [hintImages, setHintImages] = useState<File[]>([]);
   const [answerImages, setAnswerImages] = useState<File[]>([]);
@@ -22,6 +32,14 @@ const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
   const [createHint, setCreateHint] = useCreateHint();
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const isImcomplete = !(
+    createHint.hintCode &&
+    createHint.progress &&
+    createHint.contents &&
+    createHint.answer
+  );
+
   const isSameHint =
     String(createHint.hintCode) === String(selectedHint.hintCode) &&
     Number(createHint.progress) === Number(selectedHint.progress) &&
@@ -36,19 +54,18 @@ const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
     Boolean(!answerImages.length);
   // console.log(createHint, selectedHint, isSameHint);
   useEffect(() => {
-    const isImcomplete = !(
-      createHint.hintCode &&
-      createHint.progress &&
-      createHint.contents &&
-      createHint.answer
-    );
+    if (hintType === "Add") {
+      return;
+    }
     if (isSameHint || isImcomplete) {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
     }
   }, [
+    hintType,
     isSameHint,
+    isImcomplete,
     createHint,
     selectedHint,
     hintImages.length,
@@ -56,12 +73,15 @@ const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
   ]);
 
   useEffect(() => {
+    if (hintType === "Add") {
+      return;
+    }
     setCreateHint((prev) => ({
       ...prev,
       contents: selectedHint.contents,
       answer: selectedHint.answer,
     }));
-  }, [selectedHint, setCreateHint]);
+  }, [hintType, selectedHint, setCreateHint]);
 
   const { handleProcess } = useHintUpload();
   const handleSubmit = async (e: FormEvent) => {
@@ -85,6 +105,16 @@ const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
     };
     try {
       await handleProcess(formData, hintImages, answerImages);
+      const { data: hints = [] } = await getHintList({ themeId });
+      const hintElement: SelectedHintType[] = hints.filter(
+        (hint: SelectedHintType) => hint.hintCode === createHint.hintCode
+      );
+      if (hintElement.length !== 1) {
+        throw Error("hintElement is not unique");
+      }
+      setSelectedHint(hintElement[0]);
+
+      handleHintCreate("Edit");
     } catch (error) {
       console.error(error);
     }
@@ -112,6 +142,7 @@ const useEditHint = ({ onCloseDrawer }: OnCloseDrawerType) => {
     answerImages,
     setAnswerImages,
     isDisabled,
+    isImcomplete,
     deleteHintBtn,
     handleOpenHintModal,
   };
