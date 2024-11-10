@@ -16,6 +16,5 @@ if (!getApps().length) {
   initializeApp(firebaseConfig);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const app = getApp();
 export const db = getFirestore(app);

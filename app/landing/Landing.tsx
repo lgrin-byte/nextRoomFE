@@ -2,11 +2,13 @@
 
 import "@/style/reset.css";
 import { useRouter, usePathname } from "next/navigation";
+
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useAsPathStateWrite } from "@/components/atoms/signup.atom";
 import { removeAccessToken } from "@/utils/localStorage";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import useChannelTalk from "@/hooks/useChannelTalk";
+
 import LandingView from "./LandingView";
 
 function Landing() {
@@ -31,7 +33,6 @@ function Landing() {
   };
 
   const handleLoginBtn = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     isSignIn ? handleLogout() : router.push("/login");
   };
   const buttonProps = {

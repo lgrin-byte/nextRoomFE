@@ -3,6 +3,7 @@
 import React, { PropsWithChildren, useState } from "react";
 import { useServerInsertedHTML } from "next/navigation";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
+
 import GlobalStyle from "./global-styles";
 
 export default function StyledComponentsRegistry({
@@ -15,11 +16,9 @@ export default function StyledComponentsRegistry({
   useServerInsertedHTML(() => {
     const styles = styledComponentsStyleSheet.getStyleElement();
     styledComponentsStyleSheet.instance.clearTag();
-    // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{styles}</>;
   });
 
-  // eslint-disable-next-line react/jsx-no-useless-fragment
   if (typeof window !== "undefined") return <>{children}</>;
 
   return (

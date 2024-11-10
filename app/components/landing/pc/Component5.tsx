@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+
 import * as S from "./Component.styled";
 
 export default function Component5() {
