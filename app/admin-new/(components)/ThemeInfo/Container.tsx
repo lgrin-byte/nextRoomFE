@@ -6,15 +6,14 @@ import { useSelectedHintReset } from "@/components/atoms/selectedHint.atom";
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
-import AddHintDrawer from "../ThemeDrawer/AddHintDrawer";
-import EditHintDrawer from "../ThemeDrawer/EditHintDrawer";
+import ThemeHintDrawer from "../ThemeDrawer/EditHintDrawer";
 
 export default function ThemeInfo() {
   const { open } = useModal();
   const resetSelectedHint = useSelectedHintReset();
 
   const [openHintDrawer, setOpenHintDrawer] = useState(false);
-  const [hintType, setHintType] = useState("Add");
+  const [hintType, setHintType] = useState<string>("Add");
 
   const handleOpenModal = () => {
     open(Dialog, { type: "put" });
@@ -23,6 +22,11 @@ export default function ThemeInfo() {
   const handleCloseDrawer = () => {
     resetSelectedHint();
     setOpenHintDrawer(false);
+  };
+
+  const handleHintCreate = (type: string) => {
+    setOpenHintDrawer(true);
+    setHintType(type);
   };
 
   useEffect(() => {
@@ -43,18 +47,16 @@ export default function ThemeInfo() {
       <ThemeInfoTitle handleOpenModal={handleOpenModal} />
       <ThemeInfoBody handleOpenModal={handleOpenModal} />
       <ThemeInfoHint
-        handleHintCreate={(type) => {
-          setOpenHintDrawer(true);
-          setHintType(type);
-        }}
+        handleHintCreate={handleHintCreate}
         openHintDrawer={openHintDrawer}
       />
-      {openHintDrawer &&
-        (hintType === "Add" ? (
-          <AddHintDrawer onCloseDrawer={handleCloseDrawer} />
-        ) : (
-          <EditHintDrawer onCloseDrawer={handleCloseDrawer} />
-        ))}
+      {openHintDrawer && (
+        <ThemeHintDrawer
+          handleHintCreate={handleHintCreate}
+          onCloseDrawer={handleCloseDrawer}
+          hintType={hintType}
+        />
+      )}
     </div>
   );
 }

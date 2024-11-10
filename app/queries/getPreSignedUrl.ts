@@ -108,11 +108,14 @@ const useHintUpload = () => {
     HintData
   >({
     mutationFn: (data) => (data.id > 0 ? putHint(data) : postHint(data)),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(QUERY_KEY);
       setToast({
         isOpen: true,
-        title: "힌트가 성공적으로 등록되었습니다.",
+        title:
+          data.config.method === "put"
+            ? "힌트를 수정했습니다."
+            : "힌트를 추가했습니다.",
         text: "",
       });
     },

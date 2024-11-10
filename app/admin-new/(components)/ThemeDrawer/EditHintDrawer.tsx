@@ -10,10 +10,14 @@ import {
   rateTextFieldProps,
   XImageProps,
 } from "./consts/themeDrawerProps";
-import { OnCloseDrawerType } from "./types/themeDrawerTypes";
+import { DrawerType } from "./types/themeDrawerTypes";
 import useEditHint from "./hooks/useEditHint";
 
-const EditHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
+const ThemeHintDrawer = ({
+  onCloseDrawer,
+  hintType,
+  handleHintCreate,
+}: DrawerType) => {
   const [selectedHint] = useSelectedHint();
   const {
     handleSubmit,
@@ -23,9 +27,10 @@ const EditHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
     answerImages,
     setAnswerImages,
     isDisabled,
+    isImcomplete,
     deleteHintBtn,
     handleOpenHintModal,
-  } = useEditHint({ onCloseDrawer });
+  } = useEditHint({ onCloseDrawer, hintType, handleHintCreate });
 
   return (
     <form
@@ -49,7 +54,9 @@ const EditHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
         <div className="drawer-code">
           <ThemeTextField
             {...codeTextFieldProps}
-            content={selectedHint.hintCode.toString()}
+            content={
+              selectedHint.hintCode ? selectedHint.hintCode.toString() : ""
+            }
           />
         </div>
 
@@ -66,7 +73,9 @@ const EditHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
           <div className="drawer-category-title">문제 진행률</div>
           <ThemeTextField
             {...rateTextFieldProps}
-            content={selectedHint.progress.toString()}
+            content={
+              selectedHint.progress ? selectedHint.progress.toString() : ""
+            }
           />
         </div>
 
@@ -81,19 +90,27 @@ const EditHintDrawer = ({ onCloseDrawer }: OnCloseDrawerType) => {
         />
       </div>
 
-      <div className="theme-drawer__footer">
-        <button
-          className="outlined_button40"
-          type="button"
-          onClick={deleteHintBtn}
-        >
-          삭제하기
-        </button>
-        <button className="button40" type="submit" disabled={isDisabled}>
-          저장하기
-        </button>
-      </div>
+      {hintType === "Edit" ? (
+        <div className="theme-drawer__footer">
+          <button
+            className="outlined_button40"
+            type="button"
+            onClick={deleteHintBtn}
+          >
+            삭제하기
+          </button>
+          <button className="button40" type="submit" disabled={isDisabled}>
+            저장하기
+          </button>
+        </div>
+      ) : (
+        <div className="theme-drawer__footer">
+          <button className="button40" type="submit" disabled={isImcomplete}>
+            추가하기
+          </button>
+        </div>
+      )}
     </form>
   );
 };
-export default EditHintDrawer;
+export default ThemeHintDrawer;
