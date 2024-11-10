@@ -18,7 +18,7 @@ import {
 } from "@/components/atoms/selectedTheme.atom";
 import { Theme, Themes } from "@/queries/getThemeList";
 import Image from "next/image";
-import { getAdminCode, getShopName } from "@/utils/localStorage";
+import { getLoginInfo } from "@/utils/localStorage";
 import Dialog from "@/components/common/Dialog/Dialog";
 
 import Link from "next/link";
@@ -40,8 +40,7 @@ function MainDrawer(props: Props) {
   const router = useRouter();
 
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const shopName = getShopName();
-  const adminCode = getAdminCode();
+  const { shopName, adminCode } = getLoginInfo();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();

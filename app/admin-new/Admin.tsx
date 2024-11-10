@@ -3,11 +3,7 @@
 import React, { useEffect } from "react";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import Loader from "@/components/Loader/Loader";
-import {
-  getAdminCode,
-  getShopName,
-  setSelectedThemeId,
-} from "@/utils/localStorage";
+import { getLoginInfo, setSelectedThemeId } from "@/utils/localStorage";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useGetThemeList } from "@/queries/getThemeList";
 import { useToastInfo } from "@/components/atoms/toast.atom";
@@ -27,8 +23,8 @@ function Admin() {
   const isLoggedIn = useCheckSignIn();
 
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const adminCode: string = getAdminCode() || "";
-  const shopName: string = getShopName() || "";
+  const { adminCode, shopName } = getLoginInfo();
+
   const [toast, setToast] = useToastInfo();
   const router = useRouter();
 
