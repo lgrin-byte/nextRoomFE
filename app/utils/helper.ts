@@ -1,6 +1,6 @@
 const extractFilename = (url: string): string => {
   const match = url.match(
-    /\/[1-3]_[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/
+    /\/[0-9]{16}_[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/
   );
   return match ? match[0].replace(/\//g, "") : ""; // 슬래시(/) 제거
 };

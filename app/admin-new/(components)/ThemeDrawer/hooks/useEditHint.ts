@@ -106,6 +106,8 @@ const useEditHint = ({
     };
     try {
       await handleProcess(formData, hintImages, answerImages);
+      setHintImages([]);
+      setAnswerImages([]);
 
       const { data: hints = [] } = await getHintList({ themeId });
       const hintElement: SelectedHintType[] = hints.filter(
@@ -119,7 +121,6 @@ const useEditHint = ({
       //   drawerRef.current.classList.remove("animate");
       // }
       setSelectedHint(hintElement[0]);
-
       handleHintCreate("Edit");
     } catch (error) {
       console.error(error);
