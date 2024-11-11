@@ -14,7 +14,6 @@ import extractFilename from "@/utils/helper";
 import { getHintList } from "@/queries/getHintList";
 
 import { DrawerType } from "../types/themeDrawerTypes";
-// import cloneDeep from "lodash/cloneDeep";
 
 const useEditHint = ({
   onCloseDrawer,
@@ -34,6 +33,15 @@ const useEditHint = ({
 
   const drawerRef = useRef<HTMLFormElement>(null);
 
+  useEffect(() => {
+    setCreateHint((prev) => ({
+      ...prev,
+      hintImageUrlList: selectedHint.hintImageUrlList,
+      answerImageUrlList: selectedHint.answerImageUrlList,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const isImcomplete = !(
     createHint.hintCode &&
     createHint.progress &&
@@ -46,14 +54,13 @@ const useEditHint = ({
     Number(createHint.progress) === Number(selectedHint.progress) &&
     String(createHint.contents) === String(selectedHint.contents) &&
     String(createHint.answer) === String(selectedHint.answer) &&
-    // TODO: 이거 왜 계속 같이 업데이트 되는지 모르겠음... 딥카피 왜안됨 ...????? 몰카냐..
     // 서버에 올라간 사진 삭제 여부를 비교
-    // prevHintImages === selectedHint.hintImageUrlList &&
-    // prevAnswerImages === selectedHint.answerImageUrlList &&
-    // 로컬에서 새로 업로드 한 사진 있는지 비교
+    createHint.hintImageUrlList === selectedHint.hintImageUrlList &&
+    createHint.answerImageUrlList === selectedHint.answerImageUrlList &&
+    // 로컬 업로드 사진 하나라도 있으면 변경된 것
     Boolean(!hintImages.length) &&
     Boolean(!answerImages.length);
-  // console.log(createHint, selectedHint, isSameHint);
+
   useEffect(() => {
     if (hintType === "Add") {
       return;
@@ -116,10 +123,7 @@ const useEditHint = ({
       if (hintElement.length !== 1) {
         throw Error("hintElement is not unique");
       }
-      // TODO: 이건 동작 안하는데 .. 애니메이션 빼는 방법 모르겠음
-      // if (hintType === "Add" && drawerRef.current) {
-      //   drawerRef.current.classList.remove("animate");
-      // }
+
       setSelectedHint(hintElement[0]);
       handleHintCreate("Edit");
     } catch (error) {
