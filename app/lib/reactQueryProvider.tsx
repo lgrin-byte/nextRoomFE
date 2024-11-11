@@ -6,13 +6,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import {
-  getAccessToken,
+  getLoginInfo,
   //  removeAccessToken
 } from "@/utils/localStorage";
 // import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 
-const accessToken = getAccessToken();
+const { accessToken } = getLoginInfo();
 
 export const apiClient = axios.create({
   withCredentials: true,

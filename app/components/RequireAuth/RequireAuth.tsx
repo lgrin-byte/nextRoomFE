@@ -16,6 +16,7 @@ import Header from "@/components/common/Header/Header";
 import MainDrawer from "@/components/common/Drawer/Drawer";
 
 import Mobile from "../Mobile/Mobile";
+import { setupAxiosInterceptors } from "@/mutations/useRefresh";
 
 interface RequireAuthProps {
   children: ReactNode;
@@ -41,6 +42,8 @@ function RequireAuth({
       setIsMobile(mobileRegex.test(userAgent));
       setIsLoading(false);
     }
+
+    setupAxiosInterceptors();
   }, []);
 
   useEffect(() => {
