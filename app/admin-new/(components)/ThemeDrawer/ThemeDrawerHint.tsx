@@ -37,12 +37,15 @@ const ThemeDrawerHint = ({
   useEffect(() => {
     if (selectedHint.hintImageUrlList) {
       setImgCnt(3 - hintImages.length - selectedHint.hintImageUrlList.length);
+      return;
     }
+    setImgCnt(3 - hintImages.length);
   }, [hintImages, selectedHint.hintImageUrlList]);
 
   // 이미지 파일 핸들러
-  const handleHintFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleHintFileClick = (e: MouseEvent<HTMLInputElement>) => {
     if (imgCnt === 0) {
+      e.preventDefault();
       setToast({
         isOpen: true,
         title: "이미지는 3개까지 추가할 수 있습니다.",
@@ -50,6 +53,8 @@ const ThemeDrawerHint = ({
       });
       return;
     }
+  };
+  const handleHintFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
       return;
     }
@@ -127,6 +132,7 @@ const ThemeDrawerHint = ({
           <input
             type="file"
             multiple
+            onClick={handleHintFileClick}
             onChange={handleHintFileChange}
             accept="image/*"
             style={{ display: "none" }}
