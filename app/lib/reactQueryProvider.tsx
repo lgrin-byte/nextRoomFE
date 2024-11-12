@@ -5,11 +5,8 @@ import { PropsWithChildren, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import {
-  getLoginInfo,
-  //  removeAccessToken
-} from "@/utils/localStorage";
-// import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
+import { getLoginInfo, removeAccessToken } from "@/utils/localStorage";
+import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 
 const { accessToken } = getLoginInfo();
@@ -34,7 +31,7 @@ type ErrorResponse = {
 };
 
 export default function ReactQueryProvider({ children }: PropsWithChildren) {
-  // const setIsLoggedIn = useIsLoggedInWrite();
+  const setIsLoggedIn = useIsLoggedInWrite();
   const setSnackBar = useSnackBarWrite();
 
   apiClient.interceptors.response.use(
@@ -48,13 +45,12 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
         });
       }
 
-      // TODO: /v1/hint에서 힌트코드 에러를 400으로 받아서 우선 여기 코드를 주석처리함
-      // if (response && (response.status === 401 || response.status === 400)) {
-      //   delete apiClient.defaults.headers.Authorization;
-      //   delete apiClient.defaults.headers.common.Authorization;
-      //   removeAccessToken();
-      //   setIsLoggedIn(false);
-      // }
+      if (response && response.status === 401) {
+        delete apiClient.defaults.headers.Authorization;
+        delete apiClient.defaults.headers.common.Authorization;
+        removeAccessToken();
+        setIsLoggedIn(false);
+      }
 
       return Promise.reject(error);
     }

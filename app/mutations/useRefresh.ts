@@ -1,11 +1,12 @@
+import axios from "axios";
+import moment from "moment";
+
+import { useMutation } from "@tanstack/react-query";
 import {
   getLoginInfo,
   removeAccessToken,
   setLocalStorage,
 } from "@/utils/localStorage";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import moment from "moment";
 
 interface ReissueResponse {
   accessToken: string;
@@ -30,12 +31,12 @@ export const useTokenRefresh = () => {
 
   // 토큰 만료 체크 및 갱신
   const checkAndRefreshToken = async () => {
-    const expireAt = sessionStorage.getItem("accessTokenExpiresIn");
-    const email = sessionStorage.getItem("email");
+    const { accessTokenExpiresIn } = getLoginInfo();
+    const now = new Date();
 
-    if (!expireAt || !email) return null;
+    if (!accessTokenExpiresIn) return null;
 
-    if (moment(expireAt).diff(moment()) < 0) {
+    if (Number(accessTokenExpiresIn) - now.getTime() < 0) {
       return mutation.mutateAsync();
     }
 
@@ -51,10 +52,10 @@ export const useTokenRefresh = () => {
 export const setupAxiosInterceptors = () => {
   axios.interceptors.request.use(
     async (config) => {
-      const { accessToken, accessTokenExpiresIn: expireAt } = getLoginInfo();
+      const { accessToken, accessTokenExpiresIn } = getLoginInfo();
       const now = new Date();
 
-      if (expireAt && Number(expireAt) - now.getTime() < 0) {
+      if (Number(accessTokenExpiresIn) - now.getTime() < 0) {
         try {
           const response = await reissueToken();
           config.headers.Authorization = `Bearer ${response.accessToken}`;
