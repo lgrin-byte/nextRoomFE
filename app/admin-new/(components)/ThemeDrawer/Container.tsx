@@ -81,13 +81,15 @@ const ThemeDrawer = ({
         </div>
 
         <ThemeDrawerHint
-          hintImages={hintImages}
-          setHintImages={setHintImages}
+          imageType={"hint"}
+          images={hintImages}
+          setImages={setHintImages}
         />
 
         <ThemeDrawerAnswer
-          answerImages={answerImages}
-          setAnswerImages={setAnswerImages}
+          imageType={"answer"}
+          images={answerImages}
+          setImages={setAnswerImages}
         />
       </div>
 

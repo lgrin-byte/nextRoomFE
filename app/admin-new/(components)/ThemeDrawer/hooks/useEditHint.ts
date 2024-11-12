@@ -2,6 +2,7 @@ import { useState, useEffect, FormEvent, useRef } from "react";
 
 import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import {
+  InitialSelectedHint,
   SelectedHintType,
   useSelectedHint,
 } from "@/components/atoms/selectedHint.atom";
@@ -124,7 +125,12 @@ const useEditHint = ({
         throw Error("hintElement is not unique");
       }
 
-      setSelectedHint(hintElement[0]);
+      setSelectedHint(() => ({ ...InitialSelectedHint, ...hintElement[0] }));
+      setCreateHint((prev) => ({
+        ...prev,
+        hintImageUrlList: hintElement[0].hintImageUrlList,
+        answerImageUrlList: hintElement[0].answerImageUrlList,
+      }));
       handleHintCreate("Edit");
     } catch (error) {
       console.error(error);

@@ -6,19 +6,11 @@ import {
   useResetRecoilState,
 } from "recoil";
 
-import { SelectedHintType } from "./selectedHint.atom";
+import { InitialSelectedHint, SelectedHintType } from "./selectedHint.atom";
 
 const createHintState = atom<SelectedHintType>({
   key: "createHint",
-  default: {
-    id: 0,
-    hintCode: "",
-    progress: 0,
-    contents: "",
-    answer: "",
-    hintImageUrlList: [],
-    answerImageUrlList: [],
-  },
+  default: InitialSelectedHint,
 });
 
 export const useCreateHint = () => useRecoilState(createHintState);
