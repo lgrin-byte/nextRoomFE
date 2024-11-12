@@ -8,13 +8,38 @@ import {
   setLocalStorage,
 } from "@/utils/localStorage";
 
-interface ReissueResponse {
+interface ReissueRequest {
   accessToken: string;
+  refreshToken: string;
 }
 
-const reissueToken = async (): Promise<ReissueResponse> => {
-  const response = await axios.post("/api/v1/auth/reissue");
-  return response.data;
+interface ReissueResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
+const reissueToken = async ({
+  accessToken,
+  refreshToken,
+}: ReissueRequest): Promise<ReissueResponse> => {
+  try {
+    const response = await axios.post<ReissueResponse>(
+      "/api/v1/auth/reissue",
+      {
+        accessToken: accessToken.replace(/^"|"$/g, ""),
+        refreshToken: refreshToken.replace(/^"|"$/g, ""),
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Token reissue failed:", error);
+    throw error;
+  }
 };
 
 export const useTokenRefresh = () => {
@@ -22,7 +47,10 @@ export const useTokenRefresh = () => {
     mutationFn: reissueToken,
     onSuccess: (data) => {
       setLocalStorage("accessToken", data.accessToken);
-      setLocalStorage("accessTokenExpiresIn", moment().add(3, "minute"));
+      setLocalStorage(
+        "accessTokenExpiresIn",
+        moment().add(3, "minutes").unix()
+      );
     },
     onError: (error) => {
       removeAccessToken();
@@ -31,13 +59,13 @@ export const useTokenRefresh = () => {
 
   // 토큰 만료 체크 및 갱신
   const checkAndRefreshToken = async () => {
-    const { accessTokenExpiresIn } = getLoginInfo();
+    const { accessToken, refreshToken, accessTokenExpiresIn } = getLoginInfo();
     const now = new Date();
 
     if (!accessTokenExpiresIn) return null;
 
     if (Number(accessTokenExpiresIn) - now.getTime() < 0) {
-      return mutation.mutateAsync();
+      return mutation.mutateAsync({ accessToken, refreshToken });
     }
 
     return null;
@@ -52,13 +80,14 @@ export const useTokenRefresh = () => {
 export const setupAxiosInterceptors = () => {
   axios.interceptors.request.use(
     async (config) => {
-      const { accessToken, accessTokenExpiresIn } = getLoginInfo();
+      const { accessToken, refreshToken, accessTokenExpiresIn } =
+        getLoginInfo();
       const now = new Date();
 
       if (Number(accessTokenExpiresIn) - now.getTime() < 0) {
         try {
-          const response = await reissueToken();
-          config.headers.Authorization = `Bearer ${response.accessToken}`;
+          const response = await reissueToken({ accessToken, refreshToken });
+          config.headers.Authorization = `Bearer ${accessToken}`;
         } catch (error) {
           console.error("Token refresh failed in interceptor:", error);
         }

@@ -50,7 +50,7 @@ function RequireAuth({
       const result = await refreshToken();
     };
 
-    checkToken();
+    // checkToken();
   }, [refreshToken, router]);
 
   useEffect(() => {
