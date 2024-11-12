@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 import "../../(style)/themeInfo.modules.sass";
+import classNames from "classnames";
+
 import useModal from "@/hooks/useModal";
 import Dialog from "@/components/common/Dialog-new/Dialog";
 import { useSelectedHintReset } from "@/components/atoms/selectedHint.atom";
 
-import AddHintDrawer from "../ThemeDrawer/AddHintDrawer";
-import EditHintDrawer from "../ThemeDrawer/EditHintDrawer";
+import ThemeDrawer from "../ThemeDrawer/Container";
 
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
@@ -17,7 +17,7 @@ export default function ThemeInfo() {
   const resetSelectedHint = useSelectedHintReset();
 
   const [openHintDrawer, setOpenHintDrawer] = useState(false);
-  const [hintType, setHintType] = useState("Add");
+  const [hintType, setHintType] = useState<string>("Add");
 
   const handleOpenModal = () => {
     open(Dialog, { type: "put" });
@@ -26,6 +26,11 @@ export default function ThemeInfo() {
   const handleCloseDrawer = () => {
     resetSelectedHint();
     setOpenHintDrawer(false);
+  };
+
+  const handleHintCreate = (type: string) => {
+    setOpenHintDrawer(true);
+    setHintType(type);
   };
 
   useEffect(() => {
@@ -42,22 +47,21 @@ export default function ThemeInfo() {
   }, []);
 
   return (
-    <div className="theme-infomation">
+    <div
+      className={classNames("theme-infomation", {
+        "drawer-open": openHintDrawer,
+      })}
+    >
       <ThemeInfoTitle handleOpenModal={handleOpenModal} />
       <ThemeInfoBody handleOpenModal={handleOpenModal} />
-      <ThemeInfoHint
-        handleHintCreate={(type) => {
-          setOpenHintDrawer(true);
-          setHintType(type);
-        }}
-        openHintDrawer={openHintDrawer}
-      />
-      {openHintDrawer &&
-        (hintType === "Add" ? (
-          <AddHintDrawer onCloseDrawer={handleCloseDrawer} />
-        ) : (
-          <EditHintDrawer onCloseDrawer={handleCloseDrawer} />
-        ))}
+      <ThemeInfoHint handleHintCreate={handleHintCreate} />
+      {openHintDrawer && (
+        <ThemeDrawer
+          handleHintCreate={handleHintCreate}
+          onCloseDrawer={handleCloseDrawer}
+          hintType={hintType}
+        />
+      )}
     </div>
   );
 }

@@ -12,13 +12,9 @@ import { useCreateHintReset } from "@/components/atoms/createHint.atom";
 
 interface ThemeDrawerProps {
   handleHintCreate: (type: string) => void;
-  openHintDrawer: boolean;
 }
 
-const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({
-  handleHintCreate,
-  openHintDrawer,
-}) => {
+const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
   const { id: themeId } = useSelectedThemeValue();
 
   const { data: hints = [] } = useGetHintList({ themeId });
@@ -35,10 +31,6 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({
     e: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>,
     hintElement: SelectedHintType
   ) => {
-    if (openHintDrawer) {
-      e.preventDefault();
-      return;
-    }
     setSelectedHint(hintElement);
     handleHintCreate("Edit");
   };
