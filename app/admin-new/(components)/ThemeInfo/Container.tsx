@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import classNames from "classnames";
+
 import "../../(style)/themeInfo.modules.sass";
+
 import useModal from "@/hooks/useModal";
 import Dialog from "@/components/common/Dialog-new/Dialog";
 import { useSelectedHintReset } from "@/components/atoms/selectedHint.atom";
-import classNames from "classnames";
+
+import ThemeDrawer from "../ThemeDrawer/Container";
+
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
-import ThemeDrawer from "../ThemeDrawer/Container";
 
 export default function ThemeInfo() {
   const { open } = useModal();

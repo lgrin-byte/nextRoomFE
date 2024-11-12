@@ -1,9 +1,12 @@
 import React from "react";
-import { HOME_TITLE } from "@/consts/components/home";
 import AddIcon from "@mui/icons-material/Add";
+import { useRouter } from "next/navigation";
+
+import { HOME_TITLE } from "@/consts/components/home";
 import { useModalStateWrite } from "@/components/atoms/modalState.atom";
 import { getLoginInfo } from "@/utils/localStorage";
-import { useRouter } from "next/navigation";
+
+
 import * as S from "./EmptyHomeView.styled";
 
 function EmptyHomeView() {

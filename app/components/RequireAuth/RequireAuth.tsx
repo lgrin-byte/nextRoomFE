@@ -2,8 +2,8 @@
 
 import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { useTokenRefresh } from "@/mutations/useRefresh";
 
+import { useTokenRefresh } from "@/mutations/useRefresh";
 import { useGetThemeList } from "@/queries/getThemeList";
 import {
   useCurrentTheme,
