@@ -9,16 +9,22 @@ import { getLoginInfo, removeAccessToken } from "@/utils/localStorage";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 
-const { accessToken } = getLoginInfo();
-
 export const apiClient = axios.create({
   withCredentials: true,
-  headers: {
-    ...(accessToken && {
-      Authorization: `Bearer ${accessToken.replace(/^"(.*)"$/, "$1")}`,
-    }),
-  },
 });
+
+apiClient.interceptors.request.use(
+  (config) => {
+    const { accessToken } = getLoginInfo();
+
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken.replace(/^"(.*)"$/, "$1")}`;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 type ErrorResponse = {
   response: {
