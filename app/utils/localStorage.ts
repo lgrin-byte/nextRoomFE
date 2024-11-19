@@ -75,3 +75,7 @@ export const getSelectedThemeId = () => getLocalStorage(THEME_ID);
 export const removeAccessToken = () => {
   removeLocalStorageItem(ACCESS_TOKEN);
 };
+
+export const removeLocalStorageAll = () => {
+  localStorage.clear();
+};

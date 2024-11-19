@@ -11,6 +11,9 @@ import { useDeleteHint } from "@/mutations/deleteHint";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 
 import ModalPortal from "./ModalPortal";
+import {
+  useDrawerState,
+} from "@/components/atoms/drawer.atom";
 
 interface DialogProps {
   type?: string | "";
@@ -38,6 +41,7 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
   const [selectedHint] = useSelectedHint();
 
   const { mutateAsync: deleteHint } = useDeleteHint();
+  const [drawer, setDrawer] = useDrawerState();
 
   const onSubmit: SubmitHandler<FormValues> = () => {
     const { id } = selectedHint;
@@ -45,6 +49,7 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
     if (type === "put") {
       fn();
       close();
+      setDrawer({ ...drawer, isOpen: false });
     } else if (type === "delete") {
       deleteHint({ id });
       close();

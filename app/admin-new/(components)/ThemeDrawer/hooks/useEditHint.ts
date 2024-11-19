@@ -13,7 +13,7 @@ import useHintUpload from "@/queries/getPreSignedUrl";
 import useModal from "@/hooks/useModal";
 import extractFilename from "@/utils/helper";
 import { getHintList } from "@/queries/getHintList";
-
+import { useDrawerState } from "@/components/atoms/drawer.atom";
 import { DrawerType } from "../types/themeDrawerTypes";
 
 const useEditHint = ({
@@ -33,6 +33,8 @@ const useEditHint = ({
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   const drawerRef = useRef<HTMLFormElement>(null);
+
+  const [drawer, setDrawer] = useDrawerState();
 
   useEffect(() => {
     setCreateHint((prev) => ({
@@ -63,9 +65,29 @@ const useEditHint = ({
     Boolean(!answerImages.length);
 
   useEffect(() => {
-    if (hintType === "Add") {
+    const isSameHint =
+      String(createHint.hintCode) === String(selectedHint.hintCode) &&
+      Number(createHint.progress) === Number(selectedHint.progress) &&
+      String(createHint.contents) === String(selectedHint.contents) &&
+      String(createHint.answer) === String(selectedHint.answer) &&
+      // 서버에 올라간 사진 삭제 여부를 비교
+      createHint.hintImageUrlList === selectedHint.hintImageUrlList &&
+      createHint.answerImageUrlList === selectedHint.answerImageUrlList &&
+      // 로컬 업로드 사진 하나라도 있으면 변경된 것
+      Boolean(!hintImages.length) &&
+      Boolean(!answerImages.length);
+
+    setDrawer((prevDrawer) => ({
+      ...prevDrawer,
+      isSameHint,
+    }));
+  }, [isSameHint, setDrawer]);
+
+  useEffect(() => {
+    if (drawer.hintType === "Add") {
       return;
     }
+
     if (isSameHint || isImcomplete) {
       setIsDisabled(true);
     } else {

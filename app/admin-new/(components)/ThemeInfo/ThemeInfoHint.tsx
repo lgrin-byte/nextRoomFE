@@ -3,12 +3,15 @@ import classNames from "classnames";
 
 import { useGetHintList } from "@/queries/getHintList";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
+import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import {
   SelectedHintType,
   useSelectedHint,
   useSelectedHintReset,
 } from "@/components/atoms/selectedHint.atom";
 import { useCreateHintReset } from "@/components/atoms/createHint.atom";
+import { useDrawerState } from "@/components/atoms/drawer.atom";
+import useModal from "@/hooks/useModal";
 
 interface ThemeDrawerProps {
   handleHintCreate: (type: string) => void;
@@ -21,18 +24,41 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
   const [selectedHint, setSelectedHint] = useSelectedHint();
   const resetSelectedHint = useSelectedHintReset();
   const resetCreateHint = useCreateHintReset();
+  const [drawer, setDrawer] = useDrawerState();
+  const { open } = useModal();
 
-  const handleAddHintBtn = () => {
+  const handleResetCreateHint = () => {
     resetSelectedHint();
     resetCreateHint();
     handleHintCreate("Add");
   };
+
+  const handleAddHintBtn = () => {
+    if (drawer.isOpen && !drawer.isSameHint) {
+      open(HintDialog, {
+        type: "",
+        fn: handleResetCreateHint,
+      });
+    } else handleResetCreateHint();
+  };
+
   const handleEditHintBtn = (
     e: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>,
     hintElement: SelectedHintType
   ) => {
-    setSelectedHint(hintElement);
-    handleHintCreate("Edit");
+    if (drawer.isOpen && !drawer.isSameHint) {
+      open(HintDialog, {
+        type: "put",
+        fn: () => {
+          setSelectedHint(hintElement);
+          handleHintCreate("Edit");
+          setDrawer({ ...drawer, isOpen: true, hintType: "put" });
+        },
+      });
+    } else {
+      setSelectedHint(hintElement);
+      handleHintCreate("Edit");
+    }
   };
 
   return (
