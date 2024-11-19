@@ -83,13 +83,11 @@ export const setSelectedThemeId = (themeId: number) => {
 // 필요하다면 한번에 가져오는 함수도 만들 수 있습니다
 export const getLoginInfo = (): LoginInfo => {
   return {
-    accessToken: getLocalStorage(ACCESS_TOKEN) as string,
-    refreshToken: getLocalStorage(REFRESH_TOKEN) as string,
-    shopName: getLocalStorage(SHOP_NAME) as string,
-    adminCode: getLocalStorage(ADMIN_CODE) as string,
-    accessTokenExpiresIn: getLocalStorage(
-      ACCESS_TOKEN_EXPIRES_IN
-    ) as unknown as number,
+    accessToken: getLocalStorage(ACCESS_TOKEN) || "",
+    refreshToken: getLocalStorage(REFRESH_TOKEN) || "",
+    shopName: getLocalStorage(SHOP_NAME) || "",
+    adminCode: getLocalStorage(ADMIN_CODE) || "",
+    accessTokenExpiresIn: Number(getLocalStorage(ACCESS_TOKEN_EXPIRES_IN)) || 0,
   };
 };
 export const getStatus = () => getLocalStorage(STATUS);

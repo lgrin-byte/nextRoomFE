@@ -46,14 +46,6 @@ function RequireAuth({
   }, []);
 
   useEffect(() => {
-    const checkToken = async () => {
-      const result = await refreshToken();
-    };
-
-    // checkToken();
-  }, [refreshToken, router]);
-
-  useEffect(() => {
     if (categories.length > 0) {
       setCurrentTheme(categories.map(({ id, title }) => ({ id, title })));
     } else {
