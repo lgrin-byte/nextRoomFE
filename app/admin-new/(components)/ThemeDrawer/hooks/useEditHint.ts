@@ -5,6 +5,7 @@ import {
   InitialSelectedHint,
   SelectedHintType,
   useSelectedHint,
+  useSelectedHintReset,
 } from "@/components/atoms/selectedHint.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
 import { useCreateHint } from "@/components/atoms/createHint.atom";
@@ -17,11 +18,7 @@ import { useDrawerState } from "@/components/atoms/drawer.atom";
 
 import { DrawerType } from "../types/themeDrawerTypes";
 
-const useEditHint = ({
-  onCloseDrawer,
-  hintType,
-  handleHintCreate,
-}: DrawerType) => {
+const useEditHint = ({ hintType, handleHintCreate }: DrawerType) => {
   const { id: themeId } = useSelectedThemeValue();
 
   const selectedTheme = useSelectedThemeValue();
@@ -32,6 +29,7 @@ const useEditHint = ({
   const [answerImages, setAnswerImages] = useState<File[]>([]);
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const resetSelectedHint = useSelectedHintReset();
 
   const drawerRef = useRef<HTMLFormElement>(null);
 
@@ -52,6 +50,16 @@ const useEditHint = ({
     createHint.contents &&
     createHint.answer
   );
+
+  const onCloseDrawer = () => {
+    const element = document.querySelector(".theme-info-modal.delete");
+    if (element) {
+      setDrawer({ ...drawer, isOpen: true });
+    } else {
+      setDrawer({ ...drawer, isOpen: false });
+      resetSelectedHint();
+    }
+  };
 
   const isSameHint =
     String(createHint.hintCode) === String(selectedHint.hintCode) &&
