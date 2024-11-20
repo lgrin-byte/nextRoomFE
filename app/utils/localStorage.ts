@@ -97,6 +97,10 @@ export const removeAccessToken = () => {
   removeLocalStorageItem(ACCESS_TOKEN);
 };
 
+export const removeThemeId = () => {
+  removeLocalStorageItem(THEME_ID);
+};
+
 export const removeLocalStorageAll = () => {
   localStorage.clear();
 };
