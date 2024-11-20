@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import "../../(style)/themeInfo.modules.sass";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
+
+import "../../(style)/themeInfo.modules.sass";
 
 import useModal from "@/hooks/useModal";
 import Dialog from "@/components/common/Dialog-new/Dialog";

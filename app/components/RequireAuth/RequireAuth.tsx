@@ -3,13 +3,14 @@
 import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
+import { useTokenRefresh } from "@/mutations/useRefresh";
 import { useGetThemeList } from "@/queries/getThemeList";
 import {
   useCurrentTheme,
   useCurrentThemeReset,
 } from "@/components/atoms/currentTheme.atom";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
-import { useIsLoggedInValue } from "@/components/atoms/account.atom";
+import { useIsLoggedIn } from "@/components/atoms/account.atom";
 import { getSelectedThemeId } from "@/utils/localStorage";
 import * as S from "@/home/HomeView.styled";
 import Header from "@/components/common/Header/Header";
@@ -23,7 +24,7 @@ interface RequireAuthProps {
 function RequireAuth({
   children,
 }: RequireAuthProps): React.ReactElement | null {
-  const isLoggedIn = useIsLoggedInValue();
+  const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
   const [currentTheme, setCurrentTheme] = useCurrentTheme();
   const resetCurrentTheme = useCurrentThemeReset();
   const resetSelectedTheme = useSelectedThemeReset();
@@ -33,6 +34,7 @@ function RequireAuth({
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { data: categories = [] } = useGetThemeList();
+  const { refreshToken, error } = useTokenRefresh();
   useEffect(() => {
     if (typeof window !== "undefined") {
       const { userAgent } = window.navigator;

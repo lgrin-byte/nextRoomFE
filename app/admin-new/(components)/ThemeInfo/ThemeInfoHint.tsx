@@ -9,7 +9,10 @@ import {
   useSelectedHint,
   useSelectedHintReset,
 } from "@/components/atoms/selectedHint.atom";
-import { useCreateHintReset } from "@/components/atoms/createHint.atom";
+import {
+  useCreateHint,
+  useCreateHintReset,
+} from "@/components/atoms/createHint.atom";
 import { useDrawerState } from "@/components/atoms/drawer.atom";
 import useModal from "@/hooks/useModal";
 
@@ -22,6 +25,7 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
 
   const { data: hints = [] } = useGetHintList({ themeId });
   const [selectedHint, setSelectedHint] = useSelectedHint();
+  const [_, setCreateHint] = useCreateHint();
   const resetSelectedHint = useSelectedHintReset();
   const resetCreateHint = useCreateHintReset();
   const [drawer, setDrawer] = useDrawerState();
@@ -52,13 +56,19 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
         type: "put",
         fn: () => {
           setSelectedHint(hintElement);
+          setCreateHint(hintElement);
           handleHintCreate("Edit");
           setDrawer({ ...drawer, isOpen: true, hintType: "put" });
         },
       });
     } else {
       setSelectedHint(hintElement);
+      setCreateHint(hintElement);
+
       handleHintCreate("Edit");
+    }
+    if (hintElement.id === selectedHint.id) {
+      return;
     }
   };
 
