@@ -66,23 +66,11 @@ const useEditHint = ({
     Boolean(!answerImages.length);
 
   useEffect(() => {
-    const isSameHint =
-      String(createHint.hintCode) === String(selectedHint.hintCode) &&
-      Number(createHint.progress) === Number(selectedHint.progress) &&
-      String(createHint.contents) === String(selectedHint.contents) &&
-      String(createHint.answer) === String(selectedHint.answer) &&
-      // 서버에 올라간 사진 삭제 여부를 비교
-      createHint.hintImageUrlList === selectedHint.hintImageUrlList &&
-      createHint.answerImageUrlList === selectedHint.answerImageUrlList &&
-      // 로컬 업로드 사진 하나라도 있으면 변경된 것
-      Boolean(!hintImages.length) &&
-      Boolean(!answerImages.length);
-
     setDrawer((prevDrawer) => ({
       ...prevDrawer,
       isSameHint,
     }));
-  }, [createHint, selectedHint]);
+  }, [isSameHint, createHint, selectedHint]);
 
   useEffect(() => {
     if (drawer.hintType === "Add") {
@@ -115,7 +103,7 @@ const useEditHint = ({
       answerImageUrlList: selectedHint.answerImageUrlList,
       hintImageUrlList: selectedHint.hintImageUrlList,
     }));
-  }, [hintType, selectedHint]);
+  }, [hintType, selectedHint, setCreateHint]);
 
   const { handleProcess } = useHintUpload();
   const handleSubmit = async (e: FormEvent) => {
