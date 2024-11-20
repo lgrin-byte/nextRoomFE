@@ -9,9 +9,7 @@ import DialogBody from "@/components/common/Hint-Dialog-new/DialogBody";
 import "@/components/common/Dialog-new/dialog.sass";
 import { useDeleteHint } from "@/mutations/deleteHint";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
-import {
-  useDrawerState,
-} from "@/components/atoms/drawer.atom";
+import { useDrawerState } from "@/components/atoms/drawer.atom";
 
 import ModalPortal from "./ModalPortal";
 
@@ -49,7 +47,6 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
     if (type === "put") {
       fn();
       close();
-      setDrawer({ ...drawer, isOpen: false });
     } else if (type === "delete") {
       deleteHint({ id });
       close();

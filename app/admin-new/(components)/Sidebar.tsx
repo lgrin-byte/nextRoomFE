@@ -64,7 +64,13 @@ export default function Sidebar(props: Props) {
   };
   const handleSelectTheme = (theme: Theme) => {
     if (drawer.isOpen && !drawer.isSameHint) {
-      open(HintDialog, { type: "put", fn: () => handleClickSelected(theme) });
+      open(HintDialog, {
+        type: "put",
+        fn: () => {
+          handleClickSelected(theme);
+          setDrawer({ ...drawer, isOpen: false });
+        },
+      });
     } else {
       setDrawer({ ...drawer, isOpen: false });
       handleClickSelected(theme);
