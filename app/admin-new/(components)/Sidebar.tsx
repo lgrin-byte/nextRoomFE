@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
-import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 
+import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import {
   logoProps,
   plusDisableProps,

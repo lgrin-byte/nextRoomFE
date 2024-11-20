@@ -31,12 +31,13 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
     resetSelectedHint();
     resetCreateHint();
     handleHintCreate("Add");
+    setDrawer({ ...drawer, isOpen: true, hintType: "add" });
   };
 
   const handleAddHintBtn = () => {
     if (drawer.isOpen && !drawer.isSameHint) {
       open(HintDialog, {
-        type: "",
+        type: "put",
         fn: handleResetCreateHint,
       });
     } else handleResetCreateHint();

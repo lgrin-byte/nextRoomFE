@@ -14,6 +14,7 @@ import useModal from "@/hooks/useModal";
 import extractFilename from "@/utils/helper";
 import { getHintList } from "@/queries/getHintList";
 import { useDrawerState } from "@/components/atoms/drawer.atom";
+
 import { DrawerType } from "../types/themeDrawerTypes";
 
 const useEditHint = ({
@@ -81,7 +82,7 @@ const useEditHint = ({
       ...prevDrawer,
       isSameHint,
     }));
-  }, [isSameHint, setDrawer]);
+  }, [createHint, selectedHint]);
 
   useEffect(() => {
     if (drawer.hintType === "Add") {
@@ -111,8 +112,10 @@ const useEditHint = ({
       ...prev,
       contents: selectedHint.contents,
       answer: selectedHint.answer,
+      answerImageUrlList: selectedHint.answerImageUrlList,
+      hintImageUrlList: selectedHint.hintImageUrlList,
     }));
-  }, [hintType, selectedHint, setCreateHint]);
+  }, [hintType, selectedHint]);
 
   const { handleProcess } = useHintUpload();
   const handleSubmit = async (e: FormEvent) => {

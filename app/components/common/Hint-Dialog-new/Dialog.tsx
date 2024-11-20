@@ -9,11 +9,11 @@ import DialogBody from "@/components/common/Hint-Dialog-new/DialogBody";
 import "@/components/common/Dialog-new/dialog.sass";
 import { useDeleteHint } from "@/mutations/deleteHint";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
-
-import ModalPortal from "./ModalPortal";
 import {
   useDrawerState,
 } from "@/components/atoms/drawer.atom";
+
+import ModalPortal from "./ModalPortal";
 
 interface DialogProps {
   type?: string | "";
