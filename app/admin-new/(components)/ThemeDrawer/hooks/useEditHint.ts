@@ -100,8 +100,6 @@ const useEditHint = ({
       ...prev,
       contents: selectedHint.contents,
       answer: selectedHint.answer,
-      answerImageUrlList: selectedHint.answerImageUrlList,
-      hintImageUrlList: selectedHint.hintImageUrlList,
     }));
   }, [hintType, selectedHint, setCreateHint]);
 
