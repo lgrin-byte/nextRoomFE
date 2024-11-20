@@ -3,14 +3,22 @@ import Image from "next/image";
 import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import {
   logoProps,
   plusDisableProps,
   plusProps,
   subscribeLinkURL,
 } from "@/admin-new/(consts)/sidebar";
-import { getSelectedThemeId, getStatus } from "@/utils/localStorage";
+import {
+  getSelectedThemeId,
+  getStatus,
+  removeAccessToken,
+} from "@/utils/localStorage";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
+import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
+import { useDrawerState } from "@/components/atoms/drawer.atom";
+import useModal from "@/hooks/useModal";
 
 interface Theme {
   id: number;
@@ -30,6 +38,10 @@ interface Props {
 export default function Sidebar(props: Props) {
   const router = useRouter();
   const resetSelectedTheme = useSelectedThemeReset();
+  // const setIsLoggedIn = useIsLoggedInWrite();
+  const [drawer, setDrawer] = useDrawerState();
+  const { open } = useModal();
+
   const status = getStatus();
   const searchParams = useSearchParams();
   const selectedThemeId = getSelectedThemeId();
@@ -40,6 +52,34 @@ export default function Sidebar(props: Props) {
     categories,
     handleClickSelected,
   } = props;
+
+  // const handleLogout = () => {
+  //   removeAccessToken();
+  //   setIsLoggedIn(false);
+  // };
+
+  const navigateToNewTheme = () => {
+    resetSelectedTheme();
+    router.push("/admin-new");
+  };
+  const handleSelectTheme = (theme: Theme) => {
+    if (drawer.isOpen && !drawer.isSameHint) {
+      open(HintDialog, { type: "put", fn: () => handleClickSelected(theme) });
+    } else {
+      setDrawer({ ...drawer, isOpen: false });
+      handleClickSelected(theme);
+    }
+  };
+
+  const handleCreateTheme = () => {
+    if (drawer.isOpen && !drawer.isSameHint) {
+      open(HintDialog, { type: "put", fn: navigateToNewTheme });
+    } else {
+      setDrawer({ ...drawer, isOpen: false });
+      navigateToNewTheme();
+    }
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar__top">
@@ -51,7 +91,6 @@ export default function Sidebar(props: Props) {
         </div>
         <div className="sidebar__theme-title">우리 지점 테마</div>
       </div>
-
       <div className="sidebar__scroll">
         <ul className="sidebar__theme-list">
           {[...categories].reverse().map((theme) => (
@@ -65,7 +104,7 @@ export default function Sidebar(props: Props) {
                 className={classNames("sidebar__theme-button", {
                   selected: selectedThemeId === theme.id?.toString() && params,
                 })}
-                onClick={() => handleClickSelected(theme)}
+                onClick={() => handleSelectTheme(theme)}
               >
                 {theme.title}
               </button>
@@ -80,11 +119,7 @@ export default function Sidebar(props: Props) {
                   selected: !params,
                 }
               )}
-              onClick={() => {
-                resetSelectedTheme();
-
-                router.push("/admin-new");
-              }}
+              onClick={handleCreateTheme}
             >
               <Image {...(params ? plusDisableProps : plusProps)} />새 테마
               추가하기

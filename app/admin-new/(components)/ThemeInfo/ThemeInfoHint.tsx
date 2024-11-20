@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import { useGetHintList } from "@/queries/getHintList";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
+import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
 import {
   SelectedHintType,
   useSelectedHint,
@@ -12,6 +13,8 @@ import {
   useCreateHint,
   useCreateHintReset,
 } from "@/components/atoms/createHint.atom";
+import { useDrawerState } from "@/components/atoms/drawer.atom";
+import useModal from "@/hooks/useModal";
 
 interface ThemeDrawerProps {
   handleHintCreate: (type: string) => void;
@@ -25,23 +28,48 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
   const [_, setCreateHint] = useCreateHint();
   const resetSelectedHint = useSelectedHintReset();
   const resetCreateHint = useCreateHintReset();
+  const [drawer, setDrawer] = useDrawerState();
+  const { open } = useModal();
 
-  const handleAddHintBtn = () => {
+  const handleResetCreateHint = () => {
     resetSelectedHint();
     resetCreateHint();
     handleHintCreate("Add");
+    setDrawer({ ...drawer, isOpen: true, hintType: "add" });
   };
+
+  const handleAddHintBtn = () => {
+    if (drawer.isOpen && !drawer.isSameHint) {
+      open(HintDialog, {
+        type: "put",
+        fn: handleResetCreateHint,
+      });
+    } else handleResetCreateHint();
+  };
+
   const handleEditHintBtn = (
     e: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>,
     hintElement: SelectedHintType
   ) => {
+    if (drawer.isOpen && !drawer.isSameHint) {
+      open(HintDialog, {
+        type: "put",
+        fn: () => {
+          setSelectedHint(hintElement);
+          setCreateHint(hintElement);
+          handleHintCreate("Edit");
+          setDrawer({ ...drawer, isOpen: true, hintType: "put" });
+        },
+      });
+    } else {
+      setSelectedHint(hintElement);
+      setCreateHint(hintElement);
+
+      handleHintCreate("Edit");
+    }
     if (hintElement.id === selectedHint.id) {
       return;
     }
-
-    setCreateHint(hintElement);
-    setSelectedHint(hintElement);
-    handleHintCreate("Edit");
   };
 
   return (
