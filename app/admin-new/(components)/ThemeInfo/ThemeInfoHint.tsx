@@ -51,6 +51,7 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
     e: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>,
     hintElement: SelectedHintType
   ) => {
+    if (selectedHint.id === hintElement.id) return;
     if (drawer.isOpen && !drawer.isSameHint) {
       open(HintDialog, {
         type: "put",
@@ -58,7 +59,7 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
           setSelectedHint(hintElement);
           setCreateHint(hintElement);
           handleHintCreate("Edit");
-          setDrawer({ ...drawer, isOpen: true, hintType: "put" });
+          setDrawer({ ...drawer, isOpen: true, hintType: "Edit" });
         },
       });
     } else {

@@ -26,7 +26,7 @@ export default function ThemeInfo() {
 
   const handleCloseDrawer = () => {
     resetSelectedHint();
-    setDrawerState({ ...drawer, isOpen: false, hintType: "" });
+    setDrawerState({ ...drawer, isOpen: false, hintType: "Edit" });
   };
 
   const handleHintCreate = (type: string) => {
