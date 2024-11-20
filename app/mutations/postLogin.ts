@@ -4,11 +4,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { ApiError, ApiResponse, MutationConfigOptions } from "@/types";
-import {
-  setAccessToken,
-  setAdminCode,
-  setShopName,
-} from "@/utils/localStorage";
+import { setLoginInfo } from "@/utils/localStorage";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 
 interface Request {
@@ -22,7 +18,7 @@ interface LoginResponse {
   accessToken: string;
   accessTokenExpiresIn: number;
   grantType: string;
-  refereshToken: string;
+  refreshToken: string;
 }
 
 type Response = ApiResponse<LoginResponse>;
@@ -50,9 +46,13 @@ export const usePostLogin = (configOptions?: MutationConfigOptions) => {
       const { data } = res;
 
       if (data?.accessToken) {
-        setAccessToken(data.accessToken);
-        setShopName(data.shopName);
-        setAdminCode(data.adminCode);
+        setLoginInfo({
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+          shopName: data.shopName,
+          adminCode: data.adminCode,
+          accessTokenExpiresIn: data.accessTokenExpiresIn,
+        });
         setIsLoggedIn(true);
       }
     },

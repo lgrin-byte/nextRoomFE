@@ -32,6 +32,7 @@
     "firebase": "^10.6.0",
     "framer-motion": "^10.16.4",
     "lodash": "^4.17.21",
+    "moment": "^2.30.1",
     "next": "13.4.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -39,7 +40,7 @@
     "react-intersection-observer": "^9.5.2",
     "react-lottie-player": "^1.5.4",
     "recoil": "^0.7.7",
-    "sass": "^1.79.3",
+    "sass": "^1.80.6",
     "styled-components": "^6.0.2",
     "tss-react": "^4.8.6",
     "typescript": "5.1.6"

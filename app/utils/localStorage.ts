@@ -1,9 +1,19 @@
 const ACCESS_TOKEN = "accessToken";
+const REFRESH_TOKEN = "refreshToken";
 const SHOP_NAME = "shopName";
 const ADMIN_CODE = "adminCode";
 const STATUS = "status";
 const THEME_ID = "themeId";
+const ACCESS_TOKEN_EXPIRES_IN = "accessTokenExpiresIn";
+interface LoginInfo {
+  accessToken: string;
+  shopName: string;
+  adminCode: string;
+  accessTokenExpiresIn: number;
+  refreshToken: string;
+}
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setLocalStorage = (key: string, value: any) => {
   if (typeof window !== "undefined") {
     const storage = window.localStorage;
@@ -46,16 +56,20 @@ export const removeLocalStorageItem = (key: string) => {
   }
 };
 
-export const setAccessToken = (token: string) => {
-  setLocalStorage(ACCESS_TOKEN, token);
-};
+export const setLoginInfo = (loginInfo: LoginInfo) => {
+  const {
+    accessToken,
+    refreshToken,
+    shopName,
+    adminCode,
+    accessTokenExpiresIn,
+  } = loginInfo;
 
-export const setShopName = (ShopName: string) => {
-  setLocalStorage(SHOP_NAME, ShopName);
-};
-
-export const setAdminCode = (AdminCode: string) => {
-  setLocalStorage(ADMIN_CODE, AdminCode);
+  setLocalStorage(ACCESS_TOKEN, accessToken);
+  setLocalStorage(REFRESH_TOKEN, refreshToken);
+  setLocalStorage(SHOP_NAME, shopName);
+  setLocalStorage(ADMIN_CODE, adminCode);
+  setLocalStorage(ACCESS_TOKEN_EXPIRES_IN, accessTokenExpiresIn);
 };
 
 export const setStatus = (status: string) => {
@@ -66,9 +80,16 @@ export const setSelectedThemeId = (themeId: number) => {
   setLocalStorage(THEME_ID, themeId);
 };
 
-export const getAccessToken = () => getLocalStorage(ACCESS_TOKEN);
-export const getShopName = () => getLocalStorage(SHOP_NAME);
-export const getAdminCode = () => getLocalStorage(ADMIN_CODE);
+// 필요하다면 한번에 가져오는 함수도 만들 수 있습니다
+export const getLoginInfo = (): LoginInfo => {
+  return {
+    accessToken: getLocalStorage(ACCESS_TOKEN) || "",
+    refreshToken: getLocalStorage(REFRESH_TOKEN) || "",
+    shopName: getLocalStorage(SHOP_NAME) || "",
+    adminCode: getLocalStorage(ADMIN_CODE) || "",
+    accessTokenExpiresIn: Number(getLocalStorage(ACCESS_TOKEN_EXPIRES_IN)) || 0,
+  };
+};
 export const getStatus = () => getLocalStorage(STATUS);
 export const getSelectedThemeId = () => getLocalStorage(THEME_ID);
 

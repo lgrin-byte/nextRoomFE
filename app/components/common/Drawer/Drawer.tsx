@@ -18,8 +18,9 @@ import {
   useSelectedTheme,
 } from "@/components/atoms/selectedTheme.atom";
 import { Theme, Themes } from "@/queries/getThemeList";
-import { getAdminCode, getShopName } from "@/utils/localStorage";
+import { getLoginInfo } from "@/utils/localStorage";
 import Dialog from "@/components/common/Dialog/Dialog";
+
 
 import * as S from "./DrawerView.styled";
 
@@ -39,9 +40,9 @@ function MainDrawer(props: Props) {
   const router = useRouter();
 
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const shopName = getShopName();
-  const adminCode = getAdminCode();
+  const { shopName, adminCode } = getLoginInfo();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
   const [focusedTheme, setFocusedTheme] = useState<Theme | null>(null); // 현재 선택된 테마를 저장할 상태 추가
   const [open, setOpen] = useState<boolean>(false);
