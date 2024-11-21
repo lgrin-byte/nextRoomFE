@@ -5,7 +5,7 @@ import { PropsWithChildren, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import { getLoginInfo, removeAccessToken } from "@/utils/localStorage";
+import { getLoginInfo, removeLocalStorageAll } from "@/utils/localStorage";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 
@@ -57,7 +57,7 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
       if (response && response.status === 401) {
         delete apiClient.defaults.headers.Authorization;
         delete apiClient.defaults.headers.common.Authorization;
-        removeAccessToken();
+        removeLocalStorageAll();
         setIsLoggedIn(false);
       }
 
