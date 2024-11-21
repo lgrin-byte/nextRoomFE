@@ -23,13 +23,20 @@ function useClickOutside(
 
       // ref가 비어 있거나, ref 내부를 클릭한 경우 무시
       const elements = Array.isArray(ref.current) ? ref.current : [ref.current];
-      const isClickInside = elements.some((element) => element?.contains(target));
+      const isClickInside = elements.some((element) =>
+        element?.contains(target)
+      );
       if (isClickInside) return;
 
       // ignoreSiblings 옵션이 true인 경우 형제 요소 클릭 시 닫음
       if (ignoreSiblings) {
         const parentNode = elements[targetIndex]?.parentNode;
-        if (parentNode && Array.from(parentNode.children).some((sibling) => sibling.contains(target))) {
+        if (
+          parentNode &&
+          Array.from(parentNode.children).some((sibling) =>
+            sibling.contains(target)
+          )
+        ) {
           return;
         }
       }

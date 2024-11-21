@@ -5,7 +5,6 @@ import "../../(style)/themeInfo.modules.sass";
 
 import useModal from "@/hooks/useModal";
 import Dialog from "@/components/common/Dialog-new/Dialog";
-import { useSelectedHintReset } from "@/components/atoms/selectedHint.atom";
 import { useDrawerState } from "@/components/atoms/drawer.atom";
 
 import ThemeDrawer from "../ThemeDrawer/Container";
@@ -16,17 +15,11 @@ import ThemeInfoHint from "./ThemeInfoHint";
 
 export default function ThemeInfo() {
   const { open } = useModal();
-  const resetSelectedHint = useSelectedHintReset();
 
   const [drawer, setDrawerState] = useDrawerState();
 
   const handleOpenModal = () => {
     open(Dialog, { type: "put" });
-  };
-
-  const handleCloseDrawer = () => {
-    resetSelectedHint();
-    setDrawerState({ ...drawer, isOpen: false, hintType: "" });
   };
 
   const handleHintCreate = (type: string) => {
@@ -58,7 +51,6 @@ export default function ThemeInfo() {
       {drawer.isOpen && (
         <ThemeDrawer
           handleHintCreate={handleHintCreate}
-          onCloseDrawer={handleCloseDrawer}
           hintType={drawer.hintType}
         />
       )}

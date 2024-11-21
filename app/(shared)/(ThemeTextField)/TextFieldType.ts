@@ -6,7 +6,7 @@ export type ThemeInfoTextFieldType = {
   title?: string;
   content: string;
   infoText?: string;
-  inputType?: string;
+  inputType?: "text" | "number";
   inputPlaceholder?: string;
   checkErrorText?: ValidationFunction<unknown>;
 };

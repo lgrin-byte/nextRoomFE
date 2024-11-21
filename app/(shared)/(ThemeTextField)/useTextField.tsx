@@ -8,6 +8,7 @@ import { ThemeInfoTextFieldType } from "./TextFieldType";
 const useTextField = ({
   id,
   content,
+  inputType,
   checkErrorText,
 }: ThemeInfoTextFieldType) => {
   const [inputValue, setInputValue] = useState<string>(content || "");
@@ -39,9 +40,11 @@ const useTextField = ({
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const cur = e.target.value;
-    if (cur.length > 1 && cur.length === cur.split("0").length - 1) {
-      setInputValue("0");
-      return;
+    if (inputType === "number") {
+      if (cur.length > 1 && cur.length === cur.split("0").length - 1) {
+        setInputValue("0");
+        return;
+      }
     }
     const error = checkErrorText ? checkErrorText(cur) : "";
     if (error) {

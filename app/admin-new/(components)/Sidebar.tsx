@@ -14,6 +14,7 @@ import {
   getSelectedThemeId,
   getStatus,
   removeAccessToken,
+  removeThemeId,
 } from "@/utils/localStorage";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
@@ -64,7 +65,13 @@ export default function Sidebar(props: Props) {
   };
   const handleSelectTheme = (theme: Theme) => {
     if (drawer.isOpen && !drawer.isSameHint) {
-      open(HintDialog, { type: "put", fn: () => handleClickSelected(theme) });
+      open(HintDialog, {
+        type: "put",
+        fn: () => {
+          handleClickSelected(theme);
+          setDrawer({ ...drawer, isOpen: false });
+        },
+      });
     } else {
       setDrawer({ ...drawer, isOpen: false });
       handleClickSelected(theme);
@@ -75,6 +82,7 @@ export default function Sidebar(props: Props) {
     if (drawer.isOpen && !drawer.isSameHint) {
       open(HintDialog, { type: "put", fn: navigateToNewTheme });
     } else {
+      removeThemeId();
       setDrawer({ ...drawer, isOpen: false });
       navigateToNewTheme();
     }

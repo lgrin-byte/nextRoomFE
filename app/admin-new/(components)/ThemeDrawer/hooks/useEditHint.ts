@@ -5,6 +5,7 @@ import {
   InitialSelectedHint,
   SelectedHintType,
   useSelectedHint,
+  useSelectedHintReset,
 } from "@/components/atoms/selectedHint.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
 import { useCreateHint } from "@/components/atoms/createHint.atom";
@@ -17,11 +18,7 @@ import { useDrawerState } from "@/components/atoms/drawer.atom";
 
 import { DrawerType } from "../types/themeDrawerTypes";
 
-const useEditHint = ({
-  onCloseDrawer,
-  hintType,
-  handleHintCreate,
-}: DrawerType) => {
+const useEditHint = ({ hintType, handleHintCreate }: DrawerType) => {
   const { id: themeId } = useSelectedThemeValue();
 
   const selectedTheme = useSelectedThemeValue();
@@ -32,6 +29,7 @@ const useEditHint = ({
   const [answerImages, setAnswerImages] = useState<File[]>([]);
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const resetSelectedHint = useSelectedHintReset();
 
   const drawerRef = useRef<HTMLFormElement>(null);
 
@@ -53,6 +51,16 @@ const useEditHint = ({
     createHint.answer
   );
 
+  const onCloseDrawer = () => {
+    const element = document.querySelector(".theme-info-modal.delete");
+    if (element) {
+      setDrawer({ ...drawer, isOpen: true });
+    } else {
+      setDrawer({ ...drawer, isOpen: false });
+      resetSelectedHint();
+    }
+  };
+
   const isSameHint =
     String(createHint.hintCode) === String(selectedHint.hintCode) &&
     Number(createHint.progress) === Number(selectedHint.progress) &&
@@ -66,23 +74,11 @@ const useEditHint = ({
     Boolean(!answerImages.length);
 
   useEffect(() => {
-    const isSameHint =
-      String(createHint.hintCode) === String(selectedHint.hintCode) &&
-      Number(createHint.progress) === Number(selectedHint.progress) &&
-      String(createHint.contents) === String(selectedHint.contents) &&
-      String(createHint.answer) === String(selectedHint.answer) &&
-      // 서버에 올라간 사진 삭제 여부를 비교
-      createHint.hintImageUrlList === selectedHint.hintImageUrlList &&
-      createHint.answerImageUrlList === selectedHint.answerImageUrlList &&
-      // 로컬 업로드 사진 하나라도 있으면 변경된 것
-      Boolean(!hintImages.length) &&
-      Boolean(!answerImages.length);
-
     setDrawer((prevDrawer) => ({
       ...prevDrawer,
       isSameHint,
     }));
-  }, [createHint, selectedHint]);
+  }, [isSameHint, createHint, selectedHint]);
 
   useEffect(() => {
     if (drawer.hintType === "Add") {
@@ -112,10 +108,8 @@ const useEditHint = ({
       ...prev,
       contents: selectedHint.contents,
       answer: selectedHint.answer,
-      answerImageUrlList: selectedHint.answerImageUrlList,
-      hintImageUrlList: selectedHint.hintImageUrlList,
     }));
-  }, [hintType, selectedHint]);
+  }, [hintType, selectedHint, setCreateHint]);
 
   const { handleProcess } = useHintUpload();
   const handleSubmit = async (e: FormEvent) => {

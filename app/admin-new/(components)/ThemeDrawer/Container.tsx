@@ -14,11 +14,7 @@ import {
 import { DrawerType } from "./types/themeDrawerTypes";
 import useEditHint from "./hooks/useEditHint";
 
-const ThemeDrawer = ({
-  onCloseDrawer,
-  hintType,
-  handleHintCreate,
-}: DrawerType) => {
+const ThemeDrawer = ({ hintType, handleHintCreate }: DrawerType) => {
   const [selectedHint] = useSelectedHint();
   const {
     handleSubmit,
@@ -31,7 +27,7 @@ const ThemeDrawer = ({
     isImcomplete,
     deleteHintBtn,
     handleOpenHintModal,
-  } = useEditHint({ onCloseDrawer, hintType, handleHintCreate });
+  } = useEditHint({ hintType, handleHintCreate });
 
   return (
     <form

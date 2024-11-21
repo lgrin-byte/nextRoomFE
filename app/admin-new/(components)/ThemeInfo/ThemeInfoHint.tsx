@@ -51,6 +51,7 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
     e: React.MouseEvent<HTMLLIElement, globalThis.MouseEvent>,
     hintElement: SelectedHintType
   ) => {
+    if (selectedHint.id === hintElement.id) return;
     if (drawer.isOpen && !drawer.isSameHint) {
       open(HintDialog, {
         type: "put",
@@ -58,7 +59,7 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
           setSelectedHint(hintElement);
           setCreateHint(hintElement);
           handleHintCreate("Edit");
-          setDrawer({ ...drawer, isOpen: true, hintType: "put" });
+          setDrawer({ ...drawer, isOpen: true, hintType: "Edit" });
         },
       });
     } else {
@@ -130,7 +131,11 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
                   <div className="table-rate">
                     <div className="rate">{progress}%</div>
                   </div>
-                  <div className="table-hint">
+                  <div
+                    className={classNames("table-hint", {
+                      "drawer-open": drawer.isOpen,
+                    })}
+                  >
                     <div className="hint-content">{contents}</div>
                     <div className="hint-images">
                       {hintImageUrlList?.map((_, index) => (

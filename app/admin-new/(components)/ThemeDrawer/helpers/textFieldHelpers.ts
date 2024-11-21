@@ -8,6 +8,9 @@ export const codeValidations = (value: unknown) => {
   ) {
     return "숫자로 입력해 주세요.";
   }
+  if (strValue.length > 4) {
+    return "네자리만 사용할 수 있습니다.";
+  }
   if (numValue > 9999) {
     return "네자리만 사용할 수 있습니다.";
   }

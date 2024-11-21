@@ -22,7 +22,7 @@ export const rateTextFieldProps: ThemeInfoTextFieldType = {
   title: "문제 진행률(%)",
   content: "",
   infoText: "",
-  inputType: "text",
+  inputType: "number",
   inputPlaceholder: "",
   checkErrorText: progressValidations,
 };
