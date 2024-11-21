@@ -61,9 +61,9 @@ function RequireAuth({
     } else if (isLoggedIn && pathname === "/") {
       router.push(pathname);
     } else if (isLoggedIn && currentTheme.length === 0) {
-      router.push("/admin-new");
+      router.push("/admin");
     } else if (selectedThemeId !== "0" && isLoggedIn) {
-      router.push(`/admin-new?themeId=${selectedThemeId}`);
+      router.push(`/admin?themeId=${selectedThemeId}`);
     }
   }, [isLoggedIn, currentTheme, router, allowUnauthPaths, pathname]);
 
@@ -74,7 +74,7 @@ function RequireAuth({
   if (isMobile && !allowUnauthPaths.includes(pathname)) return <Mobile />;
 
   if (!isLoggedIn) return <>{children}</>;
-  if (isLoggedIn && (pathname === "/" || "/admin-new")) return <>{children}</>;
+  if (isLoggedIn && (pathname === "/" || "/admin")) return <>{children}</>;
 
   return (
     <S.Wrapper>

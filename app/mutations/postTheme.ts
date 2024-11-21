@@ -61,7 +61,7 @@ export const usePostTheme = (configOptions?: MutationConfigOptions) => {
         setSelectedTheme({ ...createTheme, id: data?.data?.id });
         setSelectedThemeId(data?.data?.id);
 
-        router.push(`/admin-new?themeId=${data?.data?.id}`);
+        router.push(`/admin?themeId=${data?.data?.id}`);
       }, 10);
       setToast({
         isOpen: true,

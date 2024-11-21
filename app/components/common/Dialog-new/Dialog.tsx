@@ -13,7 +13,7 @@ import {
   useCreateThemeValue,
 } from "@/components/atoms/createTheme.atom";
 import useClickOutside from "@/hooks/useClickOutside";
-import { deleteProps, xProps } from "@/admin-new/(consts)/sidebar";
+import { deleteProps, xProps } from "@/admin/(consts)/sidebar";
 import useModal from "@/hooks/useModal";
 import DialogDeleteBody from "@/components/common/Dialog-new/DialogDeleteBody";
 

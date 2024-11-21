@@ -1,6 +1,10 @@
-import Home from "@/home/Home";
-// import Login from "@/login/Login";
+import React from "react";
 
-export default function adminLoginPage() {
-  return <Home />;
+import Admin from "./Admin";
+import "@/style/reset.css";
+
+function AdminPage() {
+  return <Admin />;
 }
+
+export default AdminPage;

@@ -38,7 +38,7 @@ export const usePutTheme = (configOptions?: MutationConfigOptions) => {
     ...configOptions?.options,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
-      router.push(`/admin-new?themeId=${selectedTheme.id}`);
+      router.push(`/admin?themeId=${selectedTheme.id}`);
 
       setToast({
         isOpen: true,
