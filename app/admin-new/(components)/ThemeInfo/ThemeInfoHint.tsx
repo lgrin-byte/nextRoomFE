@@ -131,7 +131,11 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
                   <div className="table-rate">
                     <div className="rate">{progress}%</div>
                   </div>
-                  <div className="table-hint">
+                  <div
+                    className={classNames("table-hint", {
+                      "drawer-open": drawer.isOpen,
+                    })}
+                  >
                     <div className="hint-content">{contents}</div>
                     <div className="hint-images">
                       {hintImageUrlList?.map((_, index) => (
