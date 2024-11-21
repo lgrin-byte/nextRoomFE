@@ -18,7 +18,10 @@ apiClient.interceptors.request.use(
     const { accessToken } = getLoginInfo();
 
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken.replace(/^"(.*)"$/, "$1")}`;
+      config.headers.Authorization = `Bearer ${accessToken.replace(
+        /^"(.*)"$/,
+        "$1"
+      )}`;
     }
 
     return config;

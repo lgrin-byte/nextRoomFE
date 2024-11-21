@@ -21,7 +21,6 @@ import { Theme, Themes } from "@/queries/getThemeList";
 import { getLoginInfo } from "@/utils/localStorage";
 import Dialog from "@/components/common/Dialog/Dialog";
 
-
 import * as S from "./DrawerView.styled";
 
 type Props = {

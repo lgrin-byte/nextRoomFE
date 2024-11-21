@@ -14,10 +14,7 @@ import {
 import { DrawerType } from "./types/themeDrawerTypes";
 import useEditHint from "./hooks/useEditHint";
 
-const ThemeDrawer = ({
-  hintType,
-  handleHintCreate,
-}: DrawerType) => {
+const ThemeDrawer = ({ hintType, handleHintCreate }: DrawerType) => {
   const [selectedHint] = useSelectedHint();
   const {
     handleSubmit,
