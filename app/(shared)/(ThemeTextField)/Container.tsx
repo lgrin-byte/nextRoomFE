@@ -23,7 +23,7 @@ export default function ThemeTextField({
     inputRef,
     handleInputChange,
     handleInputBlur,
-  } = useTextField({ id, content, checkErrorText });
+  } = useTextField({ id, content, inputType, checkErrorText });
 
   return (
     <div tabIndex={isFocus ? -1 : tabIndex} onFocus={() => setIsFocus(true)}>
@@ -54,7 +54,7 @@ export default function ThemeTextField({
             className={classNames("theme-textfield-input", {
               error: errorText,
             })}
-            type={inputType}
+            type="text"
             value={inputValue}
             placeholder={inputPlaceholder}
             onChange={handleInputChange}

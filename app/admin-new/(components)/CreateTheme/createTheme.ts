@@ -56,7 +56,7 @@ export const timeTextFieldProps: ThemeInfoTextFieldType = {
   title: "탈출 제한 시간(분)",
   content: "",
   infoText: "",
-  inputType: "text",
+  inputType: "number",
   inputPlaceholder: "분 단위 숫자로 입력해 주세요",
   checkErrorText: timeValidations,
 };
@@ -67,7 +67,7 @@ export const hintCountTextFieldProps: ThemeInfoTextFieldType = {
   title: "사용 가능한 힌트 수",
   content: "",
   infoText: "",
-  inputType: "text",
+  inputType: "number",
   inputPlaceholder: "숫자로 입력해 주세요",
   checkErrorText: hintValidations,
 };
