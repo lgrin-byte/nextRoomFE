@@ -1,8 +1,8 @@
 import React from "react";
 
 import "./(style)/admin.modules.sass";
-import Sidebar from "@/admin-new/(components)/Sidebar";
-import ContentArea from "@/admin-new/(components)/ContentArea";
+import Sidebar from "@/admin/(components)/Sidebar";
+import ContentArea from "@/admin/(components)/ContentArea";
 import Toast from "@/components/common/Toast/Toast";
 
 interface Theme {

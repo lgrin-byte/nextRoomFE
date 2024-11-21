@@ -27,7 +27,7 @@ function Landing() {
   useChannelTalk();
 
   const handleSignUpBtn = () => {
-    const url = isSignIn ? "/admin-new" : "/signup";
+    const url = isSignIn ? "/admin" : "/signup";
 
     router.push(url);
   };

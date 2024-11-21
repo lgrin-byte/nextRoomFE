@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Image from "next/image";
 
 import useClickOutside from "@/hooks/useClickOutside";
-import { xProps } from "@/admin-new/(consts)/sidebar";
+import { xProps } from "@/admin/(consts)/sidebar";
 import useModal from "@/hooks/useModal";
 import DialogBody from "@/components/common/Hint-Dialog-new/DialogBody";
 import "@/components/common/Dialog-new/dialog.sass";

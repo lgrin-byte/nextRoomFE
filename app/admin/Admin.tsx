@@ -41,7 +41,7 @@ function Admin() {
     setSelectedThemeId(theme.id);
     setTimeout(() => {
       if (theme.id) {
-        router.push(`/admin-new?themeId=${encodeURIComponent(theme.id)}`);
+        router.push(`/admin?themeId=${encodeURIComponent(theme.id)}`);
       }
     }, 10);
   };

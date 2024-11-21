@@ -12,7 +12,7 @@ import { useCreateHint } from "@/components/atoms/createHint.atom";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { getStatus } from "@/utils/localStorage";
-import { subscribeLinkURL } from "@/admin-new/(consts)/sidebar";
+import { subscribeLinkURL } from "@/admin/(consts)/sidebar";
 
 import { compressImage, convertToPng } from "../helpers/imageHelpers";
 

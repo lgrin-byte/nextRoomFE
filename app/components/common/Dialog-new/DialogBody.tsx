@@ -6,7 +6,7 @@ import {
   hintCountTextFieldProps,
   nameTextFieldProps,
   timeTextFieldProps,
-} from "@/admin-new/(components)/CreateTheme/createTheme";
+} from "@/admin/(components)/CreateTheme/createTheme";
 
 export default function DialogBody() {
   const selectedTheme = useSelectedThemeValue();

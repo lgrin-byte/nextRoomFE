@@ -9,7 +9,7 @@ import {
   plusDisableProps,
   plusProps,
   subscribeLinkURL,
-} from "@/admin-new/(consts)/sidebar";
+} from "@/admin/(consts)/sidebar";
 import {
   getSelectedThemeId,
   getStatus,
@@ -61,7 +61,7 @@ export default function Sidebar(props: Props) {
 
   const navigateToNewTheme = () => {
     resetSelectedTheme();
-    router.push("/admin-new");
+    router.push("/admin");
   };
   const handleSelectTheme = (theme: Theme) => {
     if (drawer.isOpen && !drawer.isSameHint) {
