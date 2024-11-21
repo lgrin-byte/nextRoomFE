@@ -5,6 +5,7 @@ import { apiClient } from "@/lib/reactQueryProvider";
 import { useToastInfo } from "@/components/atoms/toast.atom";
 import { QUERY_KEY } from "@/queries/getHintList";
 import extractFilename from "@/utils/helper";
+import { getStatus } from "@/utils/localStorage";
 
 interface PreSignedUrlRequest {
   themeId: number;
@@ -76,13 +77,22 @@ const postHint = (data: HintData) => apiClient.post("/v1/hint", data);
 const useHintUpload = () => {
   const [, setToast] = useToastInfo();
   const queryClient = useQueryClient();
-
+  const status = getStatus();
   const presignedMutation = useMutation<
     PreSignedUrlResponse,
     AxiosError<AxiosSameCodeError>,
     PreSignedUrlRequest
   >({
-    mutationFn: getPreSignedUrl,
+    mutationFn: async (params) => {
+      if (status?.includes("SUBSCRIPTION")) {
+        return getPreSignedUrl(params);
+      }
+      return {
+        code: 200,
+        message: "No operation",
+        data: { hintImageUrlList: [], answerImageUrlList: [] },
+      };
+    },
     onError: (error) => {
       setToast({
         isOpen: true,
@@ -109,14 +119,11 @@ const useHintUpload = () => {
     HintData
   >({
     mutationFn: (data) => (data.id > 0 ? putHint(data) : postHint(data)),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
       setToast({
         isOpen: true,
-        title:
-          data.config.method === "put"
-            ? "힌트를 수정했습니다."
-            : "힌트를 추가했습니다.",
+        title: "힌트가 성공적으로 등록되었습니다.",
         text: "",
       });
     },
