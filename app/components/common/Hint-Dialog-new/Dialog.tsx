@@ -47,6 +47,7 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
     if (type === "put") {
       fn();
       close();
+      setDrawer({ ...drawer, isOpen: false });
     } else if (type === "delete") {
       deleteHint({ id });
       close();
