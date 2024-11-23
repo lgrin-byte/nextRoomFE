@@ -53,9 +53,9 @@ const ThemeDrawerHint = ({
             }/3)`}
         </button>
       </div>
-      <div className="drawer-images">
-        {selectedHint?.hintImageUrlList?.map((src, idx) => (
-          <div className="drawer-image-box" key={src}>
+      {selectedHint?.hintImageUrlList?.map((src, idx) => (
+        <div className="drawer-images" key={src}>
+          <div className="drawer-image-box">
             <img src={src} alt={`hint-preview-${src}`} />
             <div
               className="drawer-image-dimmed"
@@ -66,10 +66,12 @@ const ThemeDrawerHint = ({
               </button>
             </div>
           </div>
-        ))}
-        {images.length > 0 &&
-          images.map((file, index) => (
-            <div key={file.name} className="drawer-image-box">
+        </div>
+      ))}
+      {images.length > 0 &&
+        images.map((file, index) => (
+          <div className="drawer-images" key={file.name}>
+            <div className="drawer-image-box">
               <img
                 src={URL.createObjectURL(file)}
                 alt={`hint-preview-${index}`}
@@ -83,8 +85,8 @@ const ThemeDrawerHint = ({
                 </button>
               </div>
             </div>
-          ))}
-      </div>
+          </div>
+        ))}
 
       <textarea
         className="drawer-content-textarea"
