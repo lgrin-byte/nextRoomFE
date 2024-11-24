@@ -19,7 +19,6 @@ const ThemeDrawerAnswer = ({
     handleFileInputClick,
     handleFileInputChange,
     handleAddImageBtnClick,
-    handleTextAreaChange,
     deleteLocalImage,
     deleteServerImage,
     answerInputRef,
@@ -87,13 +86,6 @@ const ThemeDrawerAnswer = ({
             </div>
           </div>
         ))}
-
-      <textarea
-        className="drawer-content-textarea"
-        placeholder="정답 내용을 입력해 주세요."
-        onChange={handleTextAreaChange}
-        defaultValue={selectedHint.answer}
-      />
     </div>
   );
 };

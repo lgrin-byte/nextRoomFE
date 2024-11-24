@@ -20,7 +20,6 @@ const ThemeDrawerHint = ({
     handleFileInputClick,
     handleFileInputChange,
     handleAddImageBtnClick,
-    handleTextAreaChange,
     deleteLocalImage,
     deleteServerImage,
     hintInputRef,
@@ -87,13 +86,6 @@ const ThemeDrawerHint = ({
             </div>
           </div>
         ))}
-
-      <textarea
-        className="drawer-content-textarea"
-        placeholder="힌트 내용을 입력해 주세요."
-        onChange={handleTextAreaChange}
-        defaultValue={selectedHint.contents}
-      />
     </div>
   );
 };

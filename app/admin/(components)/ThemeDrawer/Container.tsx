@@ -2,12 +2,15 @@ import Image from "next/image";
 
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import ThemeTextField from "@/(shared)/(ThemeTextField)/Container";
+import ThemeTextArea from "@/(shared)/(ThemeTextArea)/Container";
 
 import ThemeDrawerAnswer from "./ThemeDrawerAnswer";
 import ThemeDrawerHint from "./ThemeDrawerHint";
 import {
+  answerTextAreaProps,
   codeTextFieldProps,
   HintImageProps,
+  hintTextAreaProps,
   rateTextFieldProps,
   XImageProps,
 } from "./consts/themeDrawerProps";
@@ -81,11 +84,19 @@ const ThemeDrawer = ({ hintType, handleHintCreate }: DrawerType) => {
           images={hintImages}
           setImages={setHintImages}
         />
+        <ThemeTextArea
+          {...hintTextAreaProps}
+          content={selectedHint.contents ? selectedHint.contents : ""}
+        />
 
         <ThemeDrawerAnswer
           imageType={"answer"}
           images={answerImages}
           setImages={setAnswerImages}
+        />
+        <ThemeTextArea
+          {...answerTextAreaProps}
+          content={selectedHint.answer ? selectedHint.answer : ""}
         />
       </div>
 

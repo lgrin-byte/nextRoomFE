@@ -1,4 +1,5 @@
 import { ThemeInfoTextFieldType } from "@/(shared)/(ThemeTextField)/TextFieldType";
+import { ThemeInfoTextAreaType } from "@/(shared)/(ThemeTextArea)/TextAreaType";
 
 import {
   codeValidations,
@@ -18,13 +19,29 @@ export const codeTextFieldProps: ThemeInfoTextFieldType = {
 
 export const rateTextFieldProps: ThemeInfoTextFieldType = {
   id: "progress",
-  tabIndex: 1,
+  tabIndex: 2,
   title: "문제 진행률(%)",
   content: "",
   infoText: "",
   inputType: "number",
   inputPlaceholder: "",
   checkErrorText: progressValidations,
+};
+
+export const hintTextAreaProps: ThemeInfoTextAreaType = {
+  id: "contents",
+  tabIndex: 3,
+  content: "",
+  infoText: "",
+  textAreaPlaceholder: "힌트 내용을 입력해 주세요.",
+};
+
+export const answerTextAreaProps: ThemeInfoTextAreaType = {
+  id: "answer",
+  tabIndex: 4,
+  content: "",
+  infoText: "",
+  textAreaPlaceholder: "정답 내용을 입력해 주세요.",
 };
 
 export const XImageProps = {
