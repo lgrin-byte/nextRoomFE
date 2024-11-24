@@ -145,14 +145,16 @@ const useHintUpload = () => {
     answerFiles: File[]
   ) => {
     try {
-      const presignedResponse = await presignedMutation.mutateAsync({
-        themeId: formData.themeId,
-        hintImageCount: hintFiles.length,
-        answerImageCount: answerFiles.length,
-      });
+      const presignedResponse =
+        hintFiles.length > 0 || answerFiles.length > 0
+          ? await presignedMutation.mutateAsync({
+              themeId: formData.themeId,
+              hintImageCount: hintFiles.length,
+              answerImageCount: answerFiles.length,
+            })
+          : { data: { hintImageUrlList: [], answerImageUrlList: [] } };
 
-      const { hintImageUrlList = [], answerImageUrlList = [] } =
-        presignedResponse.data;
+      const { hintImageUrlList, answerImageUrlList } = presignedResponse.data;
 
       if (hintFiles.length > 0) {
         await Promise.all(
