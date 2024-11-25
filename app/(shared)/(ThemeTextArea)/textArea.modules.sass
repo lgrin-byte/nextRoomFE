@@ -16,10 +16,13 @@
 
   &.filled
     background-color: $color-main
-  &:focus, &:hover
+  &:focus
     outline: none
+    border: 1px solid $color-white
     background-color: $color-black
     cursor: text
+  &:hover
+    background-color: $color-black
   &.error
     border: 1px solid $color-semantic100
     cursor: text
