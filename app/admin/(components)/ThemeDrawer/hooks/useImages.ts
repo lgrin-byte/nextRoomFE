@@ -100,7 +100,7 @@ const useImages = ({
   };
 
   const handleAddImageBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
-    if (!status?.includes("SUBSCRIPTION")) {
+    if (!(status === "SUBSCRIPTION")) {
       e.preventDefault();
       window.open(subscribeLinkURL, "_blank", "noopener,noreferrer");
       return;
