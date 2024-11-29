@@ -12,17 +12,13 @@ import {
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useIsLoggedIn } from "@/components/atoms/account.atom";
 import { getSelectedThemeId } from "@/utils/localStorage";
-import Header from "@/components/common/Header/Header";
-import MainDrawer from "@/components/common/Drawer/Drawer";
 
 import Mobile from "../Mobile/Mobile";
 
 interface RequireAuthProps {
   children: ReactNode;
 }
-function RequireAuth({
-  children,
-}: RequireAuthProps){
+function RequireAuth({ children }: RequireAuthProps) {
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
   const [currentTheme, setCurrentTheme] = useCurrentTheme();
   const resetCurrentTheme = useCurrentThemeReset();
@@ -72,8 +68,7 @@ function RequireAuth({
 
   if (isMobile && !allowUnauthPaths.includes(pathname)) return <Mobile />;
 
-  if (!isLoggedIn) return <>{children}</>;
-  if (isLoggedIn && (pathname === "/" || "/admin")) return <>{children}</>;
+  return <>{children}</>;
 }
 
 export default RequireAuth;
