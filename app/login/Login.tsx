@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
@@ -10,6 +10,7 @@ import { usePostLogin } from "@/mutations/postLogin";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import useChannelTalk from "@/hooks/useChannelTalk";
 import { setCookie } from "@/utils/cookie";
+import { useGetThemeList } from "@/queries/getThemeList";
 
 import LoginView from "./LoginView";
 
@@ -40,17 +41,28 @@ function Login() {
   useCheckSignIn();
   useChannelTalk();
 
-  const router = useRouter();
   const formValue = watch();
+
+  const { data: themeList, isLoading: isThemeLoading } = useGetThemeList();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       await postLogin(data);
-      router.push("/admin");
-    } catch (err) {
-      console.error("Login failed:", err);
+    } catch (error) {
+      console.error("Login failed:", error);
     }
   };
+
+  useEffect(() => {
+    if (themeList && themeList.length > 0) {
+      const defaultThemeId = themeList[0].id;
+      router.push(`/admin?themeId=${defaultThemeId}`);
+    } else {
+      router.push(`/admin`);
+    }
+  }, [isThemeLoading]);
+
   const formProps = {
     component: "form",
     noValidate: true,
