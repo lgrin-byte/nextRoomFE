@@ -84,7 +84,7 @@ const useHintUpload = () => {
     PreSignedUrlRequest
   >({
     mutationFn: async (params) => {
-      if (status === "SUBSCRIPTION") {
+      if (status?.replaceAll(`"`, "") === "SUBSCRIPTION") {
         return getPreSignedUrl(params);
       }
       return {
