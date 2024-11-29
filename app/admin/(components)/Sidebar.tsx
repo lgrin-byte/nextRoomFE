@@ -62,6 +62,7 @@ export default function Sidebar(props: Props) {
   const navigateToNewTheme = () => {
     resetSelectedTheme();
     router.push("/admin");
+    setDrawer({ ...drawer, isOpen: false });
   };
   const handleSelectTheme = (theme: Theme) => {
     if (drawer.isOpen && !drawer.isSameHint) {
