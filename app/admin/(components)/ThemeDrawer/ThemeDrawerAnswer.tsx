@@ -19,7 +19,6 @@ const ThemeDrawerAnswer = ({
     handleFileInputClick,
     handleFileInputChange,
     handleAddImageBtnClick,
-    handleTextAreaChange,
     deleteLocalImage,
     deleteServerImage,
     answerInputRef,
@@ -53,9 +52,9 @@ const ThemeDrawerAnswer = ({
             }/3)`}
         </button>
       </div>
-      <div className="drawer-images">
-        {selectedHint?.answerImageUrlList?.map((src, idx) => (
-          <div className="drawer-image-box" key={src}>
+      {selectedHint?.answerImageUrlList?.map((src, idx) => (
+        <div className="drawer-images" key={src}>
+          <div className="drawer-image-box">
             <img src={src} alt={`answer-preview-${src}`} />
             <div
               className="drawer-image-dimmed"
@@ -66,10 +65,12 @@ const ThemeDrawerAnswer = ({
               </button>
             </div>
           </div>
-        ))}
-        {images.length > 0 &&
-          images.map((file, index) => (
-            <div key={file.name} className="drawer-image-box">
+        </div>
+      ))}
+      {images.length > 0 &&
+        images.map((file, index) => (
+          <div className="drawer-images" key={file.name}>
+            <div className="drawer-image-box">
               <img
                 src={URL.createObjectURL(file)}
                 alt={`answer-preview-${index}`}
@@ -83,15 +84,8 @@ const ThemeDrawerAnswer = ({
                 </button>
               </div>
             </div>
-          ))}
-      </div>
-
-      <textarea
-        className="drawer-content-textarea"
-        placeholder="정답 내용을 입력해 주세요."
-        onChange={handleTextAreaChange}
-        defaultValue={selectedHint.answer}
-      />
+          </div>
+        ))}
     </div>
   );
 };

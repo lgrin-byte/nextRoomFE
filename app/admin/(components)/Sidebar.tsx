@@ -62,6 +62,7 @@ export default function Sidebar(props: Props) {
   const navigateToNewTheme = () => {
     resetSelectedTheme();
     router.push("/admin");
+    setDrawer({ ...drawer, isOpen: false });
   };
   const handleSelectTheme = (theme: Theme) => {
     if (drawer.isOpen && !drawer.isSameHint) {
@@ -134,7 +135,7 @@ export default function Sidebar(props: Props) {
             </button>
           </li>
         </ul>
-        {!status?.includes("SUBSCRIPTION") && (
+        {!(status?.replaceAll(`"`, "") === "SUBSCRIPTION") && (
           <div className="sidebar__subscribe">
             <p className="sidebar__subscribe-title">
               구독하고 힌트에 사진을 추가해 보세요

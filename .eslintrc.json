@@ -35,6 +35,8 @@
       }
     ],
     "react/display-name": "off",
+    "jsx-a11y/alt-text": "off",
+    "@next/next/no-img-element": "off",
     "no-console": ["error", { "allow": ["warn", "error"] }]
   }
 }

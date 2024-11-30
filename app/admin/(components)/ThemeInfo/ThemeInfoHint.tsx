@@ -93,7 +93,11 @@ const ThemeInfoHint: React.FC<ThemeDrawerProps> = ({ handleHintCreate }) => {
           <div className="table-rate">
             <span>진행률</span>
           </div>
-          <div className="table-hint">
+          <div
+            className={classNames("table-hint", {
+              "drawer-open": drawer.isOpen,
+            })}
+          >
             <span>힌트 내용</span>
           </div>
           <div className="table-answer">

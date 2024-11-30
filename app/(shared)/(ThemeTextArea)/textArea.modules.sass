@@ -1,0 +1,38 @@
+@import '../../style/variables'
+@import '../../style/mixins'
+@import '../../style/button'
+
+.theme-textarea
+  width: 100%
+  min-height: 120px
+  padding: 8px 12px
+  display: flex
+  border: 1px solid $color-white20
+  border-radius: 8px
+  background-color: $color-white5
+  color: $color-white
+  resize: none
+  cursor: pointer
+
+  &.filled
+    background-color: $color-main
+  &:focus
+    outline: none
+    border: 1px solid $color-white
+    background-color: $color-black
+    cursor: text
+  &:hover
+    background-color: $color-black
+  &.error
+    border: 1px solid $color-semantic100
+    cursor: text
+
+.theme-textfield-info
+  margin: 4px 0 0 16px
+  cursor: default
+
+  @include body12R
+  color: $color-white70
+  &.error
+    color: $color-semantic100
+

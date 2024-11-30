@@ -73,7 +73,7 @@ export const setLoginInfo = (loginInfo: LoginInfo) => {
 };
 
 export const setStatus = (status: string) => {
-  setLocalStorage(STATUS, JSON.stringify(status));
+  setLocalStorage(STATUS, status);
 };
 
 export const setSelectedThemeId = (themeId: number) => {
