@@ -21,7 +21,7 @@ interface Response {
 export interface DataItem {
   id: number; // ID
   name: string; // 이름
-  status: "FREE" | "SUBSCRIPTION"; // 상태 (두 가지 값 중 하나)
+  status: "FREE" | "SUBSCRIPTION" | "SUBSCRIPTION_EXPIRATION"; // 상태 (두 가지 값 중 하나)
   startDate: string | null; // 시작 날짜 (문자열 또는 null)
   expiryDate: string | null; // 만료 날짜 (문자열 또는 null)
   createdAt: string; // 생성 날짜
