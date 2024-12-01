@@ -15,9 +15,9 @@ import {
 import useClickOutside from "@/hooks/useClickOutside";
 import { deleteProps, xProps } from "@/admin/(consts)/sidebar";
 import useModal from "@/hooks/useModal";
-import DialogDeleteBody from "@/components/common/Dialog-new/DialogDeleteBody";
+import DialogDeleteBody from "@/components/common/Dialog-new/Theme-Dialog/DialogDeleteBody";
+import ModalPortal from "@/components/common/Dialog-new/ModalPortal";
 
-import ModalPortal from "./ModalPortal";
 import DialogBody from "./DialogBody";
 
 import "@/components/common/Dialog-new/dialog.sass";
@@ -33,15 +33,10 @@ interface FormValues {
   hintLimit: number;
 }
 
-const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
+const PreviewDialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
   const { open, close } = useModal();
   const { type = "" } = props;
   const formRef = useRef<HTMLFormElement | null>(null);
-
-  const handleOpenDeleteModal = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    open(Dialog, { type: "delete" });
-  };
 
   const { handleSubmit } = useForm<FormValues>();
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
@@ -85,47 +80,22 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
   return (
     <ModalPortal>
       <form
-        className={`theme-info-modal ${type}`}
+        className={`theme-preview-modal ${type}`}
         ref={formRef}
         onSubmit={handleSubmit(onSubmit)}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="theme-info-modal__header">
-          <h2>
-            {type === "put" ? "테마 정보 수정" : "정말로 삭제하시겠어요?"}
-          </h2>
-          <button className="close-button" type="button" onClick={close}>
-            <Image {...xProps} />
-          </button>
-        </div>
-        {type === "put" ? <DialogBody /> : <DialogDeleteBody />}
-        <div className="theme-info-modal__footer">
-          {type === "put" && (
-            <button
-              className="ghost_white_button40"
-              onClick={handleOpenDeleteModal}
-              type="button"
-            >
-              <Image {...deleteProps} />
-              테마 삭제하기
-            </button>
-          )}
-          <div className="action-buttons">
-            <button className="outlined_button40" type="button" onClick={close}>
-              취소
-            </button>
-            <button className="button40" type="submit" disabled={isDisabled}>
-              {type === "delete" ? "삭제하기" : "저장"}
-            </button>
-          </div>
-        </div>
+        <button className="secondary_button40" type="button" onClick={close}>
+          <Image {...xProps} />
+        </button>
+        <div className="theme-info-modal__preview-content">12</div>
       </form>
     </ModalPortal>
   );
 });
 
-Dialog.defaultProps = {
+PreviewDialog.defaultProps = {
   type: "",
 };
 
-export default Dialog;
+export default PreviewDialog;

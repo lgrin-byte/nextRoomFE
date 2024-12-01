@@ -32,18 +32,6 @@
       border: none
       cursor: pointer
 
-  &__content
-    padding-top: 10px 
-    .info-grid
-      margin-top: 8px 
-      display: grid
-      grid-template-columns: 1fr 1fr
-      gap: 10px
-    .text
-      padding-bottom: 10px 
-
-  &__preview-content
-
   &__image-content
     width: 513px
     height: 434px
@@ -61,11 +49,10 @@
     margin-top: 16px
     display: flex
     justify-content: space-between
-
+    .text
+      @include body14M
     .delete-button
       width: 100px
-
-
     .action-buttons
       margin-left: auto
       display: flex
@@ -75,13 +62,7 @@
   z-index: 600
 .put
   z-index: 100
-
-
-.theme-preview-modal
-  position: fixed
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
+    
 
 .preview-text
   @include caption12M

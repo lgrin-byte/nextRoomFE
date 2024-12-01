@@ -352,3 +352,48 @@
     border-radius: 8px
     max-height: 300px
     max-width: 100%
+
+
+.theme_image
+  &__container
+    
+
+
+  background-color: $color-white5
+.theme-image-title
+  span
+    @include title16SB
+  img
+    vertical-align: bottom
+
+
+
+.theme-images
+  display: flex
+  gap: 16px
+  margin-top: 17px
+  position: relative
+  align-items: flex-end
+  &:hover
+    .theme-image-box:hover .theme-image-dimmed
+      visibility: visible
+      cursor: pointer
+.theme-image-dimmed
+  position: absolute
+  top: 0
+  width: 100%
+  height: 100%
+  background-color: $color-black60
+  border-radius: 8px
+  display: flex
+  justify-content: center
+  align-items: center
+  visibility: hidden
+.theme-image-box
+  width: 120px
+  height: 120px
+  position: relative
+  img
+    border: 1px solid $color-white20
+    object-fit: contain
+    border-radius: 12px
