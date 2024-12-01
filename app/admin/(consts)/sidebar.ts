@@ -63,3 +63,10 @@ export const timerPreviewProps = {
   width: 284,
   height: 555,
 };
+
+export const settingProps = {
+  src: "/images/svg/icon_setting.svg",
+  alt: "x icon",
+  width: 24,
+  height: 24,
+};

@@ -10,7 +10,6 @@ import { useDrawerState } from "@/components/atoms/drawer.atom";
 import ThemeDrawer from "../ThemeDrawer/Container";
 
 import ThemeInfoTitle from "./ThemeInfoTitle";
-import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
 import ThemeImage from "./ThemeImage";
 
@@ -47,8 +46,7 @@ export default function ThemeInfo() {
       })}
     >
       <ThemeInfoTitle handleOpenModal={handleOpenModal} />
-      <ThemeInfoBody handleOpenModal={handleOpenModal} />
-      <ThemeImage></ThemeImage>
+      <ThemeImage />
       <ThemeInfoHint handleHintCreate={handleHintCreate} />
       {drawer.isOpen && (
         <ThemeDrawer
