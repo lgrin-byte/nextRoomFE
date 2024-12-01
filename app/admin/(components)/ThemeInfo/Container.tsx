@@ -4,7 +4,7 @@ import classNames from "classnames";
 import "../../(style)/themeInfo.modules.sass";
 
 import useModal from "@/hooks/useModal";
-import Dialog from "@/components/common/Dialog-new/Dialog";
+import Dialog from "@/components/common/Dialog-new/Theme-Dialog/Dialog";
 import { useDrawerState } from "@/components/atoms/drawer.atom";
 
 import ThemeDrawer from "../ThemeDrawer/Container";
@@ -12,6 +12,7 @@ import ThemeDrawer from "../ThemeDrawer/Container";
 import ThemeInfoTitle from "./ThemeInfoTitle";
 import ThemeInfoBody from "./ThemeInfoBody";
 import ThemeInfoHint from "./ThemeInfoHint";
+import ThemeImage from "./ThemeImage";
 
 export default function ThemeInfo() {
   const { open } = useModal();
@@ -47,6 +48,7 @@ export default function ThemeInfo() {
     >
       <ThemeInfoTitle handleOpenModal={handleOpenModal} />
       <ThemeInfoBody handleOpenModal={handleOpenModal} />
+      <ThemeImage></ThemeImage>
       <ThemeInfoHint handleHintCreate={handleHintCreate} />
       {drawer.isOpen && (
         <ThemeDrawer
