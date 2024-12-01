@@ -13,14 +13,15 @@ import {
   useCreateThemeValue,
 } from "@/components/atoms/createTheme.atom";
 import useClickOutside from "@/hooks/useClickOutside";
-import { deleteProps, xProps } from "@/admin/(consts)/sidebar";
 import useModal from "@/hooks/useModal";
-import DialogDeleteBody from "@/components/common/Dialog-new/Theme-Dialog/DialogDeleteBody";
 import ModalPortal from "@/components/common/Dialog-new/ModalPortal";
-
-import DialogBody from "./DialogBody";
-
 import "@/components/common/Dialog-new/dialog.sass";
+import {
+  smallXProps,
+  previewProps,
+  statusBarProps,
+  timerPreviewProps,
+} from "@/admin/(consts)/sidebar";
 
 interface DialogProps {
   type?: string | "";
@@ -85,10 +86,20 @@ const PreviewDialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
         onSubmit={handleSubmit(onSubmit)}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="secondary_button40" type="button" onClick={close}>
-          <Image {...xProps} />
+        <div className="ttheme-info-modal__content">
+          <div className="preview_image">
+            <Image className="preview" {...previewProps} />
+            <Image className="status_bar" {...statusBarProps} />
+            <Image className="mobile_preview" {...timerPreviewProps} />
+          </div>
+        </div>
+        <button
+          className="icon_secondary_button40"
+          type="button"
+          onClick={close}
+        >
+          <Image {...smallXProps} />
         </button>
-        <div className="theme-info-modal__preview-content">12</div>
       </form>
     </ModalPortal>
   );

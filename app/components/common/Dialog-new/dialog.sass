@@ -43,7 +43,19 @@
       padding-bottom: 10px 
 
   &__preview-content
+    position: relative
 
+    .preview
+      width: 315px
+      height: 682px
+      border-radius: 13px
+      object-fit: contain
+      position: absolute
+    .status_bar
+      position: absolute
+    .mobile_preview
+      position: absolute
+        
   &__image-content
     width: 513px
     height: 434px
@@ -82,6 +94,27 @@
   top: 50%
   left: 50%
   transform: translate(-50%, -50%)
+  display: flex
+  gap: 16px
+
+  .preview_image
+    position: relative
+    width: 315px
+    height: 682px
+    .preview
+
+      border-radius: 13px
+      object-fit: contain
+      position: absolute
+    .status_bar
+      position: absolute
+    .mobile_preview
+      position: absolute
+      bottom: 32px
+      left: 50%
+
+      transform: translateX( -50%)
+
 
 .preview-text
   @include caption12M

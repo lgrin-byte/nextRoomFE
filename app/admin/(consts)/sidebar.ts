@@ -35,3 +35,31 @@ export const deleteProps = {
 
 export const subscribeLinkURL =
   "https://sponge-wood-68d.notion.site/ec2a28c470094769bc787acb74760da5";
+
+export const smallXProps = {
+  src: "/images/svg/icon_X.svg",
+  alt: "x icon",
+  width: 16,
+  height: 16,
+};
+
+export const previewProps = {
+  src: "/images/svg/image.png",
+  alt: "x icon",
+  width: 315,
+  height: 682,
+};
+
+export const statusBarProps = {
+  src: "/images/svg/status_bar.svg",
+  alt: "x icon",
+  width: 315,
+  height: 40,
+};
+
+export const timerPreviewProps = {
+  src: "/images/svg/timer_preview.svg",
+  alt: "x icon",
+  width: 284,
+  height: 555,
+};

@@ -6,7 +6,7 @@ import PreviewDialog from "@/components/common/Dialog-new/Preview-Dialog-new/Pre
 import useModal from "@/hooks/useModal";
 
 export default function ThemeImage() {
-  const GalleryImageProps = {
+  const QuestionProps = {
     src: "/images/svg/icon_question.svg",
     alt: "gallery_image",
     width: 24,
@@ -37,7 +37,7 @@ export default function ThemeImage() {
     <div className="theme_image__container">
       <div className="theme-image-title">
         <span>타이머 배경</span>
-        <Image {...GalleryImageProps} />
+        <Image {...QuestionProps} />
       </div>
       <div className="theme-images">
         <div className="theme-image-box">
