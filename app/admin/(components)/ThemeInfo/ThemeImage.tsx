@@ -1,6 +1,6 @@
 import Image from "next/image";
-import React, { useRef } from "react";
-
+import React, { useRef, useState } from "react";
+import Tooltip from "@/admin/(components)/Tooltip/Container";
 import Dialog from "@/components/common/Dialog-new/Image-Dialog-new/Dialog";
 import PreviewDialog from "@/components/common/Dialog-new/Preview-Dialog-new/PreviewDialog";
 import useModal from "@/hooks/useModal";
@@ -32,12 +32,21 @@ export default function ThemeImage() {
     // imgInputRef.current?.click();
     open(PreviewDialog, { type: "put" });
   };
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className="theme_image__container">
       <div className="theme-image-title">
         <span>타이머 배경</span>
-        <Image {...QuestionProps} />
+        <div className="theme-image__tooptip">
+          <Image
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="tooptip-button"
+            {...QuestionProps}
+          />
+          {isHovered && <Tooltip />}
+        </div>
       </div>
       <div className="theme-images">
         <div className="theme-image-box">
