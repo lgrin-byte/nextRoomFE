@@ -1,3 +1,5 @@
+// TODO: 안쓰는파일 삭제필요
+
 import React from "react";
 import Image from "next/image";
 

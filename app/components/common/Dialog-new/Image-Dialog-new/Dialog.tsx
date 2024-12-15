@@ -1,35 +1,19 @@
-import React, { forwardRef, useRef } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import React, { FormEvent, forwardRef, useRef } from "react";
 import Image from "next/image";
 
-import { usePutTheme } from "@/mutations/putTheme";
-import { useDeleteTheme } from "@/mutations/deleteTheme";
-import {
-  useSelectedTheme,
-  useSelectedThemeReset,
-} from "@/components/atoms/selectedTheme.atom";
-import {
-  useCreateThemeReset,
-  useCreateThemeValue,
-} from "@/components/atoms/createTheme.atom";
+import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import useClickOutside from "@/hooks/useClickOutside";
-import { deleteProps, xProps } from "@/admin/(consts)/sidebar";
+import { xProps } from "@/admin/(consts)/sidebar";
 import useModal from "@/hooks/useModal";
 import ModalPortal from "@/components/common/Dialog-new/ModalPortal";
+import "@/components/common/Dialog-new/dialog.sass";
+import useTimerImageUpload from "@/queries/useTimerImageUpload";
+import { useTimerImageValue } from "@/components/atoms/timerImage.atom";
 
 import DialogBody from "./DialogBody";
 
-import "@/components/common/Dialog-new/dialog.sass";
-
 interface DialogProps {
   type?: string | "";
-}
-
-interface FormValues {
-  id: number;
-  title: string;
-  timeLimit: number;
-  hintLimit: number;
 }
 
 const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
@@ -42,41 +26,31 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
     open(Dialog, { type: "delete" });
   };
 
-  const { handleSubmit } = useForm<FormValues>();
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const createTheme = useCreateThemeValue();
-  const resetCreateTheme = useCreateThemeReset();
-  const resetSelectedTheme = useSelectedThemeReset();
-  const isDisabled =
-    type === "put"
-      ? (String(createTheme.title) === String(selectedTheme.title) &&
-          Number(createTheme.timeLimit) === Number(selectedTheme.timeLimit) &&
-          Number(createTheme.hintLimit) === Number(selectedTheme.hintLimit)) ||
-        !(createTheme.title && createTheme.timeLimit && createTheme.hintLimit)
-      : !(createTheme.title && createTheme.timeLimit && createTheme.hintLimit);
+  const { timerImage } = useTimerImageValue();
+  // const { mutateAsync: putTheme } = usePostTimerImage();
+  const { handleProcess } = useTimerImageUpload();
 
-  const { mutateAsync: putTheme } = usePutTheme();
-  const { mutateAsync: deleteTheme } = useDeleteTheme();
-
-  const onSubmit: SubmitHandler<FormValues> = () => {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     const { id } = selectedTheme;
 
     const submitData = {
-      ...createTheme,
-      id,
+      themeId: id,
+      timerImageFile: timerImage,
     };
-
-    if (type === "put") {
-      putTheme(submitData);
-      setSelectedTheme(submitData);
-    } else if (type === "delete") {
-      deleteTheme({ id });
-      resetSelectedTheme();
+    try {
+      // await handleProcess(submitData);
+    } catch (error) {
+      console.error(error);
     }
-    close();
-    resetCreateTheme();
 
-    return close();
+    // postTimerImage(submitData);
+
+    //   putTheme(submitData);
+    // close();
+
+    // return close();
   };
 
   useClickOutside(formRef, close);
@@ -86,18 +60,20 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
       <form
         className={`theme-info-modal ${type}`}
         ref={formRef}
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="theme-info-modal__header">
-          <h2>타이머 배경 수정</h2>
+          <h2>타이머 배경 올리기</h2>
           <button className="close-button" type="button" onClick={close}>
             <Image {...xProps} />
           </button>
         </div>
         <DialogBody />
         <div className="theme-info-modal__footer">
-          <p className="text">힌트폰에 곧바로 적용됩니다</p>
+          <p className="timer-preview-image-footer-text">
+            힌트폰에 곧바로 적용됩니다
+          </p>
           <div className="action-buttons">
             <button className="outlined_button40" type="button" onClick={close}>
               취소

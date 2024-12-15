@@ -73,15 +73,16 @@
     margin-top: 16px
     display: flex
     justify-content: space-between
-
     .delete-button
       width: 100px
-
-
     .action-buttons
       margin-left: auto
       display: flex
       gap: 10px
+    .timer-preview-image-footer-text
+      display: flex
+      justify-content: center
+      align-items: center
 
 .delete
   z-index: 600
@@ -135,3 +136,16 @@
   @include caption12M
   color: #378EFF
 
+.timer-preview-image-box
+  position: relative
+  width: 158px
+  height: 340px
+  border-radius: 6.88px
+  border: 1px solid $color-white20
+  overflow: hidden
+  .timer-preview-image
+    object-fit: cover
+  .timer-preview-line
+    position: absolute
+    top: 0
+    left: 0
