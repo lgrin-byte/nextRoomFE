@@ -8,7 +8,6 @@ import { useToastWrite } from "@/components/atoms/toast.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { QUERY_KEY } from "@/queries/getThemeList";
 import { MutationConfigOptions } from "@/types";
-import { setSelectedThemeId } from "@/utils/localStorage";
 
 interface Request {
   title: string;
@@ -57,12 +56,6 @@ export const usePostTheme = (configOptions?: MutationConfigOptions) => {
     ...configOptions?.options,
     onSuccess: ({ data }) => {
       queryClient.invalidateQueries(QUERY_KEY);
-      setTimeout(() => {
-        setSelectedTheme({ ...createTheme, id: data?.data?.id });
-        setSelectedThemeId(data?.data?.id);
-
-        router.push(`/admin?themeId=${data?.data?.id}`);
-      }, 10);
       setToast({
         isOpen: true,
         title: "테마를 추가했습니다.",

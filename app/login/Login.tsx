@@ -44,8 +44,13 @@ function Login() {
   const router = useRouter();
   const formValue = watch();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    postLogin(data);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      await postLogin(data);
+      router.push("/admin");
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
   };
   const formProps = {
     component: "form",
