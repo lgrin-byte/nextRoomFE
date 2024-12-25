@@ -8,7 +8,6 @@ import { ADMIN_EMAIL, ADMIN_PASSWORD } from "@/consts/components/login";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
-import Loader from "@/components/Loader/Loader";
 import useChannelTalk from "@/hooks/useChannelTalk";
 import { setCookie } from "@/utils/cookie";
 
@@ -126,10 +125,6 @@ function Login() {
     errorMessage,
     contectProps,
   };
-
-  if (isLoggedIn) {
-    return <Loader />;
-  }
 
   return <LoginView {...LoginViewProps} />;
 }
