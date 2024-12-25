@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { apiClient } from "@/lib/reactQueryProvider";
-import { getLoginInfo } from "@/utils/localStorage";
+import { getLoginInfo } from "@/utils/storageUtil";
 import { useIsLoggedIn } from "@/components/atoms/account.atom";
 import { getSubscriptionPlan } from "@/queries/getSubscriptionPlan";
 
