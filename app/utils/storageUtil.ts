@@ -59,8 +59,8 @@ export const setLoginInfo = (loginInfo: LoginInfo) => {
   const sessionStorage = window.sessionStorage;
   setStorage(sessionStorage, ACCESS_TOKEN, accessToken);
   setStorage(sessionStorage, REFRESH_TOKEN, refreshToken);
-  setStorage(sessionStorage, SHOP_NAME, shopName);
-  setStorage(sessionStorage, ADMIN_CODE, adminCode);
+  setStorage(sessionStorage, SHOP_NAME, shopName?.replaceAll(`"`, ""));
+  setStorage(sessionStorage, ADMIN_CODE, adminCode?.replaceAll(`"`, ""));
   setStorage(sessionStorage, ACCESS_TOKEN_EXPIRES_IN, accessTokenExpiresIn);
 };
 

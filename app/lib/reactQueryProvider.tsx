@@ -11,6 +11,7 @@ import {
   setLoginInfo,
 } from "@/utils/storageUtil";
 
+// Axios 클라이언트 설정
 export const apiClient = axios.create({
   withCredentials: true,
 });
@@ -77,11 +78,16 @@ apiClient.interceptors.response.use(
             }
           );
 
-          const newAccessToken = data.accessToken;
-          setLoginInfo({ ...loginInfo, accessToken: newAccessToken });
-          apiClient.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
+          const { data: response } = data;
 
-          processQueue(null, newAccessToken);
+          setLoginInfo({
+            ...loginInfo,
+            refreshToken: response.refreshToken,
+            accessToken: response.accessToken,
+          });
+          apiClient.defaults.headers.Authorization = `Bearer ${response.accessToken}`;
+
+          processQueue(null, response.accessToken);
           return apiClient(originalRequest);
         } catch (refreshError) {
           processQueue(refreshError, null);
