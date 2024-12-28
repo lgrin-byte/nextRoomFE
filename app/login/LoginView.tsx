@@ -1,15 +1,13 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { LOGIN } from "@/consts/components/login";
 import Loader from "@/components/Loader/Loader";
 import { NewTextField } from "@/signup/NewTextField.component";
-import { useRouter } from "next/navigation";
-import { setCookie } from "@/utils/cookie";
-import Link from "next/link";
+
 import * as S from "./LoginView.styled";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Props = Record<string, any>;
 
 function LoginView(props: Props) {
@@ -21,8 +19,9 @@ function LoginView(props: Props) {
     logoProps,
     isLoading,
     errorMessage,
+    contectProps,
   } = props;
-  const router = useRouter();
+
   return (
     <S.Wrapper>
       {isLoading && <Loader />}
@@ -39,13 +38,7 @@ function LoginView(props: Props) {
         </S.LoginButtonWrapper>
         <S.Contect>
           관리자 계정이 필요하신가요?
-          <button
-            type="button"
-            onClick={() => {
-              setCookie("/login");
-              router.push("/signup");
-            }}
-          >
+          <button type="button" {...contectProps}>
             회원가입
           </button>
         </S.Contect>

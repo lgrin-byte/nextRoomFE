@@ -1,13 +1,15 @@
 import React from "react";
-import { HOME_TITLE } from "@/consts/components/home";
 import AddIcon from "@mui/icons-material/Add";
-import { useModalStateWrite } from "@/components/atoms/modals.atom";
-import { getShopName } from "@/utils/localStorage";
 import { useRouter } from "next/navigation";
+
+import { HOME_TITLE } from "@/consts/components/home";
+import { useModalStateWrite } from "@/components/atoms/modalState.atom";
+import { getLoginInfo } from "@/utils/localStorage";
+
 import * as S from "./EmptyHomeView.styled";
 
 function EmptyHomeView() {
-  const shopName = getShopName();
+  const { shopName } = getLoginInfo();
   const router = useRouter();
   const setModalState = useModalStateWrite();
   const toggleOnModalState = () => {

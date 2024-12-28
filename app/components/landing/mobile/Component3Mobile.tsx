@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+
 import * as S from "./ComponentMobile.styled";
 
 export default function Component3Mobile() {
@@ -30,7 +31,6 @@ export default function Component3Mobile() {
       },
     },
   };
-  
 
   const imgProps = {
     src: "/images/landing/landing.png",

@@ -1,9 +1,10 @@
-import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
+
+import { useToastWrite } from "@/components/atoms/toast.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { QUERY_KEY } from "@/queries/getHintList";
 import { MutationConfigOptions } from "@/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
 
 interface Request {
   id: number;
@@ -24,7 +25,7 @@ export const deleteHint = async (req: Request) => {
 
 export const useDeleteHint = (configOptions?: MutationConfigOptions) => {
   const queryClient = useQueryClient();
-  const setSnackBar = useSnackBarWrite();
+  const setToast = useToastWrite();
 
   const info = useMutation<Response, void, Request, void>({
     mutationKey: MUTATION_KEY,
@@ -32,9 +33,10 @@ export const useDeleteHint = (configOptions?: MutationConfigOptions) => {
     ...configOptions?.options,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
-      setSnackBar({
+      setToast({
         isOpen: true,
-        message: '힌트를 삭제했습니다. 단말기에서 업데이트를 진행해 주세요.',
+        title: "힌트를 삭제했습니다.",
+        text: "",
       });
       // console.log("성공 시 실행")
     },
@@ -42,9 +44,10 @@ export const useDeleteHint = (configOptions?: MutationConfigOptions) => {
       //   console.log("항상 실행");
     },
     onError: (error) => {
-      setSnackBar({
+      setToast({
         isOpen: true,
-        message: `${(error as any)?.response?.data?.message || error}`,
+        title: `${(error as any)?.response?.data?.message || error}`,
+        text: "",
       });
     },
   });

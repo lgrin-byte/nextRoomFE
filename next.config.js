@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   swcMinify: true,
-  reactStrictMode: true,
+  reactStrictMode: false,
   compiler: {
     styledComponents: true,
   },
@@ -21,6 +21,9 @@ const nextConfig = {
     });
 
     return config;
+  },
+  images: {
+    domains: ["nextroom-image.s3.ap-northeast-2.amazonaws.com"],
   },
 };
 

@@ -146,6 +146,9 @@ export const SignUpButton = styled(Button)`
   font-size: 18px !important;
   font-weight: 500 !important;
   line-height: 20px !important;
+
+  color: #717072;
+  background-color: #464748;
 `;
 
 export const StyledBox = styled(Box)`

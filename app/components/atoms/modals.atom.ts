@@ -1,19 +1,23 @@
+// modals.atom.ts
 import {
   atom,
-  useRecoilValue,
   useRecoilState,
+  useRecoilValue,
   useSetRecoilState,
 } from "recoil";
+import React from "react";
 
-interface Modal {
-  isOpen: boolean;
-  type: "post" | "put";
+interface ModalComponentProps<P = any> {
+  Component: React.FC<P>;
+  props?: P;
+  id: string; // 각 모달에 고유 ID 추가
 }
-const modalState = atom<Modal>({
-  key: "modalState",
-  default: { isOpen: false, type : "post" },
+
+export const modalsState = atom<ModalComponentProps[]>({
+  key: "modalsState",
+  default: [],
 });
 
-export const useModalState = () => useRecoilState(modalState);
-export const useModalStateValue = () => useRecoilValue(modalState);
-export const useModalStateWrite = () => useSetRecoilState(modalState);
+export const useModalState = () => useRecoilState(modalsState);
+export const useModalStateValue = () => useRecoilValue(modalsState);
+export const useModalStateWrite = () => useSetRecoilState(modalsState);

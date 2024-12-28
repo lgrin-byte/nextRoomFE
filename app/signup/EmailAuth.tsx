@@ -2,13 +2,14 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useSignUpState } from "@/components/atoms/signup.atom";
 
+import { useSignUpState } from "@/components/atoms/signup.atom";
 import Loader from "@/components/Loader/Loader";
 import { usePostVerification } from "@/mutations/postVerification";
 import { usePostSendMessage } from "@/mutations/postSendMessage";
 import "@/apis/firebase";
 import useAnalytics from "@/hooks/useAnalytics";
+
 import EmailAuthView from "./EmailAuthView";
 
 interface FormValues {
@@ -40,13 +41,11 @@ function EmailAuth() {
   const second = String(Math.floor((timeLeft / 1000) % 60)).padStart(2, "0");
 
   const browserPreventEvent = () => {
-    // eslint-disable-next-line no-restricted-globals
     history.pushState(null, "", location.href);
     setSignUpState({ ...signUpState, level: 1 });
   };
 
   useEffect(() => {
-    // eslint-disable-next-line no-restricted-globals
     history.pushState(null, "", location.href);
     window.addEventListener("popstate", () => {
       browserPreventEvent();
@@ -56,7 +55,6 @@ function EmailAuth() {
         browserPreventEvent();
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {
@@ -70,7 +68,6 @@ function EmailAuth() {
       firebase_screen: "sign_up_email_code",
       firebase_screen_class: "sign_up_email_code",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -139,7 +136,6 @@ function EmailAuth() {
     }, INTERVAL);
 
     timerIdRef.current = timer; // 새 타이머 ID 저장
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

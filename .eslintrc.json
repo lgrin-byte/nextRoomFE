@@ -9,28 +9,34 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
-    "airbnb",
-    "airbnb/hooks",
-    "airbnb-typescript",
-    "prettier",
-    "plugin:storybook/recommended"
+    "prettier"
   ],
-  "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": ["tsconfig.json"]
+    "project": "tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint"],
+  "globals": { "NodeJS": "readonly" },
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-props-no-spreading": "off",
-    "jsx-a11y/label-has-associated-control": [
-      2,
+    "import/order": [
+      "error",
       {
-        "labelAttributes": ["htmlFor"]
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always"
       }
-    ]
+    ],
+    "react/display-name": "off",
+    "jsx-a11y/alt-text": "off",
+    "@next/next/no-img-element": "off",
+    "no-console": ["error", { "allow": ["warn", "error"] }]
   }
 }

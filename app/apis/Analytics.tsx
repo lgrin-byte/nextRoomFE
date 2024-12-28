@@ -1,7 +1,9 @@
 "use client";
 
-import { isDevMode } from "@/consts/env";
 import Script from "next/script";
+
+import { isDevMode } from "@/consts/env";
+
 import * as gtag from "./gtag";
 
 function Analytics() {

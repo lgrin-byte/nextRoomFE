@@ -1,0 +1,10 @@
+**/*.css
+**/*.scss
+**/*.sass
+**/*.html
+**/*.yml
+.github
+.husky
+.next
+.swc
+.vscode

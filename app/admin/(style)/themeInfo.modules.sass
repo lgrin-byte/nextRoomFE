@@ -1,0 +1,354 @@
+@import '../../style/variables'
+@import '../../style/mixins'
+@import '../../style/button'
+
+.theme-infomation
+  width: 100%
+  height: 100%
+  transition: width 0.4s ease
+  &__title
+    height: fit-content
+    padding: 23px 0
+    @include title24M
+    color: $color-white
+    .theme-infomation-fit
+      width: fit-content
+      display: flex
+      justify-content: left
+      align-items: center
+      gap: 4px
+      cursor: pointer
+      &:hover
+        color: $color-white50
+        .image
+          background-image: url(/images/svg/icon_ArrowDownMini_hover.svg)
+      &:active
+        color: $color-white20
+        .image
+          background-image: url(/images/svg/icon_ArrowDownMini_active.svg)
+      .title
+        width: fit-content
+      .image
+        width: 24px
+        height: 24px
+        background-image: url(/images/svg/icon_ArrowDownMini_default.svg)
+        background-repeat: no-repeat
+        background-position: center
+        background-size: cover
+
+
+  &__body
+    height: fit-content
+    display: flex
+    flex-direction: column
+    gap: 12px
+
+.drawer-open
+  width: calc(100% - 520px)
+
+.theme-infomation-text
+  @include body14M
+  color: $color-white50
+  cursor: default
+.theme-infomation-container
+  display: flex
+  gap: 16px
+.theme-infomation-box
+  position: relative
+  width: 50%
+  height: 82px
+  padding: 17px 24px 17px 20px
+  border: 1px solid $color-white8
+  box-sizing: border-box
+  border-radius: 8px
+  display: flex
+  flex-direction: column
+  gap: 4px
+  cursor: pointer
+  div
+    cursor: pointer
+  &:hover
+    background-color: $color-white5
+    .theme-infomation-modify-text
+      color: $color-white
+      display: block
+  &:active
+    background-color: $color-white8
+    .theme-infomation-modify-text
+      display: block
+      color: $color-white
+
+.theme-infomation-content-text
+  @include title18M
+  color: $color-white
+
+.theme-infomation-modify-text
+  display: none
+  position: absolute
+  right: 24px
+  top: 31px
+  @include body14M
+
+
+.theme-hint
+  width: 100%
+  height: 100%
+  &__container
+    margin-top: 40px
+    padding-bottom: 40px
+    display: flex
+    flex-direction: column
+  &__title
+    width: 100%
+    height: 40px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 8px
+    @include title16SB
+    span
+      cursor: default
+
+  &__table
+    overflow: hidden
+    width: 100%
+    height: fit-content
+    border: 1px solid $color-white12
+    border-radius: 8px
+    &>div
+      min-height: 36px
+    .table-header
+      cursor: default
+      display: flex
+      gap: 4px
+      padding: 8px 4px
+      border-bottom: 1px solid $color-white12
+      @include body14M
+      color: $color-white50
+    .table-code
+      min-width: 84px
+      padding: 0 4px 0 12px
+    .table-rate
+      min-width: 85px
+      padding: 0 4px
+    .table-hint
+      width: 100%
+      min-width: 311px
+      padding: 0 20px 0 4px
+      @media (min-width: 1680px)
+        min-width: 831px
+    .drawer-open
+      @media (min-width: 1680px)
+        min-width: 311px
+    .table-answer
+      width: 300px
+      min-width: 300px
+      padding: 0 20px 0 4px
+    .table-content-box
+      width: 100%
+      height: fit-content
+      .table-content-element-box
+        width: 100%
+        min-height: 60px
+        padding: 10px 4px
+        cursor: pointer
+        border: none
+        &__selected
+          background-color: $color-white5
+        &:hover
+          background-color: $color-white5
+        &:active
+          background-color: $color-white8
+        .code
+          width: 57px
+          height: 24px
+          display: flex
+          justify-content: center
+          align-items: center
+          border: 1px solid $color-white12
+          border-radius: 6px
+          background-color: $color-black
+          box-sizing: content-box
+          color: white
+          @include body14M
+        .rate
+          width: fit-content
+          height: 24px
+          padding: 0 12px
+          display: flex
+          justify-content: center
+          align-items: center
+          border: 1px solid $color-white12
+          border-radius: 6px
+          background-color: $color-black
+          box-sizing: content-box
+          color: white
+          @include body14M
+        .hint-content
+          color: white
+          @include body14R
+          padding: 0 0 6px 0
+          word-break: break-all
+        .hint-images
+          display: flex
+          gap: 4px
+        .hint-image-box
+          width: 24px
+          height: 24px
+          padding: 5px
+          border: 1px solid $color-white12
+          border-radius: 38px
+        .hint-image
+          width: 100%
+          height: 100%
+          background-image: url(/images/svg/icon_gallery.svg)
+
+    .table-content-box__none-hint
+      width: 100%
+      height: 300px
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      text-align: center
+      cursor: default
+      .main-text
+        @include title16M
+        margin-bottom: 4px
+      .sub-text
+        @include body14R
+        color: $color-white70
+      button
+        margin-top: 16px
+
+.theme-drawer
+  &__container
+    position: absolute
+    top: 0
+    right: 0
+    width: 520px
+    height: 100vh
+    overflow-y: auto
+    background-color: $color-main
+    border-left: 1px solid $color-white12
+    box-shadow: -20px 0 80px 0 $color-black60
+    transform: translateX(0)
+
+    &.animate
+      transform: translateX(100%)
+      animation: slide-in 0.3s forwards ease
+
+  @keyframes slide-in
+    from
+      transform: translateX(100%)
+    to
+      transform: translateX(0)
+
+  &__title
+    height: 78px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 0 24px
+    @include title20SB
+    border-bottom: 1px solid $color-white12
+    cursor: default
+    background-color: $color-main
+    position: sticky
+    top: 0
+    z-index: 2
+  &__content
+    padding: 24px
+  &__footer
+    width: 100%
+    height: 78px
+    padding: 19px 24px
+    position: sticky
+    bottom: 0
+    display: flex
+    justify-content: right
+    gap: 8px
+    background-color: $color-main
+    border-top: 1px solid $color-white12
+
+.drawer-category-title
+  height: 28px
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 8px
+  color: $color-white
+  @include title16SB
+  cursor: default
+  button
+    display: flex
+    justify-content: space-between
+    gap: 4px
+.drawer-image-subtext-section
+  height: 26px
+  display: flex
+  margin: 40px 0 16px 0
+  justify-content: center
+  cursor: default
+  position: relative
+.drawer-image-subtext-line
+  width: 100%
+  height: 1px
+  background-color: $color-white12
+  position: absolute
+  top: 50%
+.drawer-image-subtext
+  width: fit-content
+  padding: 2px 12px
+  background-color: $color-black
+  border: 1px solid $color-white12
+  border-radius: 6px
+  box-sizing: content-box
+  @include body14M
+  z-index: 1
+.drawer-image-section
+  display: flex
+  justify-content: center
+  margin: 16px 0 12px 0
+.drawer-hint
+  margin-top: 40px
+.drawer-answer
+  margin-top: 40px
+
+.drawer-images
+  display: flex
+  flex-direction: column
+  gap: 10px
+  margin-bottom: 10px
+  position: relative
+  &:hover
+    .drawer-image-box:hover .drawer-image-dimmed
+      visibility: visible
+      cursor: pointer
+.drawer-image-dimmed
+  position: absolute
+  top: 0
+  width: 100%
+  height: 100%
+  background-color: $color-black60
+  border-radius: 8px
+  display: flex
+  justify-content: center
+  align-items: center
+  visibility: hidden
+.drawer-image-box
+  width: 100%
+  min-height: 229px
+  padding: 20px
+  border-radius: 8px
+  background-color: $color-white5
+  display: flex
+  justify-content: center
+  align-items: center
+  position: relative
+  img
+    border: 1px solid $color-white20
+    object-fit: contain
+    border-radius: 8px
+    max-height: 300px
+    max-width: 100%

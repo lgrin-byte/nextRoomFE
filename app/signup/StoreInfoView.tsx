@@ -2,12 +2,11 @@ import React from "react";
 import { Checkbox, FormGroup } from "@mui/material";
 
 import { START } from "@/consts/components/signUp";
-
 import Loader from "@/components/Loader/Loader";
+
 import * as S from "./SignUpView.styled";
 import { NewTextField } from "./NewTextField.component";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Props = Record<string, any>;
 
 function StoreInfoView(props: Props) {
@@ -22,7 +21,6 @@ function StoreInfoView(props: Props) {
   } = props;
 
   const { checked, onChange } = checkBoxProps;
-
 
   return (
     <S.Cont>

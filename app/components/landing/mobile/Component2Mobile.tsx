@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 import "@/apis/firebase";
 
 import useAnalytics from "@/hooks/useAnalytics";
+
 import * as S from "./ComponentMobile.styled";
 
 export default function Component2Mobile() {
@@ -76,7 +77,7 @@ export default function Component2Mobile() {
       </S.Wrapper2>
       <S.BoxWrapper>
         {arr.map(({ name, date }) => (
-          <S.Box>
+          <S.Box key={name}>
             <p>{name}</p>
             <span>{date}</span>
           </S.Box>

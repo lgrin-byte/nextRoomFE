@@ -2,6 +2,7 @@
 
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 import { ADMIN_EMAIL, ADMIN_PASSWORD } from "@/consts/components/login";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
@@ -9,6 +10,8 @@ import { usePostLogin } from "@/mutations/postLogin";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import Loader from "@/components/Loader/Loader";
 import useChannelTalk from "@/hooks/useChannelTalk";
+import { setCookie } from "@/utils/cookie";
+
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -28,6 +31,7 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<FormValues>({
     defaultValues: {
       email: process.env.NEXT_PUBLIC_ADMIN_EMAIL || "",
@@ -36,6 +40,9 @@ function Login() {
   });
   useCheckSignIn();
   useChannelTalk();
+
+  const router = useRouter();
+  const formValue = watch();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     postLogin(data);
@@ -65,6 +72,7 @@ function Login() {
         },
       }),
     },
+    value: formValue.email,
   };
 
   const passwordProps = {
@@ -78,6 +86,7 @@ function Login() {
     },
     helperText: errors?.password && errors.password.message,
     error: Boolean(errors?.password) || isError,
+    value: formValue.password,
   };
 
   const buttonProps = {
@@ -92,6 +101,14 @@ function Login() {
     height: 26,
   };
 
+  const contectProps = {
+    type: "button",
+    onClick: () => {
+      setCookie("/login");
+      router.push("/signup");
+    },
+  };
+
   const errorMessage = isError && error?.response?.data?.message;
 
   const LoginViewProps = {
@@ -102,6 +119,7 @@ function Login() {
     logoProps,
     isLoading,
     errorMessage,
+    contectProps,
   };
 
   if (isLoggedIn) {

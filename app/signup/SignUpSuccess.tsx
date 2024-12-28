@@ -2,15 +2,19 @@
 
 import React, { useEffect, useState } from "react";
 import Lottie from "react-lottie-player";
-import SnackBar from "@/components/SnackBar/SnackBar";
-import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+import SnackBar from "@/components/SnackBar/SnackBar";
+import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
 import { getCookie } from "@/utils/cookie";
 import useAnalytics from "@/hooks/useAnalytics";
+
 import loaderJson from "../../public/lottie/signup.json";
-import "@/apis/firebase";
+
 import * as S from "./SignUpSuccess.styled";
+
+import "@/apis/firebase";
 
 function SignUpSuccess() {
   const isWebView = /APP_NEXTROOM_ANDROID/.test(navigator.userAgent); // 웹뷰에서 실행 중인지 여부 확인
@@ -25,7 +29,6 @@ function SignUpSuccess() {
       firebase_screen: "sign_up_success",
       firebase_screen_class: "sign_up_success",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -37,14 +40,12 @@ function SignUpSuccess() {
   }, [setSnackBarInfo, isFinished, snackInfo]);
 
   const browserPreventEvent = () => {
-    // eslint-disable-next-line no-restricted-globals
     history.pushState(null, "", location.href);
     const url = isWebView ? "/" : getCookie();
     router.push(url);
   };
 
   useEffect(() => {
-    // eslint-disable-next-line no-restricted-globals
     history.pushState(null, "", location.href);
     window.addEventListener("popstate", () => {
       browserPreventEvent();
@@ -54,7 +55,6 @@ function SignUpSuccess() {
         browserPreventEvent();
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const rightImageProps = {

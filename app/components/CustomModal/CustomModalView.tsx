@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Modal } from "@mui/material";
+
 import * as S from "./CustomModalView.styled";
 import { CustomTypeModalProps } from "./CustomModal.type";
 

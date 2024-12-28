@@ -8,20 +8,19 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import AddIcon from "@mui/icons-material/Add";
-import { useModalState } from "@/components/atoms/modals.atom";
+import Image from "next/image";
+import Link from "next/link";
+
+import { useModalState } from "@/components/atoms/modalState.atom";
 import {
   InitialSelectedTheme,
   useSelectedTheme,
 } from "@/components/atoms/selectedTheme.atom";
 import { Theme, Themes } from "@/queries/getThemeList";
-import Image from "next/image";
-import { getAdminCode, getShopName } from "@/utils/localStorage";
+import { getLoginInfo } from "@/utils/localStorage";
 import Dialog from "@/components/common/Dialog/Dialog";
 
-import Link from "next/link";
 import * as S from "./DrawerView.styled";
 
 type Props = {
@@ -40,8 +39,7 @@ function MainDrawer(props: Props) {
   const router = useRouter();
 
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const shopName = getShopName();
-  const adminCode = getAdminCode();
+  const { shopName, adminCode } = getLoginInfo();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();

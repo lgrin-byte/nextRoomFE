@@ -10,6 +10,7 @@ import {
 import "@/apis/firebase";
 import { useSignUpState } from "@/components/atoms/signup.atom";
 import useAnalytics from "@/hooks/useAnalytics";
+
 import PasswordView from "./PasswordView";
 
 interface FormValues {
@@ -25,18 +26,22 @@ function Password() {
     handleSubmit,
     watch,
     formState: { errors, isValid },
-  } = useForm<FormValues>({ mode: "onChange" });
+  } = useForm<FormValues>({
+    mode: "onChange",
+    defaultValues: {
+      password: "",
+      passwordConfirm: "",
+    },
+  });
   const formValue = watch();
   const { logEvent } = useAnalytics();
 
   const browserPreventEvent = () => {
-    // eslint-disable-next-line no-restricted-globals
     history.pushState(null, "", location.href);
     setSignUpState({ ...signUpState, level: 2 });
   };
 
   useEffect(() => {
-    // eslint-disable-next-line no-restricted-globals
     history.pushState(null, "", location.href);
     window.addEventListener("popstate", () => {
       browserPreventEvent();
@@ -46,14 +51,12 @@ function Password() {
         browserPreventEvent();
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
       setFocus("password");
     }, 1000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -77,7 +80,6 @@ function Password() {
       firebase_screen: "sign_up_password",
       firebase_screen_class: "sign_up_password",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formProps = {
@@ -106,6 +108,7 @@ function Password() {
         },
       }),
     },
+    value: formValue.password,
     onKeyDown: handleKeyDown,
   };
 
@@ -124,6 +127,7 @@ function Password() {
           value === formValue.password || "비밀번호가 일치하지 않습니다.", // 현재 필드의 값을 password와 직접 비교
       }),
     },
+    value: formValue.passwordConfirm,
   };
 
   const buttonProps = {

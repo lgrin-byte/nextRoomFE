@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
 import { apiClient } from "@/lib/reactQueryProvider";
-import { getAccessToken } from "@/utils/localStorage";
-
+import { getLoginInfo } from "@/utils/localStorage";
 import { useIsLoggedIn } from "@/components/atoms/account.atom";
+import { getSubscriptionPlan } from "@/queries/getSubscriptionPlan";
 
 const useCheckSignIn = () => {
-  const accessToken = getAccessToken();
+  const { accessToken } = getLoginInfo();
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const useCheckSignIn = () => {
         "$1"
       )}`;
       setIsLoggedIn(true);
+      getSubscriptionPlan();
     }
   }, [accessToken, setIsLoggedIn]);
 

@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+
 import { useSignUpState } from "@/components/atoms/signup.atom";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import Loader from "@/components/Loader/Loader";
 import { usePostSignUp } from "@/mutations/postSignUp";
 import "@/apis/firebase";
 import useAnalytics from "@/hooks/useAnalytics";
+
 import StoreInfoView from "./StoreInfoView";
 
 interface FormValues {
@@ -27,14 +29,12 @@ function StoreInfo() {
     );
   const { logEvent } = useAnalytics();
 
-  // eslint-disable-next-line no-nested-ternary
   const type = isWebView ? 3 : isMobile ? 2 : 1;
   useEffect(() => {
     logEvent("screen_view", {
       firebase_screen: "sign_up_store_info",
       firebase_screen_class: "sign_up_store_info",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {
@@ -51,14 +51,18 @@ function StoreInfo() {
     setFocus,
     reset,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    defaultValues: {
+      name: "",
+      reason: "",
+    },
+  });
   const formValue = watch();
 
   useEffect(() => {
     setTimeout(() => {
       setFocus("name");
     }, 1000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -69,18 +73,15 @@ function StoreInfo() {
     }
     setTimeout(() => {
       setFocus("reason");
-    }, 100);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, 10);
   }, [isChecked]);
 
   const browserPreventEvent = () => {
-    // eslint-disable-next-line no-restricted-globals
     history.pushState(null, "", location.href);
     setSignUpState({ ...signUpState, level: 3 });
   };
 
   useEffect(() => {
-    // eslint-disable-next-line no-restricted-globals
     history.pushState(null, "", location.href);
     window.addEventListener("popstate", () => {
       browserPreventEvent();
@@ -90,7 +91,6 @@ function StoreInfo() {
         browserPreventEvent();
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -126,6 +126,7 @@ function StoreInfo() {
     disabled: isChecked,
     inputProps: { ...register("name") },
     style: { margin: "40px 0 6px" },
+    value: formValue.name,
   };
 
   const reasonProps = {
@@ -137,6 +138,7 @@ function StoreInfo() {
     placeholder: "방문사유",
     inputProps: { ...register("reason") },
     style: { marginTop: "26px" },
+    value: formValue.reason,
   };
   const checkBoxProps = {
     label: "매장명이 없습니다.",
