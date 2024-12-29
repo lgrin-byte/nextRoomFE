@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import Loader from "@/components/Loader/Loader";
-import { getLoginInfo, setSelectedThemeId } from "@/utils/localStorage";
+import { getLoginInfo, setSelectedThemeId } from "@/utils/storageUtil";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useGetThemeList } from "@/queries/getThemeList";
 import { useToastInfo } from "@/components/atoms/toast.atom";

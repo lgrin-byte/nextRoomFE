@@ -14,7 +14,7 @@ import {
   getSelectedThemeId,
   getStatus,
   removeThemeId,
-} from "@/utils/localStorage";
+} from "@/utils/storageUtil";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useDrawerState } from "@/components/atoms/drawer.atom";
 import useModal from "@/hooks/useModal";

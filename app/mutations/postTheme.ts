@@ -1,9 +1,6 @@
-import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders } from "axios";
 
-import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
-import { useCreateThemeValue } from "@/components/atoms/createTheme.atom";
 import { useToastWrite } from "@/components/atoms/toast.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { QUERY_KEY } from "@/queries/getThemeList";
@@ -41,9 +38,6 @@ export const postTheme = async (
 export const usePostTheme = (configOptions?: MutationConfigOptions) => {
   const queryClient = useQueryClient();
   const setToast = useToastWrite();
-  const router = useRouter();
-  const setSelectedTheme = useSelectedThemeWrite();
-  const createTheme = useCreateThemeValue();
 
   const info = useMutation<
     AxiosResponse<PostThemeResponseType>,

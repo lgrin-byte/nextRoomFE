@@ -10,9 +10,7 @@ import Mobile from "../Mobile/Mobile";
 interface RequireAuthProps {
   children: ReactNode;
 }
-function RequireAuth({
-  children,
-}: RequireAuthProps): React.ReactElement | null {
+function RequireAuth({ children }: RequireAuthProps) {
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
 
   const router = useRouter();

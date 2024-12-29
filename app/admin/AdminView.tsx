@@ -6,7 +6,7 @@ import ContentArea from "@/admin/(components)/ContentArea";
 import Toast from "@/components/common/Toast/Toast";
 import NotiDialog from "@/components/common/Dialog-new/Noti-Dialog-new/Dialog";
 import useModal from "@/hooks/useModal";
-import { getLocalStorage } from "@/utils/localStorage";
+import { getLocalStorage } from "@/utils/storageUtil";
 
 interface Theme {
   id: number;

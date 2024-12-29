@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { usePostTheme } from "@/mutations/postTheme";
 import { useCreateThemeValue } from "@/components/atoms/createTheme.atom";
 import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
-import { setSelectedThemeId } from "@/utils/localStorage";
+import { setSelectedThemeId } from "@/utils/storageUtil";
 
 import CreateThemeTitle from "./CreateThemeTitle";
 import CreateThemeBody from "./CreateThemeBody";

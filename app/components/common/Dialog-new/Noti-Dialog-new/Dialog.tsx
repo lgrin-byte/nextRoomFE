@@ -3,7 +3,7 @@ import React, { forwardRef, useRef } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
 import useModal from "@/hooks/useModal";
 import ModalPortal from "@/components/common/Dialog-new/ModalPortal";
-import { setLocalStorage } from "@/utils/localStorage";
+import { setLocalStorage } from "@/utils/storageUtil";
 
 import DialogBody from "./DialogBody";
 

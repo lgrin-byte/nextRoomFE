@@ -5,7 +5,7 @@ import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { ApiResponse, QueryConfigOptions } from "@/types";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
-import { getSelectedThemeId, setSelectedThemeId } from "@/utils/localStorage";
+import { getSelectedThemeId, setSelectedThemeId } from "@/utils/storageUtil";
 import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
 
 type Request = void;
