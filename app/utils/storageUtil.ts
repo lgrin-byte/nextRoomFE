@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 const ACCESS_TOKEN = "accessToken";
 const REFRESH_TOKEN = "refreshToken";
 const SHOP_NAME = "shopName";
@@ -5,7 +7,6 @@ const ADMIN_CODE = "adminCode";
 const STATUS = "status";
 const THEME_ID = "themeId";
 const ACCESS_TOKEN_EXPIRES_IN = "accessTokenExpiresIn";
-
 interface LoginInfo {
   accessToken: string;
   shopName: string;
@@ -14,35 +15,45 @@ interface LoginInfo {
   refreshToken: string;
 }
 
-const setStorage = (storage: Storage, key: string, value: any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setLocalStorage = (key: string, value: any) => {
   if (typeof window !== "undefined") {
-    if (!storage) return;
+    const storage = window.localStorage;
+    if (!storage) {
+      return;
+    }
     switch (typeof value) {
-      case `string`:
+      case `string`: {
         try {
           const stringifiedValue = JSON.stringify(value);
           storage.setItem(key, stringifiedValue);
         } catch (e) {
-          console.error(`Failed to stringify value for key: ${key}`);
+          console.error(`failed to stringify`);
         }
         break;
+      }
       default:
         storage.setItem(key, value);
     }
   }
 };
 
-const getStorage = (storage: Storage, key: string, defaultValue = null) => {
+export const getLocalStorage = (key: string, defaultValue = null) => {
   if (typeof window !== "undefined") {
-    if (!storage) return null;
+    const storage = window.localStorage;
+    if (!storage) {
+      return null;
+    }
     return storage.getItem(key) ?? defaultValue;
   }
-  return null;
 };
 
-const removeStorageItem = (storage: Storage, key: string) => {
+export const removeLocalStorageItem = (key: string) => {
   if (typeof window !== "undefined") {
-    if (!storage) return;
+    const storage = window.localStorage;
+    if (!storage) {
+      return;
+    }
     storage.removeItem(key);
   }
 };
@@ -56,59 +67,48 @@ export const setLoginInfo = (loginInfo: LoginInfo) => {
     accessTokenExpiresIn,
   } = loginInfo;
 
-  const sessionStorage = window.sessionStorage;
-  setStorage(sessionStorage, ACCESS_TOKEN, accessToken);
-  setStorage(sessionStorage, REFRESH_TOKEN, refreshToken);
-  setStorage(sessionStorage, SHOP_NAME, shopName?.replaceAll(`"`, ""));
-  setStorage(sessionStorage, ADMIN_CODE, adminCode?.replaceAll(`"`, ""));
-  setStorage(sessionStorage, ACCESS_TOKEN_EXPIRES_IN, accessTokenExpiresIn);
-};
-
-export const getLoginInfo = (): LoginInfo => {
-  const sessionStorage = window.sessionStorage;
-  return {
-    accessToken: getStorage(sessionStorage, ACCESS_TOKEN) || "",
-    refreshToken: getStorage(sessionStorage, REFRESH_TOKEN) || "",
-    shopName: getStorage(sessionStorage, SHOP_NAME) || "",
-    adminCode: getStorage(sessionStorage, ADMIN_CODE) || "",
-    accessTokenExpiresIn:
-      Number(getStorage(sessionStorage, ACCESS_TOKEN_EXPIRES_IN)) || 0,
-  };
-};
-
-export const removeLoginInfo = () => {
-  const sessionStorage = window.sessionStorage;
-  removeStorageItem(sessionStorage, ACCESS_TOKEN);
-  removeStorageItem(sessionStorage, REFRESH_TOKEN);
-  removeStorageItem(sessionStorage, SHOP_NAME);
-  removeStorageItem(sessionStorage, ADMIN_CODE);
-  removeStorageItem(sessionStorage, ACCESS_TOKEN_EXPIRES_IN);
+  setLocalStorage(ACCESS_TOKEN, accessToken);
+  Cookies.set(REFRESH_TOKEN, refreshToken, {
+    secure: true,
+    sameSite: "Strict",
+    expires: 7,
+  });
+  setLocalStorage(SHOP_NAME, shopName?.replaceAll(`"`, ""));
+  setLocalStorage(ADMIN_CODE, adminCode?.replaceAll(`"`, ""));
+  setLocalStorage(ACCESS_TOKEN_EXPIRES_IN, accessTokenExpiresIn);
 };
 
 export const setStatus = (status: string) => {
-  setStorage(window.localStorage, STATUS, status);
+  setLocalStorage(STATUS, status);
 };
 
 export const setSelectedThemeId = (themeId: number) => {
-  setStorage(window.localStorage, THEME_ID, themeId);
+  setLocalStorage(THEME_ID, themeId);
 };
 
-export const getStatus = () => getStorage(window.localStorage, STATUS);
-
-export const getSelectedThemeId = () =>
-  getStorage(window.localStorage, THEME_ID);
+export const getLoginInfo = (): LoginInfo => {
+  return {
+    accessToken: getLocalStorage(ACCESS_TOKEN) || "",
+    refreshToken: Cookies.get(REFRESH_TOKEN) || "",
+    shopName: getLocalStorage(SHOP_NAME) || "",
+    adminCode: getLocalStorage(ADMIN_CODE) || "",
+    accessTokenExpiresIn: Number(getLocalStorage(ACCESS_TOKEN_EXPIRES_IN)) || 0,
+  };
+};
+export const getStatus = () => getLocalStorage(STATUS);
+export const getSelectedThemeId = () => getLocalStorage(THEME_ID);
 
 export const removeAccessToken = () => {
-  removeStorageItem(window.sessionStorage, ACCESS_TOKEN);
+  removeLocalStorageItem(ACCESS_TOKEN);
 };
 
 export const removeThemeId = () => {
-  removeStorageItem(window.localStorage, THEME_ID);
+  removeLocalStorageItem(THEME_ID);
 };
 
 export const removeLocalStorageAll = () => {
   if (typeof window !== "undefined") {
     window.localStorage.clear();
-    window.sessionStorage.clear();
+    Cookies.remove(REFRESH_TOKEN);
   }
 };
