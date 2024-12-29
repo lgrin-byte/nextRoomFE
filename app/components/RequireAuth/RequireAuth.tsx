@@ -10,6 +10,7 @@ import {
 } from "@/components/atoms/currentTheme.atom";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useIsLoggedIn } from "@/components/atoms/account.atom";
+
 import { getSelectedThemeId } from "@/utils/storageUtil";
 import * as S from "@/home/HomeView.styled";
 import Header from "@/components/common/Header/Header";
@@ -20,9 +21,7 @@ import Mobile from "../Mobile/Mobile";
 interface RequireAuthProps {
   children: ReactNode;
 }
-function RequireAuth({
-  children,
-}: RequireAuthProps): React.ReactElement | null {
+function RequireAuth({ children }: RequireAuthProps) {
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
   const [currentTheme, setCurrentTheme] = useCurrentTheme();
   const resetCurrentTheme = useCurrentThemeReset();
@@ -72,18 +71,7 @@ function RequireAuth({
 
   if (isMobile && !allowUnauthPaths.includes(pathname)) return <Mobile />;
 
-  if (!isLoggedIn) return <>{children}</>;
-  if (isLoggedIn && (pathname === "/" || "/admin")) return <>{children}</>;
-
-  return (
-    <S.Wrapper>
-      <MainDrawer {...{ categories }} />
-      <S.Cont component="main">
-        <Header />
-        {children}
-      </S.Cont>
-    </S.Wrapper>
-  );
+  return <>{children}</>;
 }
 
 export default RequireAuth;
