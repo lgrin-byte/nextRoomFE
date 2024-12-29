@@ -105,8 +105,4 @@ const PreviewDialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
   );
 });
 
-PreviewDialog.defaultProps = {
-  type: "",
-};
-
 export default PreviewDialog;

@@ -8,7 +8,6 @@ import { ADMIN_EMAIL, ADMIN_PASSWORD } from "@/consts/components/login";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
-import Loader from "@/components/Loader/Loader";
 import useChannelTalk from "@/hooks/useChannelTalk";
 import { setCookie } from "@/utils/cookie";
 
@@ -44,8 +43,13 @@ function Login() {
   const router = useRouter();
   const formValue = watch();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    postLogin(data);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      await postLogin(data);
+      router.push("/admin");
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
   };
   const formProps = {
     component: "form",
@@ -121,10 +125,6 @@ function Login() {
     errorMessage,
     contectProps,
   };
-
-  if (isLoggedIn) {
-    return <Loader />;
-  }
 
   return <LoginView {...LoginViewProps} />;
 }

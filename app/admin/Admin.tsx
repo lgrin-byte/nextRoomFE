@@ -20,8 +20,8 @@ type Theme = {
 };
 
 function Admin() {
-  const { data: categories = [] } = useGetThemeList();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { data: categories = [], isLoading } = useGetThemeList();
+
   const isLoggedIn = useCheckSignIn();
 
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
@@ -29,13 +29,6 @@ function Admin() {
 
   const [toast, setToast] = useToastInfo();
   const router = useRouter();
-
-  useEffect(() => {
-    if (categories.length > 0 && selectedTheme.id === 0) {
-      setSelectedTheme(categories[categories.length - 1]);
-      setIsLoading(false);
-    }
-  }, [categories, selectedTheme, setSelectedTheme]);
 
   const handleClickSelected = (theme: Theme) => {
     setSelectedTheme(theme);
@@ -64,7 +57,7 @@ function Admin() {
     isOpen: toast.isOpen,
   };
 
-  if (!isLoggedIn || !isLoading) {
+  if (!isLoggedIn || isLoading) {
     return <Loader />;
   }
 
