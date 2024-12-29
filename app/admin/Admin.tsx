@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import useCheckSignIn from "@/hooks/useCheckSignIn";
@@ -21,7 +21,7 @@ type Theme = {
 
 function Admin() {
   const { data: categories = [] } = useGetThemeList();
-
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const isLoggedIn = useCheckSignIn();
 
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
@@ -33,6 +33,7 @@ function Admin() {
   useEffect(() => {
     if (categories.length > 0 && selectedTheme.id === 0) {
       setSelectedTheme(categories[categories.length - 1]);
+      setIsLoading(false);
     }
   }, [categories, selectedTheme, setSelectedTheme]);
 
@@ -63,7 +64,7 @@ function Admin() {
     isOpen: toast.isOpen,
   };
 
-  if (!isLoggedIn) {
+  if (!isLoggedIn || !isLoading) {
     return <Loader />;
   }
 
