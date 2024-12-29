@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { ApiError, ApiResponse, MutationConfigOptions } from "@/types";
-import { setLoginInfo } from "@/utils/localStorage";
+import { setLoginInfo } from "@/utils/storageUtil";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 
 interface Request {

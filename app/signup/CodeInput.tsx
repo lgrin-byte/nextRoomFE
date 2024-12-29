@@ -13,29 +13,29 @@ interface Props {
 
 export default function CodeInput(props: Props) {
   const { disabled, numbers, setNumbers } = props;
-  const inputRefs = useRef(Array(6).fill(null)); // 6개의 ref를 저장할 배열
+  const inputRefs = useRef<(HTMLInputElement | null)[]>(
+    Array.from({ length: 6 }, () => null)
+  );
 
   const { mutateAsync: postVerification, isError = false } =
     usePostVerification();
   const signUpState = useSignUpValue();
 
   const handleInputChange = (index: number, value: string) => {
-    // 입력값이 숫자가 아니거나 길이가 1을 넘어가면 입력을 막음
     if (!/^\d$/.test(value)) return;
 
-    const newNumbers = [...numbers]; // 기존 숫자 배열 복사
-    newNumbers[index] = value; // 해당 인덱스의 값을 업데이트
-    setNumbers(newNumbers); // 업데이트된 배열을 상태로 설정
+    const newNumbers = [...numbers];
+    newNumbers[index] = value;
+    setNumbers(newNumbers);
 
-    // 다음 인풋 필드로 포커스 이동
     if (value !== "" && index < 5) {
-      inputRefs.current[index + 1].focus();
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
   useEffect(() => {
     setTimeout(() => {
-      inputRefs.current[0].focus();
+      inputRefs.current[0]?.focus();
     }, 1000);
   }, []);
 
@@ -47,13 +47,12 @@ export default function CodeInput(props: Props) {
       if (isError) {
         setTimeout(() => {
           setNumbers(Array(6).fill(""));
-          inputRefs.current[0].focus();
+          inputRefs.current[0]?.focus();
         }, 1000);
       }
     }
   }, [numbers, isError]);
 
-  // 입력값을 삭제하는 함수
   const handleInputDelete = (
     index: number,
     e: React.KeyboardEvent<HTMLInputElement>
@@ -63,9 +62,8 @@ export default function CodeInput(props: Props) {
       newNumbers[index] = "";
       setNumbers(newNumbers);
 
-      // 이전 인풋 필드로 포커스 이동
       if (index > 0) {
-        inputRefs.current[index - 1].focus();
+        inputRefs.current[index - 1]?.focus();
       }
     }
   };
@@ -79,9 +77,11 @@ export default function CodeInput(props: Props) {
           value={number}
           error={isError && numbers.join("").length === 0}
           onChange={(e) => handleInputChange(index, e.target.value)}
-          onKeyDown={(e) => handleInputDelete(index, e)} // 삭제 이벤트 처리
-          maxLength={1} // 한 글자만 입력할 수 있도록 설정
-          ref={(input) => (inputRefs.current[index] = input)} // ref를 배열에 저장
+          onKeyDown={(e) => handleInputDelete(index, e)}
+          maxLength={1}
+          ref={(input) => {
+            inputRefs.current[index] = input;
+          }}
           disabled={disabled}
           inputMode="numeric"
         />

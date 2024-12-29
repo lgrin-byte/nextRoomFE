@@ -15,7 +15,7 @@ import {
   getStatus,
   removeAccessToken,
   removeThemeId,
-} from "@/utils/localStorage";
+} from "@/utils/storageUtil";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useDrawerState } from "@/components/atoms/drawer.atom";

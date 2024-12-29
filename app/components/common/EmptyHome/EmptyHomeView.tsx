@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { HOME_TITLE } from "@/consts/components/home";
 import { useModalStateWrite } from "@/components/atoms/modalState.atom";
-import { getLoginInfo } from "@/utils/localStorage";
+import { getLoginInfo } from "@/utils/storageUtil";
 
 import * as S from "./EmptyHomeView.styled";
 

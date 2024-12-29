@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 const ACCESS_TOKEN = "accessToken";
 const REFRESH_TOKEN = "refreshToken";
 const SHOP_NAME = "shopName";
@@ -66,9 +68,13 @@ export const setLoginInfo = (loginInfo: LoginInfo) => {
   } = loginInfo;
 
   setLocalStorage(ACCESS_TOKEN, accessToken);
-  setLocalStorage(REFRESH_TOKEN, refreshToken);
-  setLocalStorage(SHOP_NAME, shopName);
-  setLocalStorage(ADMIN_CODE, adminCode);
+  Cookies.set(REFRESH_TOKEN, refreshToken, {
+    secure: true,
+    sameSite: "Strict",
+    expires: 7,
+  });
+  setLocalStorage(SHOP_NAME, shopName?.replaceAll(`"`, ""));
+  setLocalStorage(ADMIN_CODE, adminCode?.replaceAll(`"`, ""));
   setLocalStorage(ACCESS_TOKEN_EXPIRES_IN, accessTokenExpiresIn);
 };
 
@@ -80,11 +86,10 @@ export const setSelectedThemeId = (themeId: number) => {
   setLocalStorage(THEME_ID, themeId);
 };
 
-// 필요하다면 한번에 가져오는 함수도 만들 수 있습니다
 export const getLoginInfo = (): LoginInfo => {
   return {
     accessToken: getLocalStorage(ACCESS_TOKEN) || "",
-    refreshToken: getLocalStorage(REFRESH_TOKEN) || "",
+    refreshToken: Cookies.get(REFRESH_TOKEN) || "",
     shopName: getLocalStorage(SHOP_NAME) || "",
     adminCode: getLocalStorage(ADMIN_CODE) || "",
     accessTokenExpiresIn: Number(getLocalStorage(ACCESS_TOKEN_EXPIRES_IN)) || 0,
@@ -102,5 +107,8 @@ export const removeThemeId = () => {
 };
 
 export const removeLocalStorageAll = () => {
-  localStorage.clear();
+  if (typeof window !== "undefined") {
+    window.localStorage.clear();
+    Cookies.remove(REFRESH_TOKEN);
+  }
 };

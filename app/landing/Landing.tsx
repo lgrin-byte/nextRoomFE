@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useAsPathStateWrite } from "@/components/atoms/signup.atom";
-import { removeAccessToken } from "@/utils/localStorage";
+import { removeAccessToken } from "@/utils/storageUtil";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import useChannelTalk from "@/hooks/useChannelTalk";
 

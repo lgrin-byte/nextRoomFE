@@ -3,7 +3,6 @@
 import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-import { useTokenRefresh } from "@/mutations/useRefresh";
 import { useGetThemeList } from "@/queries/getThemeList";
 import {
   useCurrentTheme,
@@ -11,7 +10,11 @@ import {
 } from "@/components/atoms/currentTheme.atom";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useIsLoggedIn } from "@/components/atoms/account.atom";
-import { getSelectedThemeId } from "@/utils/localStorage";
+
+import { getSelectedThemeId } from "@/utils/storageUtil";
+import * as S from "@/home/HomeView.styled";
+import Header from "@/components/common/Header/Header";
+import MainDrawer from "@/components/common/Drawer/Drawer";
 
 import Mobile from "../Mobile/Mobile";
 
@@ -29,7 +32,7 @@ function RequireAuth({ children }: RequireAuthProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { data: categories = [] } = useGetThemeList();
-  const { refreshToken, error } = useTokenRefresh();
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const { userAgent } = window.navigator;
