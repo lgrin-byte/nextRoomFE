@@ -1,26 +1,22 @@
 import Image from "next/image";
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useRef } from "react";
 
 import Dialog from "@/components/common/Dialog-new/Image-Dialog-new/Dialog";
 import PreviewDialog from "@/components/common/Dialog-new/Preview-Dialog-new/PreviewDialog";
 import useModal from "@/hooks/useModal";
 import { useTimerImageWrite } from "@/components/atoms/timerImage.atom";
+import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
+import { defaultTimerImage, QuestionIconProps } from "@/admin/(consts)/sidebar";
+import DeleteDialog from "@/components/common/DeleteDialog/DeleteDialog";
 
 export default function ThemeTimerImage() {
-  const QuestionProps = {
-    src: "/images/svg/icon_question.svg",
-    alt: "gallery_image",
-    width: 24,
-    height: 24,
-  };
+  const selectedTheme = useSelectedThemeValue();
 
-  const [isTimerImage, setIsTimerImage] = useState<boolean>(false);
-  const [timerImageFile, setTimerImageFile] = useState<File>();
+  const isTimerImage = selectedTheme.useTimerUrl;
   const setTimerImage = useTimerImageWrite();
 
-  const defaultTimerImage = "/images/svg/icon_preview.svg";
   const TimerImageProps = {
-    src: isTimerImage ? "" : defaultTimerImage,
+    src: isTimerImage ? selectedTheme.themeImageUrl! : defaultTimerImage,
     alt: "NEXT ROOM",
     width: 120,
     height: 120,
@@ -33,41 +29,50 @@ export default function ThemeTimerImage() {
       addImageInputRef.current.value = "";
     }
   };
+
   const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
       return;
     }
     const file: File = e.target.files[0];
-    setTimerImageFile(file);
     setTimerImage({ timerImage: file });
 
     if (file) {
-      open(Dialog, { type: "put" });
+      open(Dialog);
     }
     fileReset();
-    // console.log(file, "file");
   };
   const handleAddTimerImageBtnClick = () => {
     addImageInputRef.current?.click();
   };
   const handlePreviewBtnClick = () => {
-    open(PreviewDialog, { type: "put" });
+    open(PreviewDialog);
+  };
+
+  const handleDelTimerImageBtnClick = () => {
+    // open(DeleteDialog);
   };
 
   return (
     <div className="theme_image__container">
       <div className="theme-image-title">
         <span>타이머 배경</span>
-        <Image {...QuestionProps} />
+        <Image {...QuestionIconProps} />
       </div>
       <div className="theme-images">
         <div className="theme-image-box">
           <Image {...TimerImageProps} />
-          <div className="theme-image-dimmed">
-            <button className="button28" type="button">
-              삭제
-            </button>
-          </div>
+          {isTimerImage && (
+            <div className="theme-image-dimmed">
+              <button
+                className="button28"
+                type="button"
+                onClick={handleDelTimerImageBtnClick}
+              >
+                삭제
+              </button>
+            </div>
+          )}
         </div>
         <input
           type="file"

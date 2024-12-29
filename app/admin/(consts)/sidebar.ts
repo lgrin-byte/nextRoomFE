@@ -57,16 +57,19 @@ export const statusBarProps = {
   height: 40,
 };
 
-export const timerPreviewProps = {
-  src: "/images/svg/timer_preview.svg",
-  alt: "x icon",
-  width: 284,
-  height: 555,
-};
-
 export const settingProps = {
   src: "/images/svg/icon_setting.svg",
   alt: "x icon",
   width: 24,
   height: 24,
 };
+
+export const QuestionIconProps = {
+  src: "/images/svg/icon_question.svg",
+  alt: "gallery_image",
+  width: 24,
+  height: 24,
+};
+
+export const defaultTimerImage = "/images/svg/icon_preview.svg";
+export const defaultTimerImagePreview = "/images/svg/timer_preview.svg";

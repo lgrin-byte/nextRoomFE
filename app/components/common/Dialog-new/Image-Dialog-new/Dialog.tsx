@@ -12,13 +12,8 @@ import { useTimerImageValue } from "@/components/atoms/timerImage.atom";
 
 import DialogBody from "./DialogBody";
 
-interface DialogProps {
-  type?: string | "";
-}
-
-const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
+const Dialog = forwardRef<HTMLFormElement>(() => {
   const { close } = useModal();
-  const { type = "" } = props;
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const [selectedTheme] = useSelectedTheme();
@@ -47,7 +42,7 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
   return (
     <ModalPortal>
       <form
-        className={`theme-info-modal ${type}`}
+        className={`theme-info-modal`}
         ref={formRef}
         onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
@@ -76,9 +71,5 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
     </ModalPortal>
   );
 });
-
-Dialog.defaultProps = {
-  type: "",
-};
 
 export default Dialog;
