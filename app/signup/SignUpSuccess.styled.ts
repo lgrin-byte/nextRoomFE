@@ -94,9 +94,9 @@ export const SuccessButton = styled.button`
   border-radius: 75px;
   background-color: white;
   color: black;
-  font-size: 18px !important;
-  font-weight: 500 !important;
-  line-height: 20px !important;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
   ${"a"} {
   }
 `;
