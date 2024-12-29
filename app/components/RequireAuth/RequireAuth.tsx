@@ -10,11 +10,7 @@ import {
 } from "@/components/atoms/currentTheme.atom";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useIsLoggedIn } from "@/components/atoms/account.atom";
-
 import { getSelectedThemeId } from "@/utils/storageUtil";
-import * as S from "@/home/HomeView.styled";
-import Header from "@/components/common/Header/Header";
-import MainDrawer from "@/components/common/Drawer/Drawer";
 
 import Mobile from "../Mobile/Mobile";
 
