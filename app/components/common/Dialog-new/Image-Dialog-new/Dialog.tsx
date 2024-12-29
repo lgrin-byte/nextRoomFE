@@ -7,7 +7,7 @@ import { xProps } from "@/admin/(consts)/sidebar";
 import useModal from "@/hooks/useModal";
 import ModalPortal from "@/components/common/Dialog-new/ModalPortal";
 import "@/components/common/Dialog-new/dialog.sass";
-import useTimerImageUpload from "@/queries/useTimerImageUpload";
+import useTimerImageUpload from "@/mutations/useTimerImageUpload";
 import { useTimerImageValue } from "@/components/atoms/timerImage.atom";
 
 import DialogBody from "./DialogBody";
@@ -17,18 +17,12 @@ interface DialogProps {
 }
 
 const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
-  const { open, close } = useModal();
+  const { close } = useModal();
   const { type = "" } = props;
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const handleOpenDeleteModal = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    open(Dialog, { type: "delete" });
-  };
-
-  const [selectedTheme, setSelectedTheme] = useSelectedTheme();
+  const [selectedTheme] = useSelectedTheme();
   const { timerImage } = useTimerImageValue();
-  // const { mutateAsync: putTheme } = usePostTimerImage();
   const { handleProcess } = useTimerImageUpload();
 
   const handleSubmit = async (e: FormEvent) => {
@@ -40,17 +34,12 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
       timerImageFile: timerImage,
     };
     try {
-      // await handleProcess(submitData);
+      await handleProcess(submitData);
     } catch (error) {
       console.error(error);
     }
 
-    // postTimerImage(submitData);
-
-    //   putTheme(submitData);
-    // close();
-
-    // return close();
+    close();
   };
 
   useClickOutside(formRef, close);

@@ -5,7 +5,6 @@ import { apiClient } from "@/lib/reactQueryProvider";
 import { useToastInfo } from "@/components/atoms/toast.atom";
 import { QUERY_KEY } from "@/queries/getHintList";
 import extractFilename from "@/utils/helper";
-import { getStatus } from "@/utils/localStorage";
 
 interface PreSignedUrlRequest {
   themeId: number;
@@ -57,13 +56,12 @@ const uploadToS3 = async ({ url, file }: UploadParams): Promise<void> => {
   }
 };
 
-const postHint = (data: TimerImageData) =>
+const postTimerImage = (data: TimerImageData) =>
   apiClient.post("/v1/theme/timer", data);
 
 const useTimerImageUpload = () => {
   const [, setToast] = useToastInfo();
   const queryClient = useQueryClient();
-  const status = getStatus();
   const presignedMutation = useMutation<
     PreSignedUrlResponse,
     AxiosError<AxiosSameCodeError>,
@@ -92,18 +90,18 @@ const useTimerImageUpload = () => {
     },
   });
 
-  const hintMutation = useMutation<
+  const timerImageMutation = useMutation<
     AxiosResponse,
     AxiosError<AxiosSameCodeError>,
     TimerImageData
   >({
-    mutationFn: (data) => postHint(data),
+    mutationFn: (data) => postTimerImage(data),
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
       setToast({
         isOpen: true,
-        title: "",
-        text: "",
+        title: "타이머 배경이 등록됐습니다.",
+        text: "힌트폰에서 세부 조정할 수 있습니다.",
       });
     },
     onError: (error) => {
@@ -125,8 +123,6 @@ const useTimerImageUpload = () => {
       });
 
       const { imageUrl } = presignedResponse.data;
-      // console.log(imageUrl, "presigned 받아옴");
-      // timer/2791953491548927_3197b154-b12e-494b-bb6a-d031a14ebf22.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20241215T085514Z&X-Am
       if (imageUrl) {
         await uploadMutation.mutateAsync({
           url: imageUrl,
@@ -139,7 +135,7 @@ const useTimerImageUpload = () => {
         imageUrl: extractFilename(imageUrl),
       };
 
-      await hintMutation.mutateAsync(data);
+      await timerImageMutation.mutateAsync(data);
     } catch (error) {
       if (error instanceof Error) {
         setToast({

@@ -5,7 +5,6 @@ import { useTimerImageValue } from "@/components/atoms/timerImage.atom";
 
 export default function DialogBody() {
   const { timerImage } = useTimerImageValue();
-  // console.log(timerImage, "???");
   const url = URL.createObjectURL(timerImage!);
   const uploadImageProps = {
     src: url,

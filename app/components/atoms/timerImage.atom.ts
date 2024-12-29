@@ -6,11 +6,11 @@ import {
 } from "recoil";
 
 interface TimerImageType {
-  timerImage: Blob | MediaSource | null;
+  timerImage: File | undefined;
 }
 const timerImage = atom<TimerImageType>({
   key: "timerImage",
-  default: { timerImage: null },
+  default: { timerImage: undefined },
 });
 
 export const useTimerImage = () => useRecoilState(timerImage);
