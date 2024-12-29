@@ -28,7 +28,7 @@ export const useDeleteTimerImage = (configOptions?: MutationConfigOptions) => {
       queryClient.invalidateQueries(QUERY_KEY);
       setToast({
         isOpen: true,
-        title: "타이머 배경이 삭제되었습니다.",
+        title: "타이머 배경을 삭제했습니다.",
         text: "",
       });
       // console.log("성공 시 실행")
