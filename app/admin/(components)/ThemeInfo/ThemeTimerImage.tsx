@@ -7,7 +7,7 @@ import useModal from "@/hooks/useModal";
 import { useTimerImageWrite } from "@/components/atoms/timerImage.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
 import { defaultTimerImage, QuestionIconProps } from "@/admin/(consts)/sidebar";
-import DeleteDialog from "@/components/common/DeleteDialog/DeleteDialog";
+import DeleteDialog from "@/components/common/Dialog-new/Timer-Image-Delete-Dialog/DeleteDialog";
 
 export default function ThemeTimerImage() {
   const selectedTheme = useSelectedThemeValue();
@@ -50,7 +50,7 @@ export default function ThemeTimerImage() {
   };
 
   const handleDelTimerImageBtnClick = () => {
-    // open(DeleteDialog);
+    open(DeleteDialog);
   };
 
   return (
@@ -63,12 +63,11 @@ export default function ThemeTimerImage() {
         <div className="theme-image-box">
           <Image {...TimerImageProps} />
           {isTimerImage && (
-            <div className="theme-image-dimmed">
-              <button
-                className="button28"
-                type="button"
-                onClick={handleDelTimerImageBtnClick}
-              >
+            <div
+              className="theme-image-dimmed"
+              onClick={handleDelTimerImageBtnClick}
+            >
+              <button className="button28" type="button">
                 삭제
               </button>
             </div>

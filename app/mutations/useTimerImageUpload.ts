@@ -100,7 +100,7 @@ const useTimerImageUpload = () => {
       queryClient.invalidateQueries(QUERY_KEY);
       setToast({
         isOpen: true,
-        title: "타이머 배경이 등록됐습니다.",
+        title: "타이머 배경이 등록되었습니다.",
         text: "힌트폰에서 세부 조정할 수 있습니다.",
       });
     },
