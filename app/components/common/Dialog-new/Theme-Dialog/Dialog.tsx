@@ -134,8 +134,4 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
   );
 });
 
-Dialog.defaultProps = {
-  type: "",
-};
-
 export default Dialog;
