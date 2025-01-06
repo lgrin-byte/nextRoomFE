@@ -57,6 +57,7 @@ function Admin() {
     selectedTheme,
     handleClickSelected,
     isOpen: toast.isOpen,
+    isLoading,
   };
 
   return <AdminView {...SidebarViewProps} />;

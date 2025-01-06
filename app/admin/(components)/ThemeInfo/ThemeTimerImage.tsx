@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { ChangeEvent, useRef } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 
 import Dialog from "@/components/common/Dialog-new/Image-Dialog-new/Dialog";
 import PreviewDialog from "@/components/common/Dialog-new/Preview-Dialog-new/PreviewDialog";
@@ -8,6 +8,7 @@ import { useTimerImageWrite } from "@/components/atoms/timerImage.atom";
 import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
 import { defaultTimerImage, QuestionIconProps } from "@/admin/(consts)/sidebar";
 import DeleteDialog from "@/components/common/Dialog-new/Timer-Image-Delete-Dialog/DeleteDialog";
+import Tooltip from "@/admin/(components)/Tooltip/Container";
 
 export default function ThemeTimerImage() {
   const selectedTheme = useSelectedThemeValue();
@@ -52,12 +53,19 @@ export default function ThemeTimerImage() {
   const handleDelTimerImageBtnClick = () => {
     open(DeleteDialog);
   };
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className="theme_image__container">
       <div className="theme-image-title">
         <span>타이머 배경</span>
-        <Image {...QuestionIconProps} />
+        <Image
+          {...QuestionIconProps}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="tooptip-button"
+        />
+        {isHovered && <Tooltip />}
       </div>
       <div className="theme-images">
         <div className="theme-image-box">

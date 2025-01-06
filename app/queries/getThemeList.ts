@@ -71,6 +71,6 @@ export const useGetThemeList = (configOptions?: QueryConfigOptions) => {
     ...info,
     isInitialLoading: info.isLoading,
     isRefetching: info.isFetching && !info.isLoading,
-    isLoading: info.isLoading || info.isFetching,
+    isLoading: info.isLoading,
   };
 };
