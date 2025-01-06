@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,6 +11,7 @@ import {
   subscribeLinkURL,
 } from "@/admin/(consts)/sidebar";
 import {
+  getLoginInfo,
   getSelectedThemeId,
   getStatus,
   removeThemeId,
@@ -27,8 +28,6 @@ interface Theme {
 }
 
 interface Props {
-  adminCode: string;
-  shopName: string;
   categories: Theme[];
   selectedTheme: Theme;
   handleClickSelected: (theme: Theme) => void;
@@ -45,12 +44,16 @@ export default function Sidebar(props: Props) {
   const searchParams = useSearchParams();
   const selectedThemeId = getSelectedThemeId();
   const params = new URLSearchParams(searchParams.toString()).toString();
-  const {
-    adminCode = "",
-    shopName = "",
-    categories,
-    handleClickSelected,
-  } = props;
+  const { categories, handleClickSelected } = props;
+  const [loginInfo, setLoginInfo] = useState({
+    adminCode: "",
+    shopName: "",
+  });
+
+  useEffect(() => {
+    const { adminCode, shopName } = getLoginInfo(); // getLoginInfo로 값 가져오기
+    setLoginInfo({ adminCode, shopName }); // 상태 업데이트
+  }, []);
 
   // const handleLogout = () => {
   //   removeAccessToken();
@@ -100,7 +103,7 @@ export default function Sidebar(props: Props) {
         <div className="sidebar__shop-info">
           <Image {...logoProps} className="sidebar__shop-logo" />
           <span className="sidebar__shop-name">
-            {shopName?.replaceAll(`"`, "")}
+            {loginInfo.shopName?.replaceAll(`"`, "")}
           </span>
         </div>
         <div className="sidebar__theme-title">우리 지점 테마</div>
@@ -164,7 +167,7 @@ export default function Sidebar(props: Props) {
       <div className="sidebar__bottom">
         <p className="sidebar__admin-code-title">관리자 코드</p>
         <p className="sidebar__admin-code-value">
-          {adminCode?.replaceAll(`"`, "")}
+          {loginInfo.adminCode?.replaceAll(`"`, "")}
         </p>
       </div>
     </div>

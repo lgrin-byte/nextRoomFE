@@ -24,7 +24,6 @@ function Admin() {
   const isLoggedIn = useCheckSignIn();
 
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const { adminCode, shopName } = getLoginInfo();
 
   const [toast, setToast] = useToastInfo();
   const router = useRouter();
@@ -54,8 +53,6 @@ function Admin() {
   }, [toast, setToast]);
 
   const SidebarViewProps = {
-    adminCode,
-    shopName,
     categories,
     selectedTheme,
     handleClickSelected,

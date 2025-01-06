@@ -16,8 +16,6 @@ interface Theme {
 }
 
 interface Props {
-  adminCode: string;
-  shopName: string;
   categories: Theme[];
   selectedTheme: Theme;
   isOpen: boolean;
