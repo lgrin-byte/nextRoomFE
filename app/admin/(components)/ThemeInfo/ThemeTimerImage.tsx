@@ -1,27 +1,40 @@
 import Image from "next/image";
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import Dialog from "@/components/common/Dialog-new/Image-Dialog-new/Dialog";
 import PreviewDialog from "@/components/common/Dialog-new/Preview-Dialog-new/PreviewDialog";
 import useModal from "@/hooks/useModal";
 import { useTimerImageWrite } from "@/components/atoms/timerImage.atom";
-import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
+import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { defaultTimerImage, QuestionIconProps } from "@/admin/(consts)/sidebar";
 import DeleteDialog from "@/components/common/Dialog-new/Timer-Image-Delete-Dialog/DeleteDialog";
 import Tooltip from "@/admin/(components)/Tooltip/Container";
 
 export default function ThemeTimerImage() {
-  const selectedTheme = useSelectedThemeValue();
-
-  const isTimerImage = selectedTheme.useTimerUrl;
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   const setTimerImage = useTimerImageWrite();
 
+  const [timerImageUrl, setTimerImageUrl] = useState<string>(defaultTimerImage);
+  useEffect(() => {
+    if (selectedTheme.themeImageUrl) {
+      setTimerImageUrl(selectedTheme.themeImageUrl);
+      setSelectedTheme((prev) => ({
+        ...prev,
+        useTimerUrl: true,
+        themeImageUrl: selectedTheme.themeImageUrl,
+      }));
+      return;
+    }
+    setTimerImageUrl(defaultTimerImage);
+  }, [selectedTheme.themeImageUrl]);
+
   const TimerImageProps = {
-    src: isTimerImage ? selectedTheme.themeImageUrl! : defaultTimerImage,
+    src: timerImageUrl || "",
     alt: "NEXT ROOM",
     width: 120,
     height: 120,
   };
+  // console.log(timerImageUrl, selectedTheme, TimerImageProps);
   const { open } = useModal();
 
   const addImageInputRef = useRef<HTMLInputElement>(null);
@@ -70,7 +83,7 @@ export default function ThemeTimerImage() {
       <div className="theme-images">
         <div className="theme-image-box">
           <Image {...TimerImageProps} />
-          {isTimerImage && (
+          {selectedTheme.useTimerUrl && (
             <div
               className="theme-image-dimmed"
               onClick={handleDelTimerImageBtnClick}
@@ -88,7 +101,7 @@ export default function ThemeTimerImage() {
           style={{ display: "none" }}
           ref={addImageInputRef}
         />
-        {isTimerImage ? (
+        {selectedTheme.useTimerUrl ? (
           <button
             className="secondary_button40"
             onClick={handlePreviewBtnClick}

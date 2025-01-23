@@ -2,13 +2,16 @@ import React from "react";
 import Image from "next/image";
 
 import { useTimerImageValue } from "@/components/atoms/timerImage.atom";
-import { timerPreviewLineProps } from "@/admin/(consts)/sidebar";
+import {
+  defaultTimerImage,
+  timerPreviewLineProps,
+} from "@/admin/(consts)/sidebar";
 
 export default function DialogBody() {
   const { timerImage } = useTimerImageValue();
   const url = URL.createObjectURL(timerImage!);
   const uploadImageProps = {
-    src: url,
+    src: url || defaultTimerImage || "",
     alt: "TIMER_IMAGE",
     width: 158,
     height: 340,

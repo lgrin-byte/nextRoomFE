@@ -96,8 +96,8 @@ const useTimerImageUpload = () => {
     TimerImageData
   >({
     mutationFn: (data) => postTimerImage(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(QUERY_KEY);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(QUERY_KEY);
       setToast({
         isOpen: true,
         title: "타이머 배경을 등록했습니다.",
@@ -136,6 +136,34 @@ const useTimerImageUpload = () => {
       };
 
       await timerImageMutation.mutateAsync(data);
+
+      const checkFileExists = async (url: string) => {
+        try {
+          const response = await fetch(url, { method: "HEAD" });
+          return response.ok;
+        } catch (error) {
+          console.error("파일 확인 실패", error);
+          return false;
+        }
+      };
+
+      let retries = 2;
+      let fileExists = false;
+
+      while (retries > 0 && !fileExists) {
+        fileExists = await checkFileExists(imageUrl);
+        if (!fileExists) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+        retries--;
+      }
+
+      if (fileExists) {
+        console.error("이미지 업로드 및 조회 성공");
+      } else {
+        console.error("이미지 업로드 되었으나 조회 실패");
+      }
+      return imageUrl;
     } catch (error) {
       if (error instanceof Error) {
         setToast({

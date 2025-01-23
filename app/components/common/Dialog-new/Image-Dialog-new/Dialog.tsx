@@ -16,7 +16,7 @@ const Dialog = forwardRef<HTMLFormElement>(() => {
   const { close } = useModal();
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const [selectedTheme] = useSelectedTheme();
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   const { timerImage } = useTimerImageValue();
   const { handleProcess } = useTimerImageUpload();
 
@@ -29,7 +29,12 @@ const Dialog = forwardRef<HTMLFormElement>(() => {
       timerImageFile: timerImage,
     };
     try {
-      await handleProcess(submitData);
+      const imageUrl = await handleProcess(submitData);
+      setSelectedTheme((prev) => ({
+        ...prev,
+        useTimerUrl: true,
+        themeImageUrl: imageUrl,
+      }));
     } catch (error) {
       console.error(error);
     }

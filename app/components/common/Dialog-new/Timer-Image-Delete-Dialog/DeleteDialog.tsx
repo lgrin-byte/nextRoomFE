@@ -7,20 +7,25 @@ import useModal from "@/hooks/useModal";
 import "@/components/common/Dialog-new/dialog.sass";
 import { useDeleteTimerImage } from "@/mutations/deleteTimerImage";
 import ModalPortal from "@/components/common/Dialog-new/ModalPortal";
-import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
+import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 
 import DialogBody from "./DialogBody";
 
 const DeleteDialog = forwardRef<HTMLFormElement>(() => {
   const { close } = useModal();
   const divRef = useRef<HTMLDivElement | null>(null);
-  const selectedTheme = useSelectedThemeValue();
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme();
 
   const { mutateAsync: deleteTimerImage } = useDeleteTimerImage();
 
   const handleSubmit = async () => {
     const { id } = selectedTheme;
     await deleteTimerImage(id);
+    setSelectedTheme((prev) => ({
+      ...prev,
+      useTimerUrl: false,
+      themeImageUrl: "",
+    }));
 
     return close();
   };
