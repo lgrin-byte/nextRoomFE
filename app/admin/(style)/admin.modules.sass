@@ -24,10 +24,35 @@
     align-items: center
     margin-bottom: 24px
 
+  &__shop-info-img-box
+    position: relative
+    width: 36px
+    height: 36px
+    margin-right: 6px
+    border-radius: 10px
+    border: 1px solid $color-white20
+    padding-top: 1px
+    padding-left: 1px
+    button 
+      visibility: hidden
+    
+  &__shop-info-img-box:hover
+    button
+      visibility: visible
+      position: absolute
+      top: 40px
+      left: 0
+      width: 129px
+      height: 36px
+      color: $color-white
+      @include body14M
+      background-color: $color-sub1
+      border: 1px solid $color-white5
+      border-radius: 8px
+
   &__shop-logo
     width: 32px
     height: 32px
-    margin-right: 6px
     border-radius: 8px
     border: 1px solid $color-white8
 

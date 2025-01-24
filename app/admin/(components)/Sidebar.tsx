@@ -15,6 +15,7 @@ import {
   getLoginInfo,
   getSelectedThemeId,
   getStatus,
+  removeAccessToken,
   removeThemeId,
 } from "@/utils/storageUtil";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
@@ -58,10 +59,16 @@ export default function Sidebar(props: Props) {
     setLoginInfo({ adminCode, shopName }); // 상태 업데이트
   }, []);
 
-  // const handleLogout = () => {
-  //   removeAccessToken();
-  //   setIsLoggedIn(false);
-  // };
+  const handleLogout = () => {
+    removeAccessToken();
+    resetSelectedTheme();
+    setLoginInfo({
+      adminCode: "",
+      shopName: "",
+    });
+    // router.push("/login");
+    window.location.href = "/login";
+  };
   useEffect(() => {
     if (selectedThemeId && selectedThemeId !== "0")
       router.push(
@@ -105,7 +112,15 @@ export default function Sidebar(props: Props) {
     <div className="sidebar">
       <div className="sidebar__top">
         <div className="sidebar__shop-info">
-          <Image {...logoProps} className="sidebar__shop-logo" />
+          <div className="sidebar__shop-info-img-box">
+            <Image {...logoProps} className="sidebar__shop-logo" />
+            <button
+              className="sidebar__shop-info-logout-btn"
+              onClick={handleLogout}
+            >
+              로그아웃
+            </button>
+          </div>
           <span className="sidebar__shop-name">
             {loginInfo.shopName?.replaceAll(`"`, "")}
           </span>
