@@ -114,6 +114,7 @@ export default function Sidebar(props: Props) {
         <div className="sidebar__shop-info">
           <div className="sidebar__shop-info-img-box">
             <Image {...logoProps} className="sidebar__shop-logo" />
+            <div />
             <button
               className="sidebar__shop-info-logout-btn"
               onClick={handleLogout}

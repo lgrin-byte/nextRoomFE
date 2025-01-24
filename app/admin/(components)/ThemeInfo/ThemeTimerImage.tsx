@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import Lottie from "react-lottie-player";
 
 import Dialog from "@/components/common/Dialog-new/Image-Dialog-new/Dialog";
 import PreviewDialog from "@/components/common/Dialog-new/Preview-Dialog-new/PreviewDialog";
@@ -11,11 +12,13 @@ import DeleteDialog from "@/components/common/Dialog-new/Timer-Image-Delete-Dial
 import Tooltip from "@/admin/(components)/Tooltip/Container";
 
 import { getCompressImage } from "../ThemeDrawer/helpers/imageHelpers";
+import loaderJson from "../../../../public/lottie/loader.json";
 
 export default function ThemeTimerImage() {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   const setTimerImage = useTimerImageWrite();
 
+  const [isTimerImageLoading, setIsTimerImageLoading] = useState(false);
   const [timerImageUrl, setTimerImageUrl] = useState<string>(defaultTimerImage);
   useEffect(() => {
     if (selectedTheme.themeImageUrl) {
@@ -52,12 +55,14 @@ export default function ThemeTimerImage() {
     }
     const file: File = e.target.files[0];
     if (file.size > 500 * 1024) {
+      setIsTimerImageLoading(true);
       const options = {
         maxSizeMB: 0.5,
         maxWidthOrHeight: 1000,
         useWebWorker: true,
       };
       const compressedFile = await getCompressImage(file, options);
+      setIsTimerImageLoading(false);
       setTimerImage({ timerImage: compressedFile });
     } else {
       setTimerImage({ timerImage: file });
@@ -67,6 +72,7 @@ export default function ThemeTimerImage() {
       open(Dialog);
     }
     fileReset();
+    setIsTimerImageLoading(false);
   };
   const handleAddTimerImageBtnClick = () => {
     addImageInputRef.current?.click();
@@ -94,6 +100,16 @@ export default function ThemeTimerImage() {
       </div>
       <div className="theme-images">
         <div className="theme-image-box">
+          <div className="theme-image-loader-box">
+            {isTimerImageLoading && (
+              <Lottie
+                loop
+                animationData={loaderJson}
+                play
+                style={{ width: 120, height: 120 }}
+              />
+            )}
+          </div>
           <Image {...TimerImageProps} />
           {selectedTheme.useTimerUrl && (
             <div
