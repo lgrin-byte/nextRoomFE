@@ -10,6 +10,8 @@ import { defaultTimerImage, QuestionIconProps } from "@/admin/(consts)/sidebar";
 import DeleteDialog from "@/components/common/Dialog-new/Timer-Image-Delete-Dialog/DeleteDialog";
 import Tooltip from "@/admin/(components)/Tooltip/Container";
 
+import { getCompressImage } from "../ThemeDrawer/helpers/imageHelpers";
+
 export default function ThemeTimerImage() {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   const setTimerImage = useTimerImageWrite();
@@ -34,7 +36,7 @@ export default function ThemeTimerImage() {
     width: 120,
     height: 120,
   };
-  // console.log(timerImageUrl, selectedTheme, TimerImageProps);
+
   const { open } = useModal();
 
   const addImageInputRef = useRef<HTMLInputElement>(null);
@@ -44,12 +46,22 @@ export default function ThemeTimerImage() {
     }
   };
 
-  const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
       return;
     }
     const file: File = e.target.files[0];
-    setTimerImage({ timerImage: file });
+    if (file.size > 500 * 1024) {
+      const options = {
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 1000,
+        useWebWorker: true,
+      };
+      const compressedFile = await getCompressImage(file, options);
+      setTimerImage({ timerImage: compressedFile });
+    } else {
+      setTimerImage({ timerImage: file });
+    }
 
     if (file) {
       open(Dialog);
