@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { apiClient } from "@/lib/reactQueryProvider";
 import { useToastInfo } from "@/components/atoms/toast.atom";
-import { QUERY_KEY } from "@/queries/getHintList";
+import { QUERY_KEY } from "@/queries/getThemeList";
 import extractFilename from "@/utils/helper";
 
 interface PreSignedUrlRequest {
@@ -136,33 +136,6 @@ const useTimerImageUpload = () => {
       };
 
       await timerImageMutation.mutateAsync(data);
-
-      const checkFileExists = async (url: string) => {
-        try {
-          const response = await fetch(url, { method: "HEAD" });
-          return response.ok;
-        } catch (error) {
-          console.error("파일 확인 실패", error);
-          return false;
-        }
-      };
-
-      let retries = 2;
-      let fileExists = false;
-
-      while (retries > 0 && !fileExists) {
-        fileExists = await checkFileExists(imageUrl);
-        if (!fileExists) {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-        }
-        retries--;
-      }
-
-      if (fileExists) {
-        console.error("이미지 업로드 및 조회 성공");
-      } else {
-        console.error("이미지 업로드 되었으나 조회 실패");
-      }
       return imageUrl;
     } catch (error) {
       if (error instanceof Error) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 import HintDialog from "@/components/common/Dialog-new/Hint-Dialog-new/Dialog";
 import {
@@ -19,6 +20,7 @@ import {
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
 import { useDrawerState } from "@/components/atoms/drawer.atom";
 import useModal from "@/hooks/useModal";
+import { QUERY_KEY } from "@/queries/getThemeList";
 
 interface Theme {
   id: number;
@@ -36,6 +38,7 @@ interface Props {
 export default function Sidebar(props: Props) {
   const router = useRouter();
   const resetSelectedTheme = useSelectedThemeReset();
+  const queryClient = useQueryClient();
 
   const [drawer, setDrawer] = useDrawerState();
   const { open } = useModal();
@@ -72,7 +75,7 @@ export default function Sidebar(props: Props) {
     router.push("/admin");
     setDrawer({ ...drawer, isOpen: false });
   };
-  const handleSelectTheme = (theme: Theme) => {
+  const handleSelectTheme = async (theme: Theme) => {
     if (drawer.isOpen && !drawer.isSameHint) {
       open(HintDialog, {
         type: "put",
@@ -83,6 +86,7 @@ export default function Sidebar(props: Props) {
       });
     } else {
       setDrawer({ ...drawer, isOpen: false });
+      await queryClient.invalidateQueries(QUERY_KEY);
       handleClickSelected(theme);
     }
   };
