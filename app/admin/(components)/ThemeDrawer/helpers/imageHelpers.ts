@@ -1,11 +1,29 @@
 import imageCompression from "browser-image-compression";
 
-export const compressImage = async (file: File) => {
-  const options = {
-    maxSizeMB: 5,
-    maxWidthOrHeight: 1920,
-    useWebWorker: true,
-  };
+export interface FileOptionsType {
+  maxSizeMB: number;
+  maxWidthOrHeight: number;
+  useWebWorker: boolean;
+}
+export const getCompressImage = async (
+  file: File,
+  options: FileOptionsType
+) => {
+  const compressedFile = await compressImage(file, options);
+  try {
+    if (compressedFile.type !== "image/png") {
+      const pngFile = await convertToPng(compressedFile);
+      return pngFile;
+    } else {
+      return compressedFile;
+    }
+  } catch (error) {
+    console.error("Image compression failed", error);
+    return file;
+  }
+};
+
+const compressImage = async (file: File, options: FileOptionsType) => {
   try {
     const compressedFile = await imageCompression(file, options);
     return compressedFile; // compressedFile 반환
@@ -14,7 +32,7 @@ export const compressImage = async (file: File) => {
   }
 };
 
-export const convertToPng = async (file: File): Promise<File> =>
+const convertToPng = async (file: File): Promise<File> =>
   new Promise<File>((resolve, reject) => {
     const img = new Image();
     const reader = new FileReader();
