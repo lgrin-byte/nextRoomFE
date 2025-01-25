@@ -36,6 +36,9 @@ export const deleteProps = {
 export const subscribeLinkURL =
   "https://sponge-wood-68d.notion.site/ec2a28c470094769bc787acb74760da5";
 
+export const timerImageLinkURL =
+  "https://www.notion.so/186febdc0ad180248728f1cfaf9bee20?pvs=4";
+
 export const smallXProps = {
   src: "/images/svg/icon_X.svg",
   alt: "x icon",

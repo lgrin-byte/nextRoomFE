@@ -57,59 +57,7 @@
       position: absolute
     .mobile_preview
       position: absolute
-        
-  &__image-content
-    width: 513px
-    height: 434px
-    padding: 20px
-    margin: 20px 0 16px
-    background-color: $color-white5
-    border-radius: 8px
-    position: relative
-    display: flex
-    flex-direction: column
-    align-items: center
-    gap: 16px 
-    cursor: default
 
-  &__noti-content
-    width: 521px
-    height: 333px
-    position: relative
-    padding: 20px
-    margin: 24px 0 28px
-    background-color: $color-white5
-    border-radius: 12px
-    position: relative
-    display: flex
-    flex-direction: column
-    align-items: center
-    gap: 16px 
-
-    img
-      position: absolute
-      bottom: 0
-      left: 50px
-
-  &__feature-description
-    position: absolute
-    width: 261px
-    top: 133px
-    left: 236px
-    &__title
-      @include body14M
-      background-color: $color-white12
-      padding: 2px 12px
-      border-radius: 6px
-    
-    &__summary
-      @include body14M
-      margin: 16px 0
-      
-    &__detail
-      @include body14R
-      color: $color-white70
-      
   &__footer
     margin-top: 16px
     display: flex
@@ -250,3 +198,178 @@
     cursor: pointer
     color: rgba(255, 255, 255, 0.7)
     font-size: 14px
+
+.timer-image-modal
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+  background-color: $color-sub1
+  border-radius: 16px
+  width: 577px
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    padding: 24px 24px 12px 32px
+    height: 68px
+    &.noti
+      justify-content: center  // 중앙 정렬  
+    h2
+      @include title20SB
+      cursor: default
+
+  &__image-content
+    width: 513px
+    height: 434px
+    padding: 20px
+    margin: 20px 32px 16px 32px
+    background-color: $color-white5
+    border-radius: 8px
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 16px 
+    cursor: default
+
+  &__noti-content
+    width: 521px
+    height: 333px
+    position: relative
+    padding: 20px
+    margin: 24px 0 28px
+    background-color: $color-white5
+    border-radius: 12px
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 16px 
+
+    img
+      position: absolute
+      bottom: 0
+      left: 50px
+
+  &__feature-description
+    position: absolute
+    width: 261px
+    top: 133px
+    left: 236px
+    &__title
+      @include body14M
+      background-color: $color-white12
+      display: flex
+      align-items: center
+      width: fit-content
+      height: 26px
+      padding: 2px 12px
+      border-radius: 6px
+    
+    &__summary
+      @include title18SB
+      margin: 16px 0
+      
+    &__detail
+      @include body14R
+      color: $color-white70
+      
+  &__footer
+    padding: 16px 32px 24px 32px
+    display: flex
+    justify-content: space-between
+    .delete-button
+      width: 100px
+    .action-buttons
+      margin-left: auto
+      display: flex
+      gap: 10px
+    .timer-preview-image-footer-text
+      display: flex
+      justify-content: center
+      align-items: center
+      @include body14M
+      cursor: default
+
+.new-feature-modal
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+  background-color: $color-sub1
+  border-radius: 16px
+  width: 577px
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    padding: 24px 24px 12px 32px
+    height: 68px
+    &.noti
+      justify-content: center  // 중앙 정렬  
+    h2
+      @include title20SB
+      cursor: default
+
+  &__noti-content
+    height: 333px
+    position: relative
+    padding: 20px
+    margin: 12px 28px
+    background-color: $color-white5
+    border-radius: 12px
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 16px 
+
+    img
+      position: absolute
+      bottom: 0
+      left: 50px
+
+  &__feature-description
+    position: absolute
+    width: 261px
+    top: 133px
+    left: 236px
+    &__title
+      @include body14M
+      background-color: $color-white12
+      display: flex
+      align-items: center
+      width: fit-content
+      height: 26px
+      padding: 2px 12px
+      border-radius: 6px
+    
+    &__summary
+      @include title18SB
+      margin: 16px 0
+      
+    &__detail
+      @include body14R
+      color: $color-white70
+      
+  &__footer
+    padding: 16px 32px 24px 32px
+    display: flex
+    justify-content: space-between
+    .delete-button
+      width: 100px
+    .action-buttons
+      margin-left: auto
+      display: flex
+      gap: 10px
+    .timer-preview-image-footer-text
+      display: flex
+      justify-content: center
+      align-items: center
+      @include body14M
+      cursor: default
