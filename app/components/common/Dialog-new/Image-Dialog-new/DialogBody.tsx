@@ -18,7 +18,7 @@ export default function DialogBody() {
   };
 
   return (
-    <div className="theme-info-modal__image-content">
+    <div className="timer-image-modal__image-content">
       <span className="preview-text">배경 적용 미리보기</span>
       <div className="timer-preview-image-box">
         <div className="timer-dimmed-box" />

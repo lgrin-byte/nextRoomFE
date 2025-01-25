@@ -4,6 +4,7 @@ import useClickOutside from "@/hooks/useClickOutside";
 import useModal from "@/hooks/useModal";
 import ModalPortal from "@/components/common/Dialog-new/ModalPortal";
 import { setLocalStorage } from "@/utils/storageUtil";
+import { timerImageLinkURL } from "@/admin/(consts)/sidebar";
 
 import DialogBody from "./DialogBody";
 
@@ -19,7 +20,7 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
   const { type = "" } = props;
   const formRef = useRef<HTMLFormElement | null>(null);
   const handleViewDetailBtn = () => {
-    close();
+    window.open(timerImageLinkURL, "_blank", "noopener, noreferrer");
   };
   const handleCloseBtn = () => {
     if (checkboxRef.current?.checked) {
@@ -33,14 +34,14 @@ const Dialog = forwardRef<HTMLFormElement, DialogProps>((props) => {
   return (
     <ModalPortal>
       <form
-        className={`theme-info-modal ${type}`}
+        className={`new-feature-modal ${type}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="theme-info-modal__header noti">
+        <div className="new-feature-modal__header noti">
           <h2>새로운 기능을 소개합니다✨</h2>
         </div>
         <DialogBody />
-        <div className="theme-info-modal__footer">
+        <div className="new-feature-modal__footer">
           <div className="dont-show-again">
             <input type="checkbox" name="" id="hideDialog" ref={checkboxRef} />
             <label htmlFor="hideDialog">다시 보지 않기</label>
