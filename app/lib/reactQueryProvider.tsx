@@ -4,7 +4,6 @@ import { PropsWithChildren, useState } from "react";
 import axios from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useRouter } from "next/navigation";
 
 import {
   getLoginInfo,
@@ -94,8 +93,7 @@ apiClient.interceptors.response.use(
           processQueue(refreshError, null);
           removeLocalStorageAll();
           if (typeof window !== "undefined") {
-            const router = useRouter();
-            router.push("/login");
+            window.location.href = "/login";
           }
           throw refreshError;
         } finally {
