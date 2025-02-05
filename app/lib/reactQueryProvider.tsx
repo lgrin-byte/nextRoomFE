@@ -90,11 +90,15 @@ apiClient.interceptors.response.use(
           processQueue(null, response.accessToken);
           return apiClient(originalRequest);
         } catch (refreshError) {
-          processQueue(refreshError, null);
-          removeLocalStorageAll();
           if (typeof window !== "undefined") {
-            window.location.href = "/login";
+            const currentPath = window.location.pathname;
+            if (currentPath !== "/signup") {
+              processQueue(refreshError, null);
+              removeLocalStorageAll();
+              window.location.href = "/login";
+            }
           }
+
           throw refreshError;
         } finally {
           isRefreshing = false;
