@@ -11,10 +11,10 @@ import {
 import { useCreateHint } from "@/components/atoms/createHint.atom";
 import { useSelectedHint } from "@/components/atoms/selectedHint.atom";
 import { useToastWrite } from "@/components/atoms/toast.atom";
-import { getStatus } from "@/utils/localStorage";
+import { getStatus } from "@/utils/storageUtil";
 import { subscribeLinkURL } from "@/admin/(consts)/sidebar";
 
-import { compressImage, convertToPng } from "../helpers/imageHelpers";
+import { getCompressImage } from "../helpers/imageHelpers";
 
 const useImages = ({
   imageType,
@@ -79,19 +79,12 @@ const useImages = ({
     const files: File[] = [];
     const file = e.target.files[0];
     if (file.size > 5 * 1024 * 1024) {
-      try {
-        const compressedFile = await compressImage(file);
-
-        if (compressedFile.type !== "image/png") {
-          const pngFile = await convertToPng(compressedFile);
-          files.push(pngFile);
-        } else {
-          files.push(compressedFile);
-        }
-      } catch (error) {
-        console.error("Image compression failed", error);
-        files.push(file);
-      }
+      const options = {
+        maxSizeMB: 5,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+      files.push(await getCompressImage(file, options));
     } else {
       files.push(file);
     }

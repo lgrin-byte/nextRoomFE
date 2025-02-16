@@ -5,7 +5,7 @@ import { apiClient } from "@/lib/reactQueryProvider";
 import { useToastInfo } from "@/components/atoms/toast.atom";
 import { QUERY_KEY } from "@/queries/getHintList";
 import extractFilename from "@/utils/helper";
-import { getStatus } from "@/utils/localStorage";
+import { getStatus } from "@/utils/storageUtil";
 
 interface PreSignedUrlRequest {
   themeId: number;

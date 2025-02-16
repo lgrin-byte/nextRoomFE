@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import Loader from "@/components/Loader/Loader";
-import { getLoginInfo, setSelectedThemeId } from "@/utils/localStorage";
+import { getLoginInfo, setSelectedThemeId } from "@/utils/storageUtil";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useGetThemeList } from "@/queries/getThemeList";
 import { useToastInfo } from "@/components/atoms/toast.atom";
@@ -20,21 +20,19 @@ type Theme = {
 };
 
 function Admin() {
-  const { data: categories = [] } = useGetThemeList();
-
+  const { data: categories = [], isLoading } = useGetThemeList();
   const isLoggedIn = useCheckSignIn();
 
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const { adminCode, shopName } = getLoginInfo();
 
   const [toast, setToast] = useToastInfo();
   const router = useRouter();
 
   useEffect(() => {
-    if (categories.length > 0 && selectedTheme.id === 0) {
+    if (!isLoading && categories.length > 0 && selectedTheme.id === 0) {
       setSelectedTheme(categories[categories.length - 1]);
     }
-  }, [categories, selectedTheme, setSelectedTheme]);
+  }, [isLoading]);
 
   const handleClickSelected = (theme: Theme) => {
     setSelectedTheme(theme);
@@ -55,17 +53,12 @@ function Admin() {
   }, [toast, setToast]);
 
   const SidebarViewProps = {
-    adminCode,
-    shopName,
     categories,
     selectedTheme,
     handleClickSelected,
     isOpen: toast.isOpen,
+    isLoading,
   };
-
-  if (!isLoggedIn) {
-    return <Loader />;
-  }
 
   return <AdminView {...SidebarViewProps} />;
 }

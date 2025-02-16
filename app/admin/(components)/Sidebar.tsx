@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
-import HintDialog from "@/components/common/Hint-Dialog-new/Dialog";
+import HintDialog from "@/components/common/Dialog-new/Hint-Dialog-new/Dialog";
 import {
   logoProps,
   plusDisableProps,
@@ -11,15 +12,16 @@ import {
   subscribeLinkURL,
 } from "@/admin/(consts)/sidebar";
 import {
+  getLoginInfo,
   getSelectedThemeId,
   getStatus,
   removeAccessToken,
   removeThemeId,
-} from "@/utils/localStorage";
+} from "@/utils/storageUtil";
 import { useSelectedThemeReset } from "@/components/atoms/selectedTheme.atom";
-import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { useDrawerState } from "@/components/atoms/drawer.atom";
 import useModal from "@/hooks/useModal";
+import { QUERY_KEY } from "@/queries/getThemeList";
 
 interface Theme {
   id: number;
@@ -29,8 +31,6 @@ interface Theme {
 }
 
 interface Props {
-  adminCode: string;
-  shopName: string;
   categories: Theme[];
   selectedTheme: Theme;
   handleClickSelected: (theme: Theme) => void;
@@ -39,7 +39,8 @@ interface Props {
 export default function Sidebar(props: Props) {
   const router = useRouter();
   const resetSelectedTheme = useSelectedThemeReset();
-  // const setIsLoggedIn = useIsLoggedInWrite();
+  const queryClient = useQueryClient();
+
   const [drawer, setDrawer] = useDrawerState();
   const { open } = useModal();
 
@@ -47,24 +48,41 @@ export default function Sidebar(props: Props) {
   const searchParams = useSearchParams();
   const selectedThemeId = getSelectedThemeId();
   const params = new URLSearchParams(searchParams.toString()).toString();
-  const {
-    adminCode = "",
-    shopName = "",
-    categories,
-    handleClickSelected,
-  } = props;
+  const { categories, handleClickSelected } = props;
+  const [loginInfo, setLoginInfo] = useState({
+    adminCode: "",
+    shopName: "",
+  });
 
-  // const handleLogout = () => {
-  //   removeAccessToken();
-  //   setIsLoggedIn(false);
-  // };
+  useEffect(() => {
+    const { adminCode, shopName } = getLoginInfo(); // getLoginInfo로 값 가져오기
+    setLoginInfo({ adminCode, shopName }); // 상태 업데이트
+  }, []);
+
+  const handleLogout = () => {
+    removeAccessToken();
+    resetSelectedTheme();
+    setLoginInfo({
+      adminCode: "",
+      shopName: "",
+    });
+    // router.push("/login");
+    window.location.href = "/login";
+  };
+  useEffect(() => {
+    if (selectedThemeId && selectedThemeId !== "0")
+      router.push(
+        `/admin?themeId=${encodeURIComponent(selectedThemeId)}
+      `
+      );
+  }, [selectedThemeId, params]);
 
   const navigateToNewTheme = () => {
     resetSelectedTheme();
     router.push("/admin");
     setDrawer({ ...drawer, isOpen: false });
   };
-  const handleSelectTheme = (theme: Theme) => {
+  const handleSelectTheme = async (theme: Theme) => {
     if (drawer.isOpen && !drawer.isSameHint) {
       open(HintDialog, {
         type: "put",
@@ -75,6 +93,7 @@ export default function Sidebar(props: Props) {
       });
     } else {
       setDrawer({ ...drawer, isOpen: false });
+      await queryClient.invalidateQueries(QUERY_KEY);
       handleClickSelected(theme);
     }
   };
@@ -93,9 +112,18 @@ export default function Sidebar(props: Props) {
     <div className="sidebar">
       <div className="sidebar__top">
         <div className="sidebar__shop-info">
-          <Image {...logoProps} className="sidebar__shop-logo" />
+          <div className="sidebar__shop-info-img-box">
+            <Image {...logoProps} className="sidebar__shop-logo" />
+            <div />
+            <button
+              className="sidebar__shop-info-logout-btn"
+              onClick={handleLogout}
+            >
+              로그아웃
+            </button>
+          </div>
           <span className="sidebar__shop-name">
-            {shopName?.replaceAll(`"`, "")}
+            {loginInfo.shopName?.replaceAll(`"`, "")}
           </span>
         </div>
         <div className="sidebar__theme-title">우리 지점 테마</div>
@@ -111,7 +139,7 @@ export default function Sidebar(props: Props) {
               <button
                 type="button"
                 className={classNames("sidebar__theme-button", {
-                  selected: selectedThemeId === theme.id?.toString() && params,
+                  selected: selectedThemeId === theme.id.toString(),
                 })}
                 onClick={() => handleSelectTheme(theme)}
               >
@@ -159,7 +187,7 @@ export default function Sidebar(props: Props) {
       <div className="sidebar__bottom">
         <p className="sidebar__admin-code-title">관리자 코드</p>
         <p className="sidebar__admin-code-value">
-          {adminCode?.replaceAll(`"`, "")}
+          {loginInfo.adminCode?.replaceAll(`"`, "")}
         </p>
       </div>
     </div>
